@@ -29,7 +29,8 @@ data = {
   PG_DB:host
   PG_USER:host
   PG_PORT:9997
-  PG_POOL_CONN:16
+  PG_POOL_CONN:32
+  PG_SSL: 'false'
   PG_PASSWORD:pg_pwd
 
   LOG_HOST:'pg'

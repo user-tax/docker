@@ -1,22 +1,22 @@
 version: '3'
 
 services:
-  redis-log:
-    image: redis:7
-    restart: 'no'
-    volumes:
-      - /var/log/docker/api.user.tax/redis:/log
-      - ./data/redis:/data
-    entrypoint: chown -R redis:redis /log /data
+  # redis-log:
+  #   image: redis:7
+  #   restart: 'no'
+  #   volumes:
+  #     - /var/log/docker/api.user.tax/redis:/log
+  #     - ./data/redis:/data
+  #   entrypoint: chown -R redis:redis /log /data
   redis:
     image: redis:7
     restart: always
-    depends_on:
-      - redis-log
+    # depends_on:
+    # - redis-log
     command: redis-server /etc/redis/redis.conf
     volumes:
       - ./data/redis:/data
-      - /var/log/docker/api.user.tax/redis:/log
+      # - /var/log/docker/api.user.tax/redis:/log
       - ./Dockerfile/redis/redis.conf:/etc/redis/redis.conf
     ports:
       - ${REDIS_PORT}:${REDIS_PORT}

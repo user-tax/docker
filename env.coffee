@@ -50,8 +50,9 @@ data = {
   SMTP_HOST: 'smtp.user.tax'
   SMTP_PORT: 465
   SMTP_TLS: 1
-  SMTP_USERNAME: 'username'
-  SMTP_PASSWORD: 'password'
+  SMTP_USER: 'smtp_login_account'
+  SMTP_PASS: 'password'
+  SMTP_NAME: 'display_name'
 
   API_PORT:80
   API_HTTPS:443

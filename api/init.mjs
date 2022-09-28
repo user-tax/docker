@@ -16,6 +16,10 @@ var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require
 var __commonJS = (cb, mod) => function __require2() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
 var __copyProps = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
     for (let key2 of __getOwnPropNames(from))
@@ -506,7 +510,7 @@ var require_rust = __commonJS({
       }
       throw new Error(`Failed to load native binding`);
     }
-    var { z85Dump: z85Dump2, z85Load, ipBin, binU64, u64Bin, zipU64, unzipU64, b64, unb64, blake3Round, blake3, encrypt, decrypt, randomBytes: randomBytes2 } = nativeBinding;
+    var { z85Dump: z85Dump2, z85Load, ipBin, binU64, u64Bin, zipU64, unzipU64, b64, unb64, blake3Round, blake3, xxh3, encrypt, decrypt, randomBytes: randomBytes2 } = nativeBinding;
     module.exports.z85Dump = z85Dump2;
     module.exports.z85Load = z85Load;
     module.exports.ipBin = ipBin;
@@ -518,6 +522,7 @@ var require_rust = __commonJS({
     module.exports.unb64 = unb64;
     module.exports.blake3Round = blake3Round;
     module.exports.blake3 = blake3;
+    module.exports.xxh3 = xxh3;
     module.exports.encrypt = encrypt;
     module.exports.decrypt = decrypt;
     module.exports.randomBytes = randomBytes2;
@@ -552,38 +557,6 @@ var lib_default2 = (fp) => {
   return readFileSync(fp, UTF8);
 };
 
-// ../api/db/redis.js
-var import_redis = __toESM(require_redis());
-var REDIS_CLUSTER;
-var REDIS_DB;
-var REDIS_HOST;
-var REDIS_PASSWORD;
-var REDIS_PORT;
-var REDIS_USER;
-var SERVER;
-var env;
-({ env } = process);
-({ REDIS_DB, REDIS_PASSWORD, REDIS_CLUSTER, REDIS_USER } = env);
-if (REDIS_CLUSTER) {
-  SERVER = (0, import_redis.serverCluster)(REDIS_CLUSTER.split("|").map((i) => {
-    var host, port;
-    [host, port] = i.split(":");
-    return [host, port ? parseInt(port) : 6379];
-  }));
-} else {
-  ({ REDIS_HOST, REDIS_PORT } = env);
-  SERVER = (0, import_redis.serverHostPort)(REDIS_HOST, parseInt(REDIS_PORT));
-}
-var redis_default = await (0, import_redis.redisConn)(3, SERVER, REDIS_USER, REDIS_PASSWORD, parseInt(REDIS_DB));
-
-// redis_lua.js
-import {
-  join
-} from "path";
-import {
-  webcrypto as crypto
-} from "crypto";
-
 // ../../node_modules/.pnpm/@iuser+u8@0.0.8/node_modules/@iuser/u8/lib/index.js
 var u8eq = (first, second) => {
   return first.length === second.length && first.every((value, index) => {
@@ -608,7 +581,163 @@ var U8 = (args) => {
   return new Uint8Array(args);
 };
 
+// ../api/db/redis/key.js
+var key_exports = {};
+__export(key_exports, {
+  R_CAPTCHA: () => R_CAPTCHA,
+  R_CONF: () => R_CONF,
+  R_MAIL: () => R_MAIL,
+  R_MAIL_BAN_HOST: () => R_MAIL_BAN_HOST,
+  R_MAIL_HOST: () => R_MAIL_HOST
+});
+
+// ../../node_modules/.pnpm/@iuser+utf8@0.0.1/node_modules/@iuser/utf8/lib/index.js
+var DECODER;
+var ENCODER;
+ENCODER = new TextEncoder();
+var utf8e = ENCODER.encode.bind(ENCODER);
+DECODER = new TextDecoder();
+var utf8d = DECODER.decode.bind(DECODER);
+
+// ../api/db/redis/key.js
+var $;
+var wrap;
+wrap = (...args) => {
+  var r;
+  r = args[0];
+  if (Array.isArray(r)) {
+    r = U8(r);
+  } else {
+    r = utf8e(r);
+  }
+  if (args[1]) {
+    r.bind = args[1];
+  }
+  return r;
+};
+$ = new Proxy(wrap, {
+  get: (_, name) => {
+    return wrap(name.slice(2).toLowerCase().replace(/_./g, (x) => {
+      return x.slice(1).toUpperCase();
+    }));
+  }
+});
+var R_CAPTCHA = $([1], "setex getB del exist");
+var {
+  R_CONF,
+  R_MAIL_HOST,
+  R_MAIL,
+  R_MAIL_BAN_HOST
+} = $;
+
+// ../api/db/redis/lua.js
+var lua_default = (R2, redis) => {
+  var args;
+  R2.fboolR.hasHost;
+  R2.fi64.zid;
+  args = [R_MAIL_HOST, R_MAIL];
+  redis.mailIdNew = R2.fi64.mailIdNew(...args);
+  redis.mailId = R2.fi64.mailId(...args);
+  redis.idMail = R2.fstrR.idMail(...args);
+};
+
+// ../api/db/redis/init.js
+var import_redis = __toESM(require_redis(), 1);
+var _prefix;
+var key;
+_prefix = (prefix, f) => {
+  return (k, ...args) => {
+    if (typeof k === "string" || k instanceof String) {
+      k = utf8e(k);
+    }
+    return f(u8merge(prefix, k), ...args);
+  };
+};
+key = (prefix) => {
+  return u8merge(prefix, U8([0]));
+};
+var init_default = (redis, lua) => {
+  var _R, i;
+  _R = {};
+  for (i in import_redis.Redis.prototype) {
+    _R[i] = redis[i].bind(redis);
+  }
+  lua(new Proxy({}, {
+    get: (self, rtype) => {
+      return new Proxy({}, {
+        get: (self2, func) => {
+          var f;
+          f = redis[rtype].bind(redis, func);
+          return redis[func] = (...keys) => {
+            return (...args) => {
+              return f(keys, args);
+            };
+          };
+        }
+      });
+    }
+  }), redis);
+  return (prefix, bind) => {
+    var ref, t;
+    if (bind) {
+      t = key(prefix);
+      ref = bind.split(" ");
+      for (i of ref) {
+        prefix[i] = _prefix(t, _R[i] || redis[i]);
+      }
+    }
+    return prefix;
+  };
+};
+
+// ../api/db/redis.js
+var import_redis2 = __toESM(require_redis(), 1);
+var REDIS_CLUSTER;
+var REDIS_DB;
+var REDIS_HOST;
+var REDIS_PASSWORD;
+var REDIS_PORT;
+var REDIS_USER;
+var SERVER;
+var env;
+({ env } = process);
+({ REDIS_DB, REDIS_PASSWORD, REDIS_CLUSTER, REDIS_USER } = env);
+if (REDIS_CLUSTER) {
+  SERVER = (0, import_redis2.serverCluster)(REDIS_CLUSTER.split("|").map((i) => {
+    var host, port;
+    [host, port] = i.split(":");
+    return [host, port ? parseInt(port) : 6379];
+  }));
+} else {
+  ({ REDIS_HOST, REDIS_PORT } = env);
+  SERVER = (0, import_redis2.serverHostPort)(REDIS_HOST, parseInt(REDIS_PORT));
+}
+var redis_default = await (0, import_redis2.redisConn)(3, SERVER, REDIS_USER, REDIS_PASSWORD, parseInt(REDIS_DB));
+
+// ../api/R.js
+var $2;
+$2 = init_default(redis_default, lua_default);
+var R = redis_default;
+(() => {
+  var bind, k, ref, v, x;
+  ref = Object.entries(key_exports);
+  for (x of ref) {
+    [k, v] = x;
+    ({ bind } = v);
+    if (bind) {
+      delete v.bind;
+      $2(v, bind);
+    }
+  }
+})();
+
 // redis_lua.js
+import {
+  join
+} from "path";
+import {
+  webcrypto as crypto
+} from "crypto";
 var import_rust = __toESM(require_rust(), 1);
 var NO_WRITES;
 var ROOT;
@@ -635,6 +764,11 @@ isFlags = (i) => {
 NO_WRITES = "'no-writes'";
 var redis_lua_default = async () => {
   var ap, body, flags, fp, func, function_name, i, j, len, li, lua, pos, ref, ref1, t, trim, ver, version;
+  await Promise.all([R_MAIL_HOST, R_MAIL].map(async (i2) => {
+    if (!await R.zscore(i2, "")) {
+      await R.zincr(i2, "");
+    }
+  }));
   fp = join(ROOT, "init.redis.lua");
   lua = lib_default2(fp);
   version = await hash(lua);
@@ -692,89 +826,18 @@ flags={${flags}}
   lua = li.join("").trim();
   lua = lua.replace("VERSION", bin2luaStr(version));
   try {
-    ver = await redis_default.fbin("ver");
+    ver = await R.fbin("ver");
   } catch (error) {
     null;
   }
-  console.log(lua);
   if (ver && u8eq(version, ver)) {
     console.log(`
 -- redis lua UserTax version ${(0, import_rust.z85Dump)(version)} existed`);
     return;
   }
-  await redis_default.fnload(lua);
+  console.log(lua);
+  await R.fnload(lua);
 };
-
-// ../api/db/redis/lua.js
-var lua_default = (R2, redis) => {
-  R2.fboolRo.hasHost;
-  R2.fi64.zid;
-};
-
-// ../api/db/redis/init.js
-var import_redis3 = __toESM(require_redis(), 1);
-var _prefix;
-var encode;
-var encoder;
-var key;
-encoder = new TextEncoder();
-encode = encoder.encode.bind(encoder);
-_prefix = (prefix, f) => {
-  return (k, ...args) => {
-    if (typeof k === "string" || k instanceof String) {
-      k = encode(k);
-    }
-    return f(u8merge(prefix, k), ...args);
-  };
-};
-key = (prefix) => {
-  return u8merge(prefix, U8([0]));
-};
-var init_default = (redis, lua) => {
-  var _R, i;
-  _R = {};
-  for (i in import_redis3.Redis.prototype) {
-    _R[i] = redis[i].bind(redis);
-  }
-  lua(new Proxy({}, {
-    get: (self, rtype) => {
-      return new Proxy({}, {
-        get: (self2, func) => {
-          var f;
-          f = redis[rtype].bind(redis, func);
-          return redis[func] = (...keys) => {
-            return (...args) => {
-              return f(keys, args);
-            };
-          };
-        }
-      });
-    }
-  }), redis);
-  return (prefix, action) => {
-    var ref, t;
-    prefix = U8(prefix);
-    if (action) {
-      t = key(prefix);
-      ref = action.split(" ");
-      for (i of ref) {
-        prefix[i] = _prefix(t, _R[i] || redis[i]);
-      }
-    }
-    return prefix;
-  };
-};
-
-// ../api/R.js
-var $;
-$ = init_default(redis_default, lua_default);
-var R = redis_default;
-var R_CONF = $([0]);
-var R_HOST = $([2]);
-var R_NAME = $([3]);
-var R_MAIL = $([4], "hgetI zid");
-var R_MAIL_BAN_HOST = $([5]);
-var R_CAPTCHA = $([255], "setex getB del exist");
 
 // mail_ban_host.js
 import {

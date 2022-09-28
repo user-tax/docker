@@ -1,5 +1,34 @@
-function ver()
-  return 'VERSION'
+local log = function(...)
+  redis.log(redis.LOG_NOTICE, ...)
+end
+
+local _byZid = function(key,score)
+  score = tonumber(score)
+  local r = redis.call('ZRANGEBYSCORE',key,score,score,'LIMIT',0,1)
+  if r then
+    return r[1]
+  end
+end
+
+local intBin = function(n)
+  local t = {}
+  while n > 0 do
+    local r = math.fmod(n, 256)
+    table.insert(t, string.char(r))
+    n = (n-r) / 256
+  end
+  return table.concat(t)
+end
+
+local binInt = function(str)
+  local n = 0
+  local base = 1
+  for i = 1, #str do
+    local c = str:sub(i,i)
+    n = n + base * c:byte()
+    base = base * 256
+  end
+  return n
 end
 
 local HSET = function(key,field,val)
@@ -19,7 +48,10 @@ local INCR = function(key)
 end
 
 local ZSCORE = function(key,member)
-  return redis.call('ZSCORE',key,member)
+  local r = redis.call('ZSCORE',key,member)
+  if r then
+    return r.double
+  end
 end
 
 local ZADD = function(key,member,score)
@@ -32,6 +64,10 @@ end
 
 local SISMEMBER = function(key,member)
   return redis.call('SISMEMBER',key,member)
+end
+
+function ver()
+  return 'VERSION'
 end
 
 function hasHost(keys, args)
@@ -54,14 +90,55 @@ function hasHost(keys, args)
   until false
 end
 
-function zid(keys,args)
-  local kv = keys[1]
-  local k = args[1]
+local _zid = function(kv,k)
   local id = ZSCORE(kv,k)
-  if not id then
-    id = ZINCRBY(kv,'',1)
+  if nil == id then
+    id = ZINCRBY(kv,'',1)-1
     ZADD(kv,k,id)
   end
   return id
 end
 
+function zid(keys,args)
+  return _zid(keys[1],args[1])
+end
+
+function mailIdNew(keys, args)
+  local host_key,mail_key = unpack(keys)
+  local s = args[1]
+  local p = s:find('@')
+  local host_id = _zid(host_key, s:sub(p+1))
+  local mail = s:sub(1,p) .. intBin(host_id)
+  return _zid(mail_key, mail)
+end
+
+function mailId(keys, args)
+  local host_key,mail_key = unpack(keys)
+  local s = args[1]
+  local p = s:find('@')
+  local host_id = ZSCORE(host_key, s:sub(p+1))
+  if host_id ~= nil then
+    local mail = s:sub(1,p) .. intBin(host_id)
+    local id = ZSCORE(mail_key,mail)
+    if id then
+      return id
+    end
+  end
+  return 0
+end
+
+function idMail(keys,args)
+  -- flags no-writes
+  local host_key,mail_key = unpack(keys)
+  local id = args[1]
+  local mail = _byZid(mail_key,id)
+  if mail ~= nil then
+    local p = mail:find('@')
+    if p ~= nil then
+      local host = _byZid(host_key, binInt(mail:sub(p+1)))
+      if host ~= nil then
+        return mail:sub(1,p) .. host
+      end
+    end
+  end
+end

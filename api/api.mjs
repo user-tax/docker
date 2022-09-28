@@ -70,10 +70,10 @@ var require_node_gyp_build_optional_packages = __commonJS({
         if (debug)
           return debug;
       }
-      var prebuild = resolve(dir);
+      var prebuild = resolve2(dir);
       if (prebuild)
         return prebuild;
-      var nearby = resolve(path.dirname(process.execPath));
+      var nearby = resolve2(path.dirname(process.execPath));
       if (nearby)
         return nearby;
       var platformPackage = (packageName[0] == "@" ? "" : "@" + packageName + "/") + packageName + "-" + platform + "-" + arch;
@@ -95,7 +95,7 @@ var require_node_gyp_build_optional_packages = __commonJS({
         typeof __webpack_require__ === "function" ? "webpack=true" : ""
       ].filter(Boolean).join(" ");
       throw new Error("No native build was found for " + target2 + "\n    loaded from: " + dir + " and package: " + platformPackage + "\n");
-      function resolve(dir2) {
+      function resolve2(dir2) {
         var tuples = readdirSync(path.join(dir2, "prebuilds")).map(parseTuple);
         var tuple = tuples.filter(matchTuple(platform, arch)).sort(compareTuples)[0];
         if (!tuple)
@@ -236,10 +236,10 @@ var require_msgpackr_extract = __commonJS({
   }
 });
 
-// ../../node_modules/.pnpm/@user.tax+webp@0.0.7/node_modules/@user.tax/webp/index.js
+// ../../node_modules/.pnpm/@user.tax+webp@0.0.18/node_modules/@user.tax/webp/index.js
 var require_webp = __commonJS({
-  "../../node_modules/.pnpm/@user.tax+webp@0.0.7/node_modules/@user.tax/webp/index.js"(exports, module) {
-    var { existsSync, readFileSync } = __require("fs");
+  "../../node_modules/.pnpm/@user.tax+webp@0.0.18/node_modules/@user.tax/webp/index.js"(exports, module) {
+    var { existsSync, readFileSync: readFileSync2 } = __require("fs");
     var { join } = __require("path");
     var { platform, arch } = process;
     var nativeBinding = null;
@@ -248,7 +248,7 @@ var require_webp = __commonJS({
     function isMusl() {
       if (!process.report || typeof process.report.getReport !== "function") {
         try {
-          return readFileSync("/usr/bin/ldd", "utf8").includes("musl");
+          return readFileSync2("/usr/bin/ldd", "utf8").includes("musl");
         } catch (e) {
           return true;
         }
@@ -478,7 +478,7 @@ var require_webp = __commonJS({
 // ../../../redis/index.js
 var require_redis = __commonJS({
   "../../../redis/index.js"(exports, module) {
-    var { existsSync, readFileSync } = __require("fs");
+    var { existsSync, readFileSync: readFileSync2 } = __require("fs");
     var { join } = __require("path");
     var { platform, arch } = process;
     var nativeBinding = null;
@@ -487,7 +487,7 @@ var require_redis = __commonJS({
     function isMusl() {
       if (!process.report || typeof process.report.getReport !== "function") {
         try {
-          return readFileSync("/usr/bin/ldd", "utf8").includes("musl");
+          return readFileSync2("/usr/bin/ldd", "utf8").includes("musl");
         } catch (e) {
           return true;
         }
@@ -910,7 +910,7 @@ var require_FastIntegerCompression = __commonJS({
 // ../../../rust/index.js
 var require_rust = __commonJS({
   "../../../rust/index.js"(exports, module) {
-    var { existsSync, readFileSync } = __require("fs");
+    var { existsSync, readFileSync: readFileSync2 } = __require("fs");
     var { join } = __require("path");
     var { platform, arch } = process;
     var nativeBinding = null;
@@ -919,7 +919,7 @@ var require_rust = __commonJS({
     function isMusl() {
       if (!process.report || typeof process.report.getReport !== "function") {
         try {
-          return readFileSync("/usr/bin/ldd", "utf8").includes("musl");
+          return readFileSync2("/usr/bin/ldd", "utf8").includes("musl");
         } catch (e) {
           return true;
         }
@@ -1141,7 +1141,7 @@ var require_rust = __commonJS({
       }
       throw new Error(`Failed to load native binding`);
     }
-    var { z85Dump: z85Dump2, z85Load: z85Load3, ipBin, binU64, u64Bin, zipU64, unzipU64, b64: b642, unb64: unb642, blake3Round: blake3Round2, blake3, encrypt: encrypt2, decrypt: decrypt2, randomBytes: randomBytes3 } = nativeBinding;
+    var { z85Dump: z85Dump2, z85Load: z85Load3, ipBin, binU64, u64Bin, zipU64, unzipU64, b64, unb64, blake3Round: blake3Round2, blake3, xxh3: xxh32, encrypt, decrypt, randomBytes: randomBytes3 } = nativeBinding;
     module.exports.z85Dump = z85Dump2;
     module.exports.z85Load = z85Load3;
     module.exports.ipBin = ipBin;
@@ -1149,18 +1149,3809 @@ var require_rust = __commonJS({
     module.exports.u64Bin = u64Bin;
     module.exports.zipU64 = zipU64;
     module.exports.unzipU64 = unzipU64;
-    module.exports.b64 = b642;
-    module.exports.unb64 = unb642;
+    module.exports.b64 = b64;
+    module.exports.unb64 = unb64;
     module.exports.blake3Round = blake3Round2;
     module.exports.blake3 = blake3;
-    module.exports.encrypt = encrypt2;
-    module.exports.decrypt = decrypt2;
+    module.exports.xxh3 = xxh32;
+    module.exports.encrypt = encrypt;
+    module.exports.decrypt = decrypt;
     module.exports.randomBytes = randomBytes3;
   }
 });
 
-// index.js
-import http from "http";
+// ../../node_modules/.pnpm/escape-string-regexp@1.0.5/node_modules/escape-string-regexp/index.js
+var require_escape_string_regexp = __commonJS({
+  "../../node_modules/.pnpm/escape-string-regexp@1.0.5/node_modules/escape-string-regexp/index.js"(exports, module) {
+    "use strict";
+    var matchOperatorsRe = /[|\\{}()[\]^$+*?.]/g;
+    module.exports = function(str) {
+      if (typeof str !== "string") {
+        throw new TypeError("Expected a string");
+      }
+      return str.replace(matchOperatorsRe, "\\$&");
+    };
+  }
+});
+
+// ../../node_modules/.pnpm/color-name@1.1.3/node_modules/color-name/index.js
+var require_color_name = __commonJS({
+  "../../node_modules/.pnpm/color-name@1.1.3/node_modules/color-name/index.js"(exports, module) {
+    "use strict";
+    module.exports = {
+      "aliceblue": [240, 248, 255],
+      "antiquewhite": [250, 235, 215],
+      "aqua": [0, 255, 255],
+      "aquamarine": [127, 255, 212],
+      "azure": [240, 255, 255],
+      "beige": [245, 245, 220],
+      "bisque": [255, 228, 196],
+      "black": [0, 0, 0],
+      "blanchedalmond": [255, 235, 205],
+      "blue": [0, 0, 255],
+      "blueviolet": [138, 43, 226],
+      "brown": [165, 42, 42],
+      "burlywood": [222, 184, 135],
+      "cadetblue": [95, 158, 160],
+      "chartreuse": [127, 255, 0],
+      "chocolate": [210, 105, 30],
+      "coral": [255, 127, 80],
+      "cornflowerblue": [100, 149, 237],
+      "cornsilk": [255, 248, 220],
+      "crimson": [220, 20, 60],
+      "cyan": [0, 255, 255],
+      "darkblue": [0, 0, 139],
+      "darkcyan": [0, 139, 139],
+      "darkgoldenrod": [184, 134, 11],
+      "darkgray": [169, 169, 169],
+      "darkgreen": [0, 100, 0],
+      "darkgrey": [169, 169, 169],
+      "darkkhaki": [189, 183, 107],
+      "darkmagenta": [139, 0, 139],
+      "darkolivegreen": [85, 107, 47],
+      "darkorange": [255, 140, 0],
+      "darkorchid": [153, 50, 204],
+      "darkred": [139, 0, 0],
+      "darksalmon": [233, 150, 122],
+      "darkseagreen": [143, 188, 143],
+      "darkslateblue": [72, 61, 139],
+      "darkslategray": [47, 79, 79],
+      "darkslategrey": [47, 79, 79],
+      "darkturquoise": [0, 206, 209],
+      "darkviolet": [148, 0, 211],
+      "deeppink": [255, 20, 147],
+      "deepskyblue": [0, 191, 255],
+      "dimgray": [105, 105, 105],
+      "dimgrey": [105, 105, 105],
+      "dodgerblue": [30, 144, 255],
+      "firebrick": [178, 34, 34],
+      "floralwhite": [255, 250, 240],
+      "forestgreen": [34, 139, 34],
+      "fuchsia": [255, 0, 255],
+      "gainsboro": [220, 220, 220],
+      "ghostwhite": [248, 248, 255],
+      "gold": [255, 215, 0],
+      "goldenrod": [218, 165, 32],
+      "gray": [128, 128, 128],
+      "green": [0, 128, 0],
+      "greenyellow": [173, 255, 47],
+      "grey": [128, 128, 128],
+      "honeydew": [240, 255, 240],
+      "hotpink": [255, 105, 180],
+      "indianred": [205, 92, 92],
+      "indigo": [75, 0, 130],
+      "ivory": [255, 255, 240],
+      "khaki": [240, 230, 140],
+      "lavender": [230, 230, 250],
+      "lavenderblush": [255, 240, 245],
+      "lawngreen": [124, 252, 0],
+      "lemonchiffon": [255, 250, 205],
+      "lightblue": [173, 216, 230],
+      "lightcoral": [240, 128, 128],
+      "lightcyan": [224, 255, 255],
+      "lightgoldenrodyellow": [250, 250, 210],
+      "lightgray": [211, 211, 211],
+      "lightgreen": [144, 238, 144],
+      "lightgrey": [211, 211, 211],
+      "lightpink": [255, 182, 193],
+      "lightsalmon": [255, 160, 122],
+      "lightseagreen": [32, 178, 170],
+      "lightskyblue": [135, 206, 250],
+      "lightslategray": [119, 136, 153],
+      "lightslategrey": [119, 136, 153],
+      "lightsteelblue": [176, 196, 222],
+      "lightyellow": [255, 255, 224],
+      "lime": [0, 255, 0],
+      "limegreen": [50, 205, 50],
+      "linen": [250, 240, 230],
+      "magenta": [255, 0, 255],
+      "maroon": [128, 0, 0],
+      "mediumaquamarine": [102, 205, 170],
+      "mediumblue": [0, 0, 205],
+      "mediumorchid": [186, 85, 211],
+      "mediumpurple": [147, 112, 219],
+      "mediumseagreen": [60, 179, 113],
+      "mediumslateblue": [123, 104, 238],
+      "mediumspringgreen": [0, 250, 154],
+      "mediumturquoise": [72, 209, 204],
+      "mediumvioletred": [199, 21, 133],
+      "midnightblue": [25, 25, 112],
+      "mintcream": [245, 255, 250],
+      "mistyrose": [255, 228, 225],
+      "moccasin": [255, 228, 181],
+      "navajowhite": [255, 222, 173],
+      "navy": [0, 0, 128],
+      "oldlace": [253, 245, 230],
+      "olive": [128, 128, 0],
+      "olivedrab": [107, 142, 35],
+      "orange": [255, 165, 0],
+      "orangered": [255, 69, 0],
+      "orchid": [218, 112, 214],
+      "palegoldenrod": [238, 232, 170],
+      "palegreen": [152, 251, 152],
+      "paleturquoise": [175, 238, 238],
+      "palevioletred": [219, 112, 147],
+      "papayawhip": [255, 239, 213],
+      "peachpuff": [255, 218, 185],
+      "peru": [205, 133, 63],
+      "pink": [255, 192, 203],
+      "plum": [221, 160, 221],
+      "powderblue": [176, 224, 230],
+      "purple": [128, 0, 128],
+      "rebeccapurple": [102, 51, 153],
+      "red": [255, 0, 0],
+      "rosybrown": [188, 143, 143],
+      "royalblue": [65, 105, 225],
+      "saddlebrown": [139, 69, 19],
+      "salmon": [250, 128, 114],
+      "sandybrown": [244, 164, 96],
+      "seagreen": [46, 139, 87],
+      "seashell": [255, 245, 238],
+      "sienna": [160, 82, 45],
+      "silver": [192, 192, 192],
+      "skyblue": [135, 206, 235],
+      "slateblue": [106, 90, 205],
+      "slategray": [112, 128, 144],
+      "slategrey": [112, 128, 144],
+      "snow": [255, 250, 250],
+      "springgreen": [0, 255, 127],
+      "steelblue": [70, 130, 180],
+      "tan": [210, 180, 140],
+      "teal": [0, 128, 128],
+      "thistle": [216, 191, 216],
+      "tomato": [255, 99, 71],
+      "turquoise": [64, 224, 208],
+      "violet": [238, 130, 238],
+      "wheat": [245, 222, 179],
+      "white": [255, 255, 255],
+      "whitesmoke": [245, 245, 245],
+      "yellow": [255, 255, 0],
+      "yellowgreen": [154, 205, 50]
+    };
+  }
+});
+
+// ../../node_modules/.pnpm/color-convert@1.9.3/node_modules/color-convert/conversions.js
+var require_conversions = __commonJS({
+  "../../node_modules/.pnpm/color-convert@1.9.3/node_modules/color-convert/conversions.js"(exports, module) {
+    var cssKeywords = require_color_name();
+    var reverseKeywords = {};
+    for (key2 in cssKeywords) {
+      if (cssKeywords.hasOwnProperty(key2)) {
+        reverseKeywords[cssKeywords[key2]] = key2;
+      }
+    }
+    var key2;
+    var convert = module.exports = {
+      rgb: { channels: 3, labels: "rgb" },
+      hsl: { channels: 3, labels: "hsl" },
+      hsv: { channels: 3, labels: "hsv" },
+      hwb: { channels: 3, labels: "hwb" },
+      cmyk: { channels: 4, labels: "cmyk" },
+      xyz: { channels: 3, labels: "xyz" },
+      lab: { channels: 3, labels: "lab" },
+      lch: { channels: 3, labels: "lch" },
+      hex: { channels: 1, labels: ["hex"] },
+      keyword: { channels: 1, labels: ["keyword"] },
+      ansi16: { channels: 1, labels: ["ansi16"] },
+      ansi256: { channels: 1, labels: ["ansi256"] },
+      hcg: { channels: 3, labels: ["h", "c", "g"] },
+      apple: { channels: 3, labels: ["r16", "g16", "b16"] },
+      gray: { channels: 1, labels: ["gray"] }
+    };
+    for (model in convert) {
+      if (convert.hasOwnProperty(model)) {
+        if (!("channels" in convert[model])) {
+          throw new Error("missing channels property: " + model);
+        }
+        if (!("labels" in convert[model])) {
+          throw new Error("missing channel labels property: " + model);
+        }
+        if (convert[model].labels.length !== convert[model].channels) {
+          throw new Error("channel and label counts mismatch: " + model);
+        }
+        channels = convert[model].channels;
+        labels = convert[model].labels;
+        delete convert[model].channels;
+        delete convert[model].labels;
+        Object.defineProperty(convert[model], "channels", { value: channels });
+        Object.defineProperty(convert[model], "labels", { value: labels });
+      }
+    }
+    var channels;
+    var labels;
+    var model;
+    convert.rgb.hsl = function(rgb) {
+      var r = rgb[0] / 255;
+      var g = rgb[1] / 255;
+      var b = rgb[2] / 255;
+      var min = Math.min(r, g, b);
+      var max = Math.max(r, g, b);
+      var delta = max - min;
+      var h;
+      var s;
+      var l;
+      if (max === min) {
+        h = 0;
+      } else if (r === max) {
+        h = (g - b) / delta;
+      } else if (g === max) {
+        h = 2 + (b - r) / delta;
+      } else if (b === max) {
+        h = 4 + (r - g) / delta;
+      }
+      h = Math.min(h * 60, 360);
+      if (h < 0) {
+        h += 360;
+      }
+      l = (min + max) / 2;
+      if (max === min) {
+        s = 0;
+      } else if (l <= 0.5) {
+        s = delta / (max + min);
+      } else {
+        s = delta / (2 - max - min);
+      }
+      return [h, s * 100, l * 100];
+    };
+    convert.rgb.hsv = function(rgb) {
+      var rdif;
+      var gdif;
+      var bdif;
+      var h;
+      var s;
+      var r = rgb[0] / 255;
+      var g = rgb[1] / 255;
+      var b = rgb[2] / 255;
+      var v = Math.max(r, g, b);
+      var diff = v - Math.min(r, g, b);
+      var diffc = function(c) {
+        return (v - c) / 6 / diff + 1 / 2;
+      };
+      if (diff === 0) {
+        h = s = 0;
+      } else {
+        s = diff / v;
+        rdif = diffc(r);
+        gdif = diffc(g);
+        bdif = diffc(b);
+        if (r === v) {
+          h = bdif - gdif;
+        } else if (g === v) {
+          h = 1 / 3 + rdif - bdif;
+        } else if (b === v) {
+          h = 2 / 3 + gdif - rdif;
+        }
+        if (h < 0) {
+          h += 1;
+        } else if (h > 1) {
+          h -= 1;
+        }
+      }
+      return [
+        h * 360,
+        s * 100,
+        v * 100
+      ];
+    };
+    convert.rgb.hwb = function(rgb) {
+      var r = rgb[0];
+      var g = rgb[1];
+      var b = rgb[2];
+      var h = convert.rgb.hsl(rgb)[0];
+      var w = 1 / 255 * Math.min(r, Math.min(g, b));
+      b = 1 - 1 / 255 * Math.max(r, Math.max(g, b));
+      return [h, w * 100, b * 100];
+    };
+    convert.rgb.cmyk = function(rgb) {
+      var r = rgb[0] / 255;
+      var g = rgb[1] / 255;
+      var b = rgb[2] / 255;
+      var c;
+      var m;
+      var y;
+      var k;
+      k = Math.min(1 - r, 1 - g, 1 - b);
+      c = (1 - r - k) / (1 - k) || 0;
+      m = (1 - g - k) / (1 - k) || 0;
+      y = (1 - b - k) / (1 - k) || 0;
+      return [c * 100, m * 100, y * 100, k * 100];
+    };
+    function comparativeDistance(x, y) {
+      return Math.pow(x[0] - y[0], 2) + Math.pow(x[1] - y[1], 2) + Math.pow(x[2] - y[2], 2);
+    }
+    convert.rgb.keyword = function(rgb) {
+      var reversed = reverseKeywords[rgb];
+      if (reversed) {
+        return reversed;
+      }
+      var currentClosestDistance = Infinity;
+      var currentClosestKeyword;
+      for (var keyword in cssKeywords) {
+        if (cssKeywords.hasOwnProperty(keyword)) {
+          var value = cssKeywords[keyword];
+          var distance = comparativeDistance(rgb, value);
+          if (distance < currentClosestDistance) {
+            currentClosestDistance = distance;
+            currentClosestKeyword = keyword;
+          }
+        }
+      }
+      return currentClosestKeyword;
+    };
+    convert.keyword.rgb = function(keyword) {
+      return cssKeywords[keyword];
+    };
+    convert.rgb.xyz = function(rgb) {
+      var r = rgb[0] / 255;
+      var g = rgb[1] / 255;
+      var b = rgb[2] / 255;
+      r = r > 0.04045 ? Math.pow((r + 0.055) / 1.055, 2.4) : r / 12.92;
+      g = g > 0.04045 ? Math.pow((g + 0.055) / 1.055, 2.4) : g / 12.92;
+      b = b > 0.04045 ? Math.pow((b + 0.055) / 1.055, 2.4) : b / 12.92;
+      var x = r * 0.4124 + g * 0.3576 + b * 0.1805;
+      var y = r * 0.2126 + g * 0.7152 + b * 0.0722;
+      var z = r * 0.0193 + g * 0.1192 + b * 0.9505;
+      return [x * 100, y * 100, z * 100];
+    };
+    convert.rgb.lab = function(rgb) {
+      var xyz = convert.rgb.xyz(rgb);
+      var x = xyz[0];
+      var y = xyz[1];
+      var z = xyz[2];
+      var l;
+      var a;
+      var b;
+      x /= 95.047;
+      y /= 100;
+      z /= 108.883;
+      x = x > 8856e-6 ? Math.pow(x, 1 / 3) : 7.787 * x + 16 / 116;
+      y = y > 8856e-6 ? Math.pow(y, 1 / 3) : 7.787 * y + 16 / 116;
+      z = z > 8856e-6 ? Math.pow(z, 1 / 3) : 7.787 * z + 16 / 116;
+      l = 116 * y - 16;
+      a = 500 * (x - y);
+      b = 200 * (y - z);
+      return [l, a, b];
+    };
+    convert.hsl.rgb = function(hsl) {
+      var h = hsl[0] / 360;
+      var s = hsl[1] / 100;
+      var l = hsl[2] / 100;
+      var t1;
+      var t2;
+      var t3;
+      var rgb;
+      var val;
+      if (s === 0) {
+        val = l * 255;
+        return [val, val, val];
+      }
+      if (l < 0.5) {
+        t2 = l * (1 + s);
+      } else {
+        t2 = l + s - l * s;
+      }
+      t1 = 2 * l - t2;
+      rgb = [0, 0, 0];
+      for (var i = 0; i < 3; i++) {
+        t3 = h + 1 / 3 * -(i - 1);
+        if (t3 < 0) {
+          t3++;
+        }
+        if (t3 > 1) {
+          t3--;
+        }
+        if (6 * t3 < 1) {
+          val = t1 + (t2 - t1) * 6 * t3;
+        } else if (2 * t3 < 1) {
+          val = t2;
+        } else if (3 * t3 < 2) {
+          val = t1 + (t2 - t1) * (2 / 3 - t3) * 6;
+        } else {
+          val = t1;
+        }
+        rgb[i] = val * 255;
+      }
+      return rgb;
+    };
+    convert.hsl.hsv = function(hsl) {
+      var h = hsl[0];
+      var s = hsl[1] / 100;
+      var l = hsl[2] / 100;
+      var smin = s;
+      var lmin = Math.max(l, 0.01);
+      var sv;
+      var v;
+      l *= 2;
+      s *= l <= 1 ? l : 2 - l;
+      smin *= lmin <= 1 ? lmin : 2 - lmin;
+      v = (l + s) / 2;
+      sv = l === 0 ? 2 * smin / (lmin + smin) : 2 * s / (l + s);
+      return [h, sv * 100, v * 100];
+    };
+    convert.hsv.rgb = function(hsv) {
+      var h = hsv[0] / 60;
+      var s = hsv[1] / 100;
+      var v = hsv[2] / 100;
+      var hi = Math.floor(h) % 6;
+      var f = h - Math.floor(h);
+      var p = 255 * v * (1 - s);
+      var q = 255 * v * (1 - s * f);
+      var t = 255 * v * (1 - s * (1 - f));
+      v *= 255;
+      switch (hi) {
+        case 0:
+          return [v, t, p];
+        case 1:
+          return [q, v, p];
+        case 2:
+          return [p, v, t];
+        case 3:
+          return [p, q, v];
+        case 4:
+          return [t, p, v];
+        case 5:
+          return [v, p, q];
+      }
+    };
+    convert.hsv.hsl = function(hsv) {
+      var h = hsv[0];
+      var s = hsv[1] / 100;
+      var v = hsv[2] / 100;
+      var vmin = Math.max(v, 0.01);
+      var lmin;
+      var sl;
+      var l;
+      l = (2 - s) * v;
+      lmin = (2 - s) * vmin;
+      sl = s * vmin;
+      sl /= lmin <= 1 ? lmin : 2 - lmin;
+      sl = sl || 0;
+      l /= 2;
+      return [h, sl * 100, l * 100];
+    };
+    convert.hwb.rgb = function(hwb) {
+      var h = hwb[0] / 360;
+      var wh = hwb[1] / 100;
+      var bl = hwb[2] / 100;
+      var ratio = wh + bl;
+      var i;
+      var v;
+      var f;
+      var n;
+      if (ratio > 1) {
+        wh /= ratio;
+        bl /= ratio;
+      }
+      i = Math.floor(6 * h);
+      v = 1 - bl;
+      f = 6 * h - i;
+      if ((i & 1) !== 0) {
+        f = 1 - f;
+      }
+      n = wh + f * (v - wh);
+      var r;
+      var g;
+      var b;
+      switch (i) {
+        default:
+        case 6:
+        case 0:
+          r = v;
+          g = n;
+          b = wh;
+          break;
+        case 1:
+          r = n;
+          g = v;
+          b = wh;
+          break;
+        case 2:
+          r = wh;
+          g = v;
+          b = n;
+          break;
+        case 3:
+          r = wh;
+          g = n;
+          b = v;
+          break;
+        case 4:
+          r = n;
+          g = wh;
+          b = v;
+          break;
+        case 5:
+          r = v;
+          g = wh;
+          b = n;
+          break;
+      }
+      return [r * 255, g * 255, b * 255];
+    };
+    convert.cmyk.rgb = function(cmyk) {
+      var c = cmyk[0] / 100;
+      var m = cmyk[1] / 100;
+      var y = cmyk[2] / 100;
+      var k = cmyk[3] / 100;
+      var r;
+      var g;
+      var b;
+      r = 1 - Math.min(1, c * (1 - k) + k);
+      g = 1 - Math.min(1, m * (1 - k) + k);
+      b = 1 - Math.min(1, y * (1 - k) + k);
+      return [r * 255, g * 255, b * 255];
+    };
+    convert.xyz.rgb = function(xyz) {
+      var x = xyz[0] / 100;
+      var y = xyz[1] / 100;
+      var z = xyz[2] / 100;
+      var r;
+      var g;
+      var b;
+      r = x * 3.2406 + y * -1.5372 + z * -0.4986;
+      g = x * -0.9689 + y * 1.8758 + z * 0.0415;
+      b = x * 0.0557 + y * -0.204 + z * 1.057;
+      r = r > 31308e-7 ? 1.055 * Math.pow(r, 1 / 2.4) - 0.055 : r * 12.92;
+      g = g > 31308e-7 ? 1.055 * Math.pow(g, 1 / 2.4) - 0.055 : g * 12.92;
+      b = b > 31308e-7 ? 1.055 * Math.pow(b, 1 / 2.4) - 0.055 : b * 12.92;
+      r = Math.min(Math.max(0, r), 1);
+      g = Math.min(Math.max(0, g), 1);
+      b = Math.min(Math.max(0, b), 1);
+      return [r * 255, g * 255, b * 255];
+    };
+    convert.xyz.lab = function(xyz) {
+      var x = xyz[0];
+      var y = xyz[1];
+      var z = xyz[2];
+      var l;
+      var a;
+      var b;
+      x /= 95.047;
+      y /= 100;
+      z /= 108.883;
+      x = x > 8856e-6 ? Math.pow(x, 1 / 3) : 7.787 * x + 16 / 116;
+      y = y > 8856e-6 ? Math.pow(y, 1 / 3) : 7.787 * y + 16 / 116;
+      z = z > 8856e-6 ? Math.pow(z, 1 / 3) : 7.787 * z + 16 / 116;
+      l = 116 * y - 16;
+      a = 500 * (x - y);
+      b = 200 * (y - z);
+      return [l, a, b];
+    };
+    convert.lab.xyz = function(lab) {
+      var l = lab[0];
+      var a = lab[1];
+      var b = lab[2];
+      var x;
+      var y;
+      var z;
+      y = (l + 16) / 116;
+      x = a / 500 + y;
+      z = y - b / 200;
+      var y2 = Math.pow(y, 3);
+      var x2 = Math.pow(x, 3);
+      var z2 = Math.pow(z, 3);
+      y = y2 > 8856e-6 ? y2 : (y - 16 / 116) / 7.787;
+      x = x2 > 8856e-6 ? x2 : (x - 16 / 116) / 7.787;
+      z = z2 > 8856e-6 ? z2 : (z - 16 / 116) / 7.787;
+      x *= 95.047;
+      y *= 100;
+      z *= 108.883;
+      return [x, y, z];
+    };
+    convert.lab.lch = function(lab) {
+      var l = lab[0];
+      var a = lab[1];
+      var b = lab[2];
+      var hr;
+      var h;
+      var c;
+      hr = Math.atan2(b, a);
+      h = hr * 360 / 2 / Math.PI;
+      if (h < 0) {
+        h += 360;
+      }
+      c = Math.sqrt(a * a + b * b);
+      return [l, c, h];
+    };
+    convert.lch.lab = function(lch) {
+      var l = lch[0];
+      var c = lch[1];
+      var h = lch[2];
+      var a;
+      var b;
+      var hr;
+      hr = h / 360 * 2 * Math.PI;
+      a = c * Math.cos(hr);
+      b = c * Math.sin(hr);
+      return [l, a, b];
+    };
+    convert.rgb.ansi16 = function(args) {
+      var r = args[0];
+      var g = args[1];
+      var b = args[2];
+      var value = 1 in arguments ? arguments[1] : convert.rgb.hsv(args)[2];
+      value = Math.round(value / 50);
+      if (value === 0) {
+        return 30;
+      }
+      var ansi = 30 + (Math.round(b / 255) << 2 | Math.round(g / 255) << 1 | Math.round(r / 255));
+      if (value === 2) {
+        ansi += 60;
+      }
+      return ansi;
+    };
+    convert.hsv.ansi16 = function(args) {
+      return convert.rgb.ansi16(convert.hsv.rgb(args), args[2]);
+    };
+    convert.rgb.ansi256 = function(args) {
+      var r = args[0];
+      var g = args[1];
+      var b = args[2];
+      if (r === g && g === b) {
+        if (r < 8) {
+          return 16;
+        }
+        if (r > 248) {
+          return 231;
+        }
+        return Math.round((r - 8) / 247 * 24) + 232;
+      }
+      var ansi = 16 + 36 * Math.round(r / 255 * 5) + 6 * Math.round(g / 255 * 5) + Math.round(b / 255 * 5);
+      return ansi;
+    };
+    convert.ansi16.rgb = function(args) {
+      var color = args % 10;
+      if (color === 0 || color === 7) {
+        if (args > 50) {
+          color += 3.5;
+        }
+        color = color / 10.5 * 255;
+        return [color, color, color];
+      }
+      var mult = (~~(args > 50) + 1) * 0.5;
+      var r = (color & 1) * mult * 255;
+      var g = (color >> 1 & 1) * mult * 255;
+      var b = (color >> 2 & 1) * mult * 255;
+      return [r, g, b];
+    };
+    convert.ansi256.rgb = function(args) {
+      if (args >= 232) {
+        var c = (args - 232) * 10 + 8;
+        return [c, c, c];
+      }
+      args -= 16;
+      var rem;
+      var r = Math.floor(args / 36) / 5 * 255;
+      var g = Math.floor((rem = args % 36) / 6) / 5 * 255;
+      var b = rem % 6 / 5 * 255;
+      return [r, g, b];
+    };
+    convert.rgb.hex = function(args) {
+      var integer = ((Math.round(args[0]) & 255) << 16) + ((Math.round(args[1]) & 255) << 8) + (Math.round(args[2]) & 255);
+      var string = integer.toString(16).toUpperCase();
+      return "000000".substring(string.length) + string;
+    };
+    convert.hex.rgb = function(args) {
+      var match = args.toString(16).match(/[a-f0-9]{6}|[a-f0-9]{3}/i);
+      if (!match) {
+        return [0, 0, 0];
+      }
+      var colorString = match[0];
+      if (match[0].length === 3) {
+        colorString = colorString.split("").map(function(char) {
+          return char + char;
+        }).join("");
+      }
+      var integer = parseInt(colorString, 16);
+      var r = integer >> 16 & 255;
+      var g = integer >> 8 & 255;
+      var b = integer & 255;
+      return [r, g, b];
+    };
+    convert.rgb.hcg = function(rgb) {
+      var r = rgb[0] / 255;
+      var g = rgb[1] / 255;
+      var b = rgb[2] / 255;
+      var max = Math.max(Math.max(r, g), b);
+      var min = Math.min(Math.min(r, g), b);
+      var chroma = max - min;
+      var grayscale;
+      var hue;
+      if (chroma < 1) {
+        grayscale = min / (1 - chroma);
+      } else {
+        grayscale = 0;
+      }
+      if (chroma <= 0) {
+        hue = 0;
+      } else if (max === r) {
+        hue = (g - b) / chroma % 6;
+      } else if (max === g) {
+        hue = 2 + (b - r) / chroma;
+      } else {
+        hue = 4 + (r - g) / chroma + 4;
+      }
+      hue /= 6;
+      hue %= 1;
+      return [hue * 360, chroma * 100, grayscale * 100];
+    };
+    convert.hsl.hcg = function(hsl) {
+      var s = hsl[1] / 100;
+      var l = hsl[2] / 100;
+      var c = 1;
+      var f = 0;
+      if (l < 0.5) {
+        c = 2 * s * l;
+      } else {
+        c = 2 * s * (1 - l);
+      }
+      if (c < 1) {
+        f = (l - 0.5 * c) / (1 - c);
+      }
+      return [hsl[0], c * 100, f * 100];
+    };
+    convert.hsv.hcg = function(hsv) {
+      var s = hsv[1] / 100;
+      var v = hsv[2] / 100;
+      var c = s * v;
+      var f = 0;
+      if (c < 1) {
+        f = (v - c) / (1 - c);
+      }
+      return [hsv[0], c * 100, f * 100];
+    };
+    convert.hcg.rgb = function(hcg) {
+      var h = hcg[0] / 360;
+      var c = hcg[1] / 100;
+      var g = hcg[2] / 100;
+      if (c === 0) {
+        return [g * 255, g * 255, g * 255];
+      }
+      var pure = [0, 0, 0];
+      var hi = h % 1 * 6;
+      var v = hi % 1;
+      var w = 1 - v;
+      var mg = 0;
+      switch (Math.floor(hi)) {
+        case 0:
+          pure[0] = 1;
+          pure[1] = v;
+          pure[2] = 0;
+          break;
+        case 1:
+          pure[0] = w;
+          pure[1] = 1;
+          pure[2] = 0;
+          break;
+        case 2:
+          pure[0] = 0;
+          pure[1] = 1;
+          pure[2] = v;
+          break;
+        case 3:
+          pure[0] = 0;
+          pure[1] = w;
+          pure[2] = 1;
+          break;
+        case 4:
+          pure[0] = v;
+          pure[1] = 0;
+          pure[2] = 1;
+          break;
+        default:
+          pure[0] = 1;
+          pure[1] = 0;
+          pure[2] = w;
+      }
+      mg = (1 - c) * g;
+      return [
+        (c * pure[0] + mg) * 255,
+        (c * pure[1] + mg) * 255,
+        (c * pure[2] + mg) * 255
+      ];
+    };
+    convert.hcg.hsv = function(hcg) {
+      var c = hcg[1] / 100;
+      var g = hcg[2] / 100;
+      var v = c + g * (1 - c);
+      var f = 0;
+      if (v > 0) {
+        f = c / v;
+      }
+      return [hcg[0], f * 100, v * 100];
+    };
+    convert.hcg.hsl = function(hcg) {
+      var c = hcg[1] / 100;
+      var g = hcg[2] / 100;
+      var l = g * (1 - c) + 0.5 * c;
+      var s = 0;
+      if (l > 0 && l < 0.5) {
+        s = c / (2 * l);
+      } else if (l >= 0.5 && l < 1) {
+        s = c / (2 * (1 - l));
+      }
+      return [hcg[0], s * 100, l * 100];
+    };
+    convert.hcg.hwb = function(hcg) {
+      var c = hcg[1] / 100;
+      var g = hcg[2] / 100;
+      var v = c + g * (1 - c);
+      return [hcg[0], (v - c) * 100, (1 - v) * 100];
+    };
+    convert.hwb.hcg = function(hwb) {
+      var w = hwb[1] / 100;
+      var b = hwb[2] / 100;
+      var v = 1 - b;
+      var c = v - w;
+      var g = 0;
+      if (c < 1) {
+        g = (v - c) / (1 - c);
+      }
+      return [hwb[0], c * 100, g * 100];
+    };
+    convert.apple.rgb = function(apple) {
+      return [apple[0] / 65535 * 255, apple[1] / 65535 * 255, apple[2] / 65535 * 255];
+    };
+    convert.rgb.apple = function(rgb) {
+      return [rgb[0] / 255 * 65535, rgb[1] / 255 * 65535, rgb[2] / 255 * 65535];
+    };
+    convert.gray.rgb = function(args) {
+      return [args[0] / 100 * 255, args[0] / 100 * 255, args[0] / 100 * 255];
+    };
+    convert.gray.hsl = convert.gray.hsv = function(args) {
+      return [0, 0, args[0]];
+    };
+    convert.gray.hwb = function(gray) {
+      return [0, 100, gray[0]];
+    };
+    convert.gray.cmyk = function(gray) {
+      return [0, 0, 0, gray[0]];
+    };
+    convert.gray.lab = function(gray) {
+      return [gray[0], 0, 0];
+    };
+    convert.gray.hex = function(gray) {
+      var val = Math.round(gray[0] / 100 * 255) & 255;
+      var integer = (val << 16) + (val << 8) + val;
+      var string = integer.toString(16).toUpperCase();
+      return "000000".substring(string.length) + string;
+    };
+    convert.rgb.gray = function(rgb) {
+      var val = (rgb[0] + rgb[1] + rgb[2]) / 3;
+      return [val / 255 * 100];
+    };
+  }
+});
+
+// ../../node_modules/.pnpm/color-convert@1.9.3/node_modules/color-convert/route.js
+var require_route = __commonJS({
+  "../../node_modules/.pnpm/color-convert@1.9.3/node_modules/color-convert/route.js"(exports, module) {
+    var conversions = require_conversions();
+    function buildGraph() {
+      var graph = {};
+      var models = Object.keys(conversions);
+      for (var len = models.length, i = 0; i < len; i++) {
+        graph[models[i]] = {
+          distance: -1,
+          parent: null
+        };
+      }
+      return graph;
+    }
+    function deriveBFS(fromModel) {
+      var graph = buildGraph();
+      var queue = [fromModel];
+      graph[fromModel].distance = 0;
+      while (queue.length) {
+        var current = queue.pop();
+        var adjacents = Object.keys(conversions[current]);
+        for (var len = adjacents.length, i = 0; i < len; i++) {
+          var adjacent = adjacents[i];
+          var node = graph[adjacent];
+          if (node.distance === -1) {
+            node.distance = graph[current].distance + 1;
+            node.parent = current;
+            queue.unshift(adjacent);
+          }
+        }
+      }
+      return graph;
+    }
+    function link(from, to) {
+      return function(args) {
+        return to(from(args));
+      };
+    }
+    function wrapConversion(toModel, graph) {
+      var path = [graph[toModel].parent, toModel];
+      var fn = conversions[graph[toModel].parent][toModel];
+      var cur = graph[toModel].parent;
+      while (graph[cur].parent) {
+        path.unshift(graph[cur].parent);
+        fn = link(conversions[graph[cur].parent][cur], fn);
+        cur = graph[cur].parent;
+      }
+      fn.conversion = path;
+      return fn;
+    }
+    module.exports = function(fromModel) {
+      var graph = deriveBFS(fromModel);
+      var conversion = {};
+      var models = Object.keys(graph);
+      for (var len = models.length, i = 0; i < len; i++) {
+        var toModel = models[i];
+        var node = graph[toModel];
+        if (node.parent === null) {
+          continue;
+        }
+        conversion[toModel] = wrapConversion(toModel, graph);
+      }
+      return conversion;
+    };
+  }
+});
+
+// ../../node_modules/.pnpm/color-convert@1.9.3/node_modules/color-convert/index.js
+var require_color_convert = __commonJS({
+  "../../node_modules/.pnpm/color-convert@1.9.3/node_modules/color-convert/index.js"(exports, module) {
+    var conversions = require_conversions();
+    var route = require_route();
+    var convert = {};
+    var models = Object.keys(conversions);
+    function wrapRaw(fn) {
+      var wrappedFn = function(args) {
+        if (args === void 0 || args === null) {
+          return args;
+        }
+        if (arguments.length > 1) {
+          args = Array.prototype.slice.call(arguments);
+        }
+        return fn(args);
+      };
+      if ("conversion" in fn) {
+        wrappedFn.conversion = fn.conversion;
+      }
+      return wrappedFn;
+    }
+    function wrapRounded(fn) {
+      var wrappedFn = function(args) {
+        if (args === void 0 || args === null) {
+          return args;
+        }
+        if (arguments.length > 1) {
+          args = Array.prototype.slice.call(arguments);
+        }
+        var result = fn(args);
+        if (typeof result === "object") {
+          for (var len = result.length, i = 0; i < len; i++) {
+            result[i] = Math.round(result[i]);
+          }
+        }
+        return result;
+      };
+      if ("conversion" in fn) {
+        wrappedFn.conversion = fn.conversion;
+      }
+      return wrappedFn;
+    }
+    models.forEach(function(fromModel) {
+      convert[fromModel] = {};
+      Object.defineProperty(convert[fromModel], "channels", { value: conversions[fromModel].channels });
+      Object.defineProperty(convert[fromModel], "labels", { value: conversions[fromModel].labels });
+      var routes = route(fromModel);
+      var routeModels = Object.keys(routes);
+      routeModels.forEach(function(toModel) {
+        var fn = routes[toModel];
+        convert[fromModel][toModel] = wrapRounded(fn);
+        convert[fromModel][toModel].raw = wrapRaw(fn);
+      });
+    });
+    module.exports = convert;
+  }
+});
+
+// ../../node_modules/.pnpm/ansi-styles@3.2.1/node_modules/ansi-styles/index.js
+var require_ansi_styles = __commonJS({
+  "../../node_modules/.pnpm/ansi-styles@3.2.1/node_modules/ansi-styles/index.js"(exports, module) {
+    "use strict";
+    var colorConvert = require_color_convert();
+    var wrapAnsi16 = (fn, offset) => function() {
+      const code = fn.apply(colorConvert, arguments);
+      return `\x1B[${code + offset}m`;
+    };
+    var wrapAnsi256 = (fn, offset) => function() {
+      const code = fn.apply(colorConvert, arguments);
+      return `\x1B[${38 + offset};5;${code}m`;
+    };
+    var wrapAnsi16m = (fn, offset) => function() {
+      const rgb = fn.apply(colorConvert, arguments);
+      return `\x1B[${38 + offset};2;${rgb[0]};${rgb[1]};${rgb[2]}m`;
+    };
+    function assembleStyles() {
+      const codes = /* @__PURE__ */ new Map();
+      const styles = {
+        modifier: {
+          reset: [0, 0],
+          bold: [1, 22],
+          dim: [2, 22],
+          italic: [3, 23],
+          underline: [4, 24],
+          inverse: [7, 27],
+          hidden: [8, 28],
+          strikethrough: [9, 29]
+        },
+        color: {
+          black: [30, 39],
+          red: [31, 39],
+          green: [32, 39],
+          yellow: [33, 39],
+          blue: [34, 39],
+          magenta: [35, 39],
+          cyan: [36, 39],
+          white: [37, 39],
+          gray: [90, 39],
+          redBright: [91, 39],
+          greenBright: [92, 39],
+          yellowBright: [93, 39],
+          blueBright: [94, 39],
+          magentaBright: [95, 39],
+          cyanBright: [96, 39],
+          whiteBright: [97, 39]
+        },
+        bgColor: {
+          bgBlack: [40, 49],
+          bgRed: [41, 49],
+          bgGreen: [42, 49],
+          bgYellow: [43, 49],
+          bgBlue: [44, 49],
+          bgMagenta: [45, 49],
+          bgCyan: [46, 49],
+          bgWhite: [47, 49],
+          bgBlackBright: [100, 49],
+          bgRedBright: [101, 49],
+          bgGreenBright: [102, 49],
+          bgYellowBright: [103, 49],
+          bgBlueBright: [104, 49],
+          bgMagentaBright: [105, 49],
+          bgCyanBright: [106, 49],
+          bgWhiteBright: [107, 49]
+        }
+      };
+      styles.color.grey = styles.color.gray;
+      for (const groupName of Object.keys(styles)) {
+        const group = styles[groupName];
+        for (const styleName of Object.keys(group)) {
+          const style = group[styleName];
+          styles[styleName] = {
+            open: `\x1B[${style[0]}m`,
+            close: `\x1B[${style[1]}m`
+          };
+          group[styleName] = styles[styleName];
+          codes.set(style[0], style[1]);
+        }
+        Object.defineProperty(styles, groupName, {
+          value: group,
+          enumerable: false
+        });
+        Object.defineProperty(styles, "codes", {
+          value: codes,
+          enumerable: false
+        });
+      }
+      const ansi2ansi = (n) => n;
+      const rgb2rgb = (r, g, b) => [r, g, b];
+      styles.color.close = "\x1B[39m";
+      styles.bgColor.close = "\x1B[49m";
+      styles.color.ansi = {
+        ansi: wrapAnsi16(ansi2ansi, 0)
+      };
+      styles.color.ansi256 = {
+        ansi256: wrapAnsi256(ansi2ansi, 0)
+      };
+      styles.color.ansi16m = {
+        rgb: wrapAnsi16m(rgb2rgb, 0)
+      };
+      styles.bgColor.ansi = {
+        ansi: wrapAnsi16(ansi2ansi, 10)
+      };
+      styles.bgColor.ansi256 = {
+        ansi256: wrapAnsi256(ansi2ansi, 10)
+      };
+      styles.bgColor.ansi16m = {
+        rgb: wrapAnsi16m(rgb2rgb, 10)
+      };
+      for (let key2 of Object.keys(colorConvert)) {
+        if (typeof colorConvert[key2] !== "object") {
+          continue;
+        }
+        const suite = colorConvert[key2];
+        if (key2 === "ansi16") {
+          key2 = "ansi";
+        }
+        if ("ansi16" in suite) {
+          styles.color.ansi[key2] = wrapAnsi16(suite.ansi16, 0);
+          styles.bgColor.ansi[key2] = wrapAnsi16(suite.ansi16, 10);
+        }
+        if ("ansi256" in suite) {
+          styles.color.ansi256[key2] = wrapAnsi256(suite.ansi256, 0);
+          styles.bgColor.ansi256[key2] = wrapAnsi256(suite.ansi256, 10);
+        }
+        if ("rgb" in suite) {
+          styles.color.ansi16m[key2] = wrapAnsi16m(suite.rgb, 0);
+          styles.bgColor.ansi16m[key2] = wrapAnsi16m(suite.rgb, 10);
+        }
+      }
+      return styles;
+    }
+    Object.defineProperty(module, "exports", {
+      enumerable: true,
+      get: assembleStyles
+    });
+  }
+});
+
+// ../../node_modules/.pnpm/has-flag@3.0.0/node_modules/has-flag/index.js
+var require_has_flag = __commonJS({
+  "../../node_modules/.pnpm/has-flag@3.0.0/node_modules/has-flag/index.js"(exports, module) {
+    "use strict";
+    module.exports = (flag, argv) => {
+      argv = argv || process.argv;
+      const prefix = flag.startsWith("-") ? "" : flag.length === 1 ? "-" : "--";
+      const pos = argv.indexOf(prefix + flag);
+      const terminatorPos = argv.indexOf("--");
+      return pos !== -1 && (terminatorPos === -1 ? true : pos < terminatorPos);
+    };
+  }
+});
+
+// ../../node_modules/.pnpm/supports-color@5.5.0/node_modules/supports-color/index.js
+var require_supports_color = __commonJS({
+  "../../node_modules/.pnpm/supports-color@5.5.0/node_modules/supports-color/index.js"(exports, module) {
+    "use strict";
+    var os = __require("os");
+    var hasFlag = require_has_flag();
+    var env2 = process.env;
+    var forceColor;
+    if (hasFlag("no-color") || hasFlag("no-colors") || hasFlag("color=false")) {
+      forceColor = false;
+    } else if (hasFlag("color") || hasFlag("colors") || hasFlag("color=true") || hasFlag("color=always")) {
+      forceColor = true;
+    }
+    if ("FORCE_COLOR" in env2) {
+      forceColor = env2.FORCE_COLOR.length === 0 || parseInt(env2.FORCE_COLOR, 10) !== 0;
+    }
+    function translateLevel(level) {
+      if (level === 0) {
+        return false;
+      }
+      return {
+        level,
+        hasBasic: true,
+        has256: level >= 2,
+        has16m: level >= 3
+      };
+    }
+    function supportsColor(stream) {
+      if (forceColor === false) {
+        return 0;
+      }
+      if (hasFlag("color=16m") || hasFlag("color=full") || hasFlag("color=truecolor")) {
+        return 3;
+      }
+      if (hasFlag("color=256")) {
+        return 2;
+      }
+      if (stream && !stream.isTTY && forceColor !== true) {
+        return 0;
+      }
+      const min = forceColor ? 1 : 0;
+      if (process.platform === "win32") {
+        const osRelease = os.release().split(".");
+        if (Number(process.versions.node.split(".")[0]) >= 8 && Number(osRelease[0]) >= 10 && Number(osRelease[2]) >= 10586) {
+          return Number(osRelease[2]) >= 14931 ? 3 : 2;
+        }
+        return 1;
+      }
+      if ("CI" in env2) {
+        if (["TRAVIS", "CIRCLECI", "APPVEYOR", "GITLAB_CI"].some((sign) => sign in env2) || env2.CI_NAME === "codeship") {
+          return 1;
+        }
+        return min;
+      }
+      if ("TEAMCITY_VERSION" in env2) {
+        return /^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/.test(env2.TEAMCITY_VERSION) ? 1 : 0;
+      }
+      if (env2.COLORTERM === "truecolor") {
+        return 3;
+      }
+      if ("TERM_PROGRAM" in env2) {
+        const version = parseInt((env2.TERM_PROGRAM_VERSION || "").split(".")[0], 10);
+        switch (env2.TERM_PROGRAM) {
+          case "iTerm.app":
+            return version >= 3 ? 3 : 2;
+          case "Apple_Terminal":
+            return 2;
+        }
+      }
+      if (/-256(color)?$/i.test(env2.TERM)) {
+        return 2;
+      }
+      if (/^screen|^xterm|^vt100|^vt220|^rxvt|color|ansi|cygwin|linux/i.test(env2.TERM)) {
+        return 1;
+      }
+      if ("COLORTERM" in env2) {
+        return 1;
+      }
+      if (env2.TERM === "dumb") {
+        return min;
+      }
+      return min;
+    }
+    function getSupportLevel(stream) {
+      const level = supportsColor(stream);
+      return translateLevel(level);
+    }
+    module.exports = {
+      supportsColor: getSupportLevel,
+      stdout: getSupportLevel(process.stdout),
+      stderr: getSupportLevel(process.stderr)
+    };
+  }
+});
+
+// ../../node_modules/.pnpm/chalk@2.4.2/node_modules/chalk/templates.js
+var require_templates = __commonJS({
+  "../../node_modules/.pnpm/chalk@2.4.2/node_modules/chalk/templates.js"(exports, module) {
+    "use strict";
+    var TEMPLATE_REGEX = /(?:\\(u[a-f\d]{4}|x[a-f\d]{2}|.))|(?:\{(~)?(\w+(?:\([^)]*\))?(?:\.\w+(?:\([^)]*\))?)*)(?:[ \t]|(?=\r?\n)))|(\})|((?:.|[\r\n\f])+?)/gi;
+    var STYLE_REGEX = /(?:^|\.)(\w+)(?:\(([^)]*)\))?/g;
+    var STRING_REGEX = /^(['"])((?:\\.|(?!\1)[^\\])*)\1$/;
+    var ESCAPE_REGEX = /\\(u[a-f\d]{4}|x[a-f\d]{2}|.)|([^\\])/gi;
+    var ESCAPES = /* @__PURE__ */ new Map([
+      ["n", "\n"],
+      ["r", "\r"],
+      ["t", "	"],
+      ["b", "\b"],
+      ["f", "\f"],
+      ["v", "\v"],
+      ["0", "\0"],
+      ["\\", "\\"],
+      ["e", "\x1B"],
+      ["a", "\x07"]
+    ]);
+    function unescape(c) {
+      if (c[0] === "u" && c.length === 5 || c[0] === "x" && c.length === 3) {
+        return String.fromCharCode(parseInt(c.slice(1), 16));
+      }
+      return ESCAPES.get(c) || c;
+    }
+    function parseArguments(name, args) {
+      const results = [];
+      const chunks = args.trim().split(/\s*,\s*/g);
+      let matches;
+      for (const chunk of chunks) {
+        if (!isNaN(chunk)) {
+          results.push(Number(chunk));
+        } else if (matches = chunk.match(STRING_REGEX)) {
+          results.push(matches[2].replace(ESCAPE_REGEX, (m, escape, chr) => escape ? unescape(escape) : chr));
+        } else {
+          throw new Error(`Invalid Chalk template style argument: ${chunk} (in style '${name}')`);
+        }
+      }
+      return results;
+    }
+    function parseStyle(style) {
+      STYLE_REGEX.lastIndex = 0;
+      const results = [];
+      let matches;
+      while ((matches = STYLE_REGEX.exec(style)) !== null) {
+        const name = matches[1];
+        if (matches[2]) {
+          const args = parseArguments(name, matches[2]);
+          results.push([name].concat(args));
+        } else {
+          results.push([name]);
+        }
+      }
+      return results;
+    }
+    function buildStyle(chalk, styles) {
+      const enabled = {};
+      for (const layer of styles) {
+        for (const style of layer.styles) {
+          enabled[style[0]] = layer.inverse ? null : style.slice(1);
+        }
+      }
+      let current = chalk;
+      for (const styleName of Object.keys(enabled)) {
+        if (Array.isArray(enabled[styleName])) {
+          if (!(styleName in current)) {
+            throw new Error(`Unknown Chalk style: ${styleName}`);
+          }
+          if (enabled[styleName].length > 0) {
+            current = current[styleName].apply(current, enabled[styleName]);
+          } else {
+            current = current[styleName];
+          }
+        }
+      }
+      return current;
+    }
+    module.exports = (chalk, tmp) => {
+      const styles = [];
+      const chunks = [];
+      let chunk = [];
+      tmp.replace(TEMPLATE_REGEX, (m, escapeChar, inverse, style, close, chr) => {
+        if (escapeChar) {
+          chunk.push(unescape(escapeChar));
+        } else if (style) {
+          const str = chunk.join("");
+          chunk = [];
+          chunks.push(styles.length === 0 ? str : buildStyle(chalk, styles)(str));
+          styles.push({ inverse, styles: parseStyle(style) });
+        } else if (close) {
+          if (styles.length === 0) {
+            throw new Error("Found extraneous } in Chalk template literal");
+          }
+          chunks.push(buildStyle(chalk, styles)(chunk.join("")));
+          chunk = [];
+          styles.pop();
+        } else {
+          chunk.push(chr);
+        }
+      });
+      chunks.push(chunk.join(""));
+      if (styles.length > 0) {
+        const errMsg = `Chalk template literal is missing ${styles.length} closing bracket${styles.length === 1 ? "" : "s"} (\`}\`)`;
+        throw new Error(errMsg);
+      }
+      return chunks.join("");
+    };
+  }
+});
+
+// ../../node_modules/.pnpm/chalk@2.4.2/node_modules/chalk/index.js
+var require_chalk = __commonJS({
+  "../../node_modules/.pnpm/chalk@2.4.2/node_modules/chalk/index.js"(exports, module) {
+    "use strict";
+    var escapeStringRegexp = require_escape_string_regexp();
+    var ansiStyles = require_ansi_styles();
+    var stdoutColor = require_supports_color().stdout;
+    var template = require_templates();
+    var isSimpleWindowsTerm = process.platform === "win32" && !(process.env.TERM || "").toLowerCase().startsWith("xterm");
+    var levelMapping = ["ansi", "ansi", "ansi256", "ansi16m"];
+    var skipModels = /* @__PURE__ */ new Set(["gray"]);
+    var styles = /* @__PURE__ */ Object.create(null);
+    function applyOptions(obj, options) {
+      options = options || {};
+      const scLevel = stdoutColor ? stdoutColor.level : 0;
+      obj.level = options.level === void 0 ? scLevel : options.level;
+      obj.enabled = "enabled" in options ? options.enabled : obj.level > 0;
+    }
+    function Chalk(options) {
+      if (!this || !(this instanceof Chalk) || this.template) {
+        const chalk = {};
+        applyOptions(chalk, options);
+        chalk.template = function() {
+          const args = [].slice.call(arguments);
+          return chalkTag.apply(null, [chalk.template].concat(args));
+        };
+        Object.setPrototypeOf(chalk, Chalk.prototype);
+        Object.setPrototypeOf(chalk.template, chalk);
+        chalk.template.constructor = Chalk;
+        return chalk.template;
+      }
+      applyOptions(this, options);
+    }
+    if (isSimpleWindowsTerm) {
+      ansiStyles.blue.open = "\x1B[94m";
+    }
+    for (const key2 of Object.keys(ansiStyles)) {
+      ansiStyles[key2].closeRe = new RegExp(escapeStringRegexp(ansiStyles[key2].close), "g");
+      styles[key2] = {
+        get() {
+          const codes = ansiStyles[key2];
+          return build.call(this, this._styles ? this._styles.concat(codes) : [codes], this._empty, key2);
+        }
+      };
+    }
+    styles.visible = {
+      get() {
+        return build.call(this, this._styles || [], true, "visible");
+      }
+    };
+    ansiStyles.color.closeRe = new RegExp(escapeStringRegexp(ansiStyles.color.close), "g");
+    for (const model of Object.keys(ansiStyles.color.ansi)) {
+      if (skipModels.has(model)) {
+        continue;
+      }
+      styles[model] = {
+        get() {
+          const level = this.level;
+          return function() {
+            const open = ansiStyles.color[levelMapping[level]][model].apply(null, arguments);
+            const codes = {
+              open,
+              close: ansiStyles.color.close,
+              closeRe: ansiStyles.color.closeRe
+            };
+            return build.call(this, this._styles ? this._styles.concat(codes) : [codes], this._empty, model);
+          };
+        }
+      };
+    }
+    ansiStyles.bgColor.closeRe = new RegExp(escapeStringRegexp(ansiStyles.bgColor.close), "g");
+    for (const model of Object.keys(ansiStyles.bgColor.ansi)) {
+      if (skipModels.has(model)) {
+        continue;
+      }
+      const bgModel = "bg" + model[0].toUpperCase() + model.slice(1);
+      styles[bgModel] = {
+        get() {
+          const level = this.level;
+          return function() {
+            const open = ansiStyles.bgColor[levelMapping[level]][model].apply(null, arguments);
+            const codes = {
+              open,
+              close: ansiStyles.bgColor.close,
+              closeRe: ansiStyles.bgColor.closeRe
+            };
+            return build.call(this, this._styles ? this._styles.concat(codes) : [codes], this._empty, model);
+          };
+        }
+      };
+    }
+    var proto = Object.defineProperties(() => {
+    }, styles);
+    function build(_styles, _empty, key2) {
+      const builder = function() {
+        return applyStyle.apply(builder, arguments);
+      };
+      builder._styles = _styles;
+      builder._empty = _empty;
+      const self2 = this;
+      Object.defineProperty(builder, "level", {
+        enumerable: true,
+        get() {
+          return self2.level;
+        },
+        set(level) {
+          self2.level = level;
+        }
+      });
+      Object.defineProperty(builder, "enabled", {
+        enumerable: true,
+        get() {
+          return self2.enabled;
+        },
+        set(enabled) {
+          self2.enabled = enabled;
+        }
+      });
+      builder.hasGrey = this.hasGrey || key2 === "gray" || key2 === "grey";
+      builder.__proto__ = proto;
+      return builder;
+    }
+    function applyStyle() {
+      const args = arguments;
+      const argsLen = args.length;
+      let str = String(arguments[0]);
+      if (argsLen === 0) {
+        return "";
+      }
+      if (argsLen > 1) {
+        for (let a = 1; a < argsLen; a++) {
+          str += " " + args[a];
+        }
+      }
+      if (!this.enabled || this.level <= 0 || !str) {
+        return this._empty ? "" : str;
+      }
+      const originalDim = ansiStyles.dim.open;
+      if (isSimpleWindowsTerm && this.hasGrey) {
+        ansiStyles.dim.open = "";
+      }
+      for (const code of this._styles.slice().reverse()) {
+        str = code.open + str.replace(code.closeRe, code.open) + code.close;
+        str = str.replace(/\r?\n/g, `${code.close}$&${code.open}`);
+      }
+      ansiStyles.dim.open = originalDim;
+      return str;
+    }
+    function chalkTag(chalk, strings2) {
+      if (!Array.isArray(strings2)) {
+        return [].slice.call(arguments, 1).join(" ");
+      }
+      const args = [].slice.call(arguments, 2);
+      const parts = [strings2.raw[0]];
+      for (let i = 1; i < strings2.length; i++) {
+        parts.push(String(args[i - 1]).replace(/[{}\\]/g, "\\$&"));
+        parts.push(String(strings2.raw[i]));
+      }
+      return template(chalk, parts.join(""));
+    }
+    Object.defineProperties(Chalk.prototype, styles);
+    module.exports = Chalk();
+    module.exports.supportsColor = stdoutColor;
+    module.exports.default = module.exports;
+  }
+});
+
+// ../../node_modules/.pnpm/dayjs@1.11.5/node_modules/dayjs/dayjs.min.js
+var require_dayjs_min = __commonJS({
+  "../../node_modules/.pnpm/dayjs@1.11.5/node_modules/dayjs/dayjs.min.js"(exports, module) {
+    !function(t, e) {
+      "object" == typeof exports && "undefined" != typeof module ? module.exports = e() : "function" == typeof define && define.amd ? define(e) : (t = "undefined" != typeof globalThis ? globalThis : t || self).dayjs = e();
+    }(exports, function() {
+      "use strict";
+      var t = 1e3, e = 6e4, n = 36e5, r = "millisecond", i = "second", s = "minute", u = "hour", a = "day", o = "week", f = "month", h = "quarter", c = "year", d = "date", $3 = "Invalid Date", l = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, M = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_") }, m = function(t2, e2, n2) {
+        var r2 = String(t2);
+        return !r2 || r2.length >= e2 ? t2 : "" + Array(e2 + 1 - r2.length).join(n2) + t2;
+      }, g = { s: m, z: function(t2) {
+        var e2 = -t2.utcOffset(), n2 = Math.abs(e2), r2 = Math.floor(n2 / 60), i2 = n2 % 60;
+        return (e2 <= 0 ? "+" : "-") + m(r2, 2, "0") + ":" + m(i2, 2, "0");
+      }, m: function t2(e2, n2) {
+        if (e2.date() < n2.date())
+          return -t2(n2, e2);
+        var r2 = 12 * (n2.year() - e2.year()) + (n2.month() - e2.month()), i2 = e2.clone().add(r2, f), s2 = n2 - i2 < 0, u2 = e2.clone().add(r2 + (s2 ? -1 : 1), f);
+        return +(-(r2 + (n2 - i2) / (s2 ? i2 - u2 : u2 - i2)) || 0);
+      }, a: function(t2) {
+        return t2 < 0 ? Math.ceil(t2) || 0 : Math.floor(t2);
+      }, p: function(t2) {
+        return { M: f, y: c, w: o, d: a, D: d, h: u, m: s, s: i, ms: r, Q: h }[t2] || String(t2 || "").toLowerCase().replace(/s$/, "");
+      }, u: function(t2) {
+        return void 0 === t2;
+      } }, v = "en", D = {};
+      D[v] = M;
+      var p = function(t2) {
+        return t2 instanceof _;
+      }, S = function t2(e2, n2, r2) {
+        var i2;
+        if (!e2)
+          return v;
+        if ("string" == typeof e2) {
+          var s2 = e2.toLowerCase();
+          D[s2] && (i2 = s2), n2 && (D[s2] = n2, i2 = s2);
+          var u2 = e2.split("-");
+          if (!i2 && u2.length > 1)
+            return t2(u2[0]);
+        } else {
+          var a2 = e2.name;
+          D[a2] = e2, i2 = a2;
+        }
+        return !r2 && i2 && (v = i2), i2 || !r2 && v;
+      }, w = function(t2, e2) {
+        if (p(t2))
+          return t2.clone();
+        var n2 = "object" == typeof e2 ? e2 : {};
+        return n2.date = t2, n2.args = arguments, new _(n2);
+      }, O = g;
+      O.l = S, O.i = p, O.w = function(t2, e2) {
+        return w(t2, { locale: e2.$L, utc: e2.$u, x: e2.$x, $offset: e2.$offset });
+      };
+      var _ = function() {
+        function M2(t2) {
+          this.$L = S(t2.locale, null, true), this.parse(t2);
+        }
+        var m2 = M2.prototype;
+        return m2.parse = function(t2) {
+          this.$d = function(t3) {
+            var e2 = t3.date, n2 = t3.utc;
+            if (null === e2)
+              return new Date(NaN);
+            if (O.u(e2))
+              return new Date();
+            if (e2 instanceof Date)
+              return new Date(e2);
+            if ("string" == typeof e2 && !/Z$/i.test(e2)) {
+              var r2 = e2.match(l);
+              if (r2) {
+                var i2 = r2[2] - 1 || 0, s2 = (r2[7] || "0").substring(0, 3);
+                return n2 ? new Date(Date.UTC(r2[1], i2, r2[3] || 1, r2[4] || 0, r2[5] || 0, r2[6] || 0, s2)) : new Date(r2[1], i2, r2[3] || 1, r2[4] || 0, r2[5] || 0, r2[6] || 0, s2);
+              }
+            }
+            return new Date(e2);
+          }(t2), this.$x = t2.x || {}, this.init();
+        }, m2.init = function() {
+          var t2 = this.$d;
+          this.$y = t2.getFullYear(), this.$M = t2.getMonth(), this.$D = t2.getDate(), this.$W = t2.getDay(), this.$H = t2.getHours(), this.$m = t2.getMinutes(), this.$s = t2.getSeconds(), this.$ms = t2.getMilliseconds();
+        }, m2.$utils = function() {
+          return O;
+        }, m2.isValid = function() {
+          return !(this.$d.toString() === $3);
+        }, m2.isSame = function(t2, e2) {
+          var n2 = w(t2);
+          return this.startOf(e2) <= n2 && n2 <= this.endOf(e2);
+        }, m2.isAfter = function(t2, e2) {
+          return w(t2) < this.startOf(e2);
+        }, m2.isBefore = function(t2, e2) {
+          return this.endOf(e2) < w(t2);
+        }, m2.$g = function(t2, e2, n2) {
+          return O.u(t2) ? this[e2] : this.set(n2, t2);
+        }, m2.unix = function() {
+          return Math.floor(this.valueOf() / 1e3);
+        }, m2.valueOf = function() {
+          return this.$d.getTime();
+        }, m2.startOf = function(t2, e2) {
+          var n2 = this, r2 = !!O.u(e2) || e2, h2 = O.p(t2), $4 = function(t3, e3) {
+            var i2 = O.w(n2.$u ? Date.UTC(n2.$y, e3, t3) : new Date(n2.$y, e3, t3), n2);
+            return r2 ? i2 : i2.endOf(a);
+          }, l2 = function(t3, e3) {
+            return O.w(n2.toDate()[t3].apply(n2.toDate("s"), (r2 ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e3)), n2);
+          }, y2 = this.$W, M3 = this.$M, m3 = this.$D, g2 = "set" + (this.$u ? "UTC" : "");
+          switch (h2) {
+            case c:
+              return r2 ? $4(1, 0) : $4(31, 11);
+            case f:
+              return r2 ? $4(1, M3) : $4(0, M3 + 1);
+            case o:
+              var v2 = this.$locale().weekStart || 0, D2 = (y2 < v2 ? y2 + 7 : y2) - v2;
+              return $4(r2 ? m3 - D2 : m3 + (6 - D2), M3);
+            case a:
+            case d:
+              return l2(g2 + "Hours", 0);
+            case u:
+              return l2(g2 + "Minutes", 1);
+            case s:
+              return l2(g2 + "Seconds", 2);
+            case i:
+              return l2(g2 + "Milliseconds", 3);
+            default:
+              return this.clone();
+          }
+        }, m2.endOf = function(t2) {
+          return this.startOf(t2, false);
+        }, m2.$set = function(t2, e2) {
+          var n2, o2 = O.p(t2), h2 = "set" + (this.$u ? "UTC" : ""), $4 = (n2 = {}, n2[a] = h2 + "Date", n2[d] = h2 + "Date", n2[f] = h2 + "Month", n2[c] = h2 + "FullYear", n2[u] = h2 + "Hours", n2[s] = h2 + "Minutes", n2[i] = h2 + "Seconds", n2[r] = h2 + "Milliseconds", n2)[o2], l2 = o2 === a ? this.$D + (e2 - this.$W) : e2;
+          if (o2 === f || o2 === c) {
+            var y2 = this.clone().set(d, 1);
+            y2.$d[$4](l2), y2.init(), this.$d = y2.set(d, Math.min(this.$D, y2.daysInMonth())).$d;
+          } else
+            $4 && this.$d[$4](l2);
+          return this.init(), this;
+        }, m2.set = function(t2, e2) {
+          return this.clone().$set(t2, e2);
+        }, m2.get = function(t2) {
+          return this[O.p(t2)]();
+        }, m2.add = function(r2, h2) {
+          var d2, $4 = this;
+          r2 = Number(r2);
+          var l2 = O.p(h2), y2 = function(t2) {
+            var e2 = w($4);
+            return O.w(e2.date(e2.date() + Math.round(t2 * r2)), $4);
+          };
+          if (l2 === f)
+            return this.set(f, this.$M + r2);
+          if (l2 === c)
+            return this.set(c, this.$y + r2);
+          if (l2 === a)
+            return y2(1);
+          if (l2 === o)
+            return y2(7);
+          var M3 = (d2 = {}, d2[s] = e, d2[u] = n, d2[i] = t, d2)[l2] || 1, m3 = this.$d.getTime() + r2 * M3;
+          return O.w(m3, this);
+        }, m2.subtract = function(t2, e2) {
+          return this.add(-1 * t2, e2);
+        }, m2.format = function(t2) {
+          var e2 = this, n2 = this.$locale();
+          if (!this.isValid())
+            return n2.invalidDate || $3;
+          var r2 = t2 || "YYYY-MM-DDTHH:mm:ssZ", i2 = O.z(this), s2 = this.$H, u2 = this.$m, a2 = this.$M, o2 = n2.weekdays, f2 = n2.months, h2 = function(t3, n3, i3, s3) {
+            return t3 && (t3[n3] || t3(e2, r2)) || i3[n3].slice(0, s3);
+          }, c2 = function(t3) {
+            return O.s(s2 % 12 || 12, t3, "0");
+          }, d2 = n2.meridiem || function(t3, e3, n3) {
+            var r3 = t3 < 12 ? "AM" : "PM";
+            return n3 ? r3.toLowerCase() : r3;
+          }, l2 = { YY: String(this.$y).slice(-2), YYYY: this.$y, M: a2 + 1, MM: O.s(a2 + 1, 2, "0"), MMM: h2(n2.monthsShort, a2, f2, 3), MMMM: h2(f2, a2), D: this.$D, DD: O.s(this.$D, 2, "0"), d: String(this.$W), dd: h2(n2.weekdaysMin, this.$W, o2, 2), ddd: h2(n2.weekdaysShort, this.$W, o2, 3), dddd: o2[this.$W], H: String(s2), HH: O.s(s2, 2, "0"), h: c2(1), hh: c2(2), a: d2(s2, u2, true), A: d2(s2, u2, false), m: String(u2), mm: O.s(u2, 2, "0"), s: String(this.$s), ss: O.s(this.$s, 2, "0"), SSS: O.s(this.$ms, 3, "0"), Z: i2 };
+          return r2.replace(y, function(t3, e3) {
+            return e3 || l2[t3] || i2.replace(":", "");
+          });
+        }, m2.utcOffset = function() {
+          return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
+        }, m2.diff = function(r2, d2, $4) {
+          var l2, y2 = O.p(d2), M3 = w(r2), m3 = (M3.utcOffset() - this.utcOffset()) * e, g2 = this - M3, v2 = O.m(this, M3);
+          return v2 = (l2 = {}, l2[c] = v2 / 12, l2[f] = v2, l2[h] = v2 / 3, l2[o] = (g2 - m3) / 6048e5, l2[a] = (g2 - m3) / 864e5, l2[u] = g2 / n, l2[s] = g2 / e, l2[i] = g2 / t, l2)[y2] || g2, $4 ? v2 : O.a(v2);
+        }, m2.daysInMonth = function() {
+          return this.endOf(f).$D;
+        }, m2.$locale = function() {
+          return D[this.$L];
+        }, m2.locale = function(t2, e2) {
+          if (!t2)
+            return this.$L;
+          var n2 = this.clone(), r2 = S(t2, e2, true);
+          return r2 && (n2.$L = r2), n2;
+        }, m2.clone = function() {
+          return O.w(this.$d, this);
+        }, m2.toDate = function() {
+          return new Date(this.valueOf());
+        }, m2.toJSON = function() {
+          return this.isValid() ? this.toISOString() : null;
+        }, m2.toISOString = function() {
+          return this.$d.toISOString();
+        }, m2.toString = function() {
+          return this.$d.toUTCString();
+        }, M2;
+      }(), T = _.prototype;
+      return w.prototype = T, [["$ms", r], ["$s", i], ["$m", s], ["$H", u], ["$W", a], ["$M", f], ["$y", c], ["$D", d]].forEach(function(t2) {
+        T[t2[1]] = function(e2) {
+          return this.$g(e2, t2[0], t2[1]);
+        };
+      }), w.extend = function(t2, e2) {
+        return t2.$i || (t2(e2, _, w), t2.$i = true), w;
+      }, w.locale = S, w.isDayjs = p, w.unix = function(t2) {
+        return w(1e3 * t2);
+      }, w.en = D[v], w.Ls = D, w.p = {}, w;
+    });
+  }
+});
+
+// ../../node_modules/.pnpm/figures@2.0.0/node_modules/figures/index.js
+var require_figures = __commonJS({
+  "../../node_modules/.pnpm/figures@2.0.0/node_modules/figures/index.js"(exports, module) {
+    "use strict";
+    var escapeStringRegexp = require_escape_string_regexp();
+    var platform = process.platform;
+    var main = {
+      tick: "\u2714",
+      cross: "\u2716",
+      star: "\u2605",
+      square: "\u2587",
+      squareSmall: "\u25FB",
+      squareSmallFilled: "\u25FC",
+      play: "\u25B6",
+      circle: "\u25EF",
+      circleFilled: "\u25C9",
+      circleDotted: "\u25CC",
+      circleDouble: "\u25CE",
+      circleCircle: "\u24DE",
+      circleCross: "\u24E7",
+      circlePipe: "\u24BE",
+      circleQuestionMark: "?\u20DD",
+      bullet: "\u25CF",
+      dot: "\u2024",
+      line: "\u2500",
+      ellipsis: "\u2026",
+      pointer: "\u276F",
+      pointerSmall: "\u203A",
+      info: "\u2139",
+      warning: "\u26A0",
+      hamburger: "\u2630",
+      smiley: "\u32E1",
+      mustache: "\u0DF4",
+      heart: "\u2665",
+      arrowUp: "\u2191",
+      arrowDown: "\u2193",
+      arrowLeft: "\u2190",
+      arrowRight: "\u2192",
+      radioOn: "\u25C9",
+      radioOff: "\u25EF",
+      checkboxOn: "\u2612",
+      checkboxOff: "\u2610",
+      checkboxCircleOn: "\u24E7",
+      checkboxCircleOff: "\u24BE",
+      questionMarkPrefix: "?\u20DD",
+      oneHalf: "\xBD",
+      oneThird: "\u2153",
+      oneQuarter: "\xBC",
+      oneFifth: "\u2155",
+      oneSixth: "\u2159",
+      oneSeventh: "\u2150",
+      oneEighth: "\u215B",
+      oneNinth: "\u2151",
+      oneTenth: "\u2152",
+      twoThirds: "\u2154",
+      twoFifths: "\u2156",
+      threeQuarters: "\xBE",
+      threeFifths: "\u2157",
+      threeEighths: "\u215C",
+      fourFifths: "\u2158",
+      fiveSixths: "\u215A",
+      fiveEighths: "\u215D",
+      sevenEighths: "\u215E"
+    };
+    var win = {
+      tick: "\u221A",
+      cross: "\xD7",
+      star: "*",
+      square: "\u2588",
+      squareSmall: "[ ]",
+      squareSmallFilled: "[\u2588]",
+      play: "\u25BA",
+      circle: "( )",
+      circleFilled: "(*)",
+      circleDotted: "( )",
+      circleDouble: "( )",
+      circleCircle: "(\u25CB)",
+      circleCross: "(\xD7)",
+      circlePipe: "(\u2502)",
+      circleQuestionMark: "(?)",
+      bullet: "*",
+      dot: ".",
+      line: "\u2500",
+      ellipsis: "...",
+      pointer: ">",
+      pointerSmall: "\xBB",
+      info: "i",
+      warning: "\u203C",
+      hamburger: "\u2261",
+      smiley: "\u263A",
+      mustache: "\u250C\u2500\u2510",
+      heart: main.heart,
+      arrowUp: main.arrowUp,
+      arrowDown: main.arrowDown,
+      arrowLeft: main.arrowLeft,
+      arrowRight: main.arrowRight,
+      radioOn: "(*)",
+      radioOff: "( )",
+      checkboxOn: "[\xD7]",
+      checkboxOff: "[ ]",
+      checkboxCircleOn: "(\xD7)",
+      checkboxCircleOff: "( )",
+      questionMarkPrefix: "\uFF1F",
+      oneHalf: "1/2",
+      oneThird: "1/3",
+      oneQuarter: "1/4",
+      oneFifth: "1/5",
+      oneSixth: "1/6",
+      oneSeventh: "1/7",
+      oneEighth: "1/8",
+      oneNinth: "1/9",
+      oneTenth: "1/10",
+      twoThirds: "2/3",
+      twoFifths: "2/5",
+      threeQuarters: "3/4",
+      threeFifths: "3/5",
+      threeEighths: "3/8",
+      fourFifths: "4/5",
+      fiveSixths: "5/6",
+      fiveEighths: "5/8",
+      sevenEighths: "7/8"
+    };
+    if (platform === "linux") {
+      main.questionMarkPrefix = "?";
+    }
+    var figures = platform === "win32" ? win : main;
+    var fn = (str) => {
+      if (figures === main) {
+        return str;
+      }
+      Object.keys(main).forEach((key2) => {
+        if (main[key2] === figures[key2]) {
+          return;
+        }
+        str = str.replace(new RegExp(escapeStringRegexp(main[key2]), "g"), figures[key2]);
+      });
+      return str;
+    };
+    module.exports = Object.assign(fn, figures);
+  }
+});
+
+// ../../node_modules/.pnpm/path-exists@3.0.0/node_modules/path-exists/index.js
+var require_path_exists = __commonJS({
+  "../../node_modules/.pnpm/path-exists@3.0.0/node_modules/path-exists/index.js"(exports, module) {
+    "use strict";
+    var fs = __require("fs");
+    module.exports = (fp) => new Promise((resolve2) => {
+      fs.access(fp, (err2) => {
+        resolve2(!err2);
+      });
+    });
+    module.exports.sync = (fp) => {
+      try {
+        fs.accessSync(fp);
+        return true;
+      } catch (err2) {
+        return false;
+      }
+    };
+  }
+});
+
+// ../../node_modules/.pnpm/p-try@1.0.0/node_modules/p-try/index.js
+var require_p_try = __commonJS({
+  "../../node_modules/.pnpm/p-try@1.0.0/node_modules/p-try/index.js"(exports, module) {
+    "use strict";
+    module.exports = (cb) => new Promise((resolve2) => {
+      resolve2(cb());
+    });
+  }
+});
+
+// ../../node_modules/.pnpm/p-limit@1.3.0/node_modules/p-limit/index.js
+var require_p_limit = __commonJS({
+  "../../node_modules/.pnpm/p-limit@1.3.0/node_modules/p-limit/index.js"(exports, module) {
+    "use strict";
+    var pTry = require_p_try();
+    module.exports = (concurrency) => {
+      if (concurrency < 1) {
+        throw new TypeError("Expected `concurrency` to be a number from 1 and up");
+      }
+      const queue = [];
+      let activeCount = 0;
+      const next = () => {
+        activeCount--;
+        if (queue.length > 0) {
+          queue.shift()();
+        }
+      };
+      return (fn) => new Promise((resolve2, reject) => {
+        const run = () => {
+          activeCount++;
+          pTry(fn).then(
+            (val) => {
+              resolve2(val);
+              next();
+            },
+            (err2) => {
+              reject(err2);
+              next();
+            }
+          );
+        };
+        if (activeCount < concurrency) {
+          run();
+        } else {
+          queue.push(run);
+        }
+      });
+    };
+  }
+});
+
+// ../../node_modules/.pnpm/p-locate@2.0.0/node_modules/p-locate/index.js
+var require_p_locate = __commonJS({
+  "../../node_modules/.pnpm/p-locate@2.0.0/node_modules/p-locate/index.js"(exports, module) {
+    "use strict";
+    var pLimit = require_p_limit();
+    var EndError = class extends Error {
+      constructor(value) {
+        super();
+        this.value = value;
+      }
+    };
+    var finder = (el) => Promise.all(el).then((val) => val[1] === true && Promise.reject(new EndError(val[0])));
+    module.exports = (iterable, tester, opts) => {
+      opts = Object.assign({
+        concurrency: Infinity,
+        preserveOrder: true
+      }, opts);
+      const limit = pLimit(opts.concurrency);
+      const items = Array.from(iterable).map((el) => [el, limit(() => Promise.resolve(el).then(tester))]);
+      const checkLimit = pLimit(opts.preserveOrder ? 1 : Infinity);
+      return Promise.all(items.map((el) => checkLimit(() => finder(el)))).then(() => {
+      }).catch((err2) => err2 instanceof EndError ? err2.value : Promise.reject(err2));
+    };
+  }
+});
+
+// ../../node_modules/.pnpm/locate-path@2.0.0/node_modules/locate-path/index.js
+var require_locate_path = __commonJS({
+  "../../node_modules/.pnpm/locate-path@2.0.0/node_modules/locate-path/index.js"(exports, module) {
+    "use strict";
+    var path = __require("path");
+    var pathExists = require_path_exists();
+    var pLocate = require_p_locate();
+    module.exports = (iterable, opts) => {
+      opts = Object.assign({
+        cwd: process.cwd()
+      }, opts);
+      return pLocate(iterable, (el) => pathExists(path.resolve(opts.cwd, el)), opts);
+    };
+    module.exports.sync = (iterable, opts) => {
+      opts = Object.assign({
+        cwd: process.cwd()
+      }, opts);
+      for (const el of iterable) {
+        if (pathExists.sync(path.resolve(opts.cwd, el))) {
+          return el;
+        }
+      }
+    };
+  }
+});
+
+// ../../node_modules/.pnpm/find-up@2.1.0/node_modules/find-up/index.js
+var require_find_up = __commonJS({
+  "../../node_modules/.pnpm/find-up@2.1.0/node_modules/find-up/index.js"(exports, module) {
+    "use strict";
+    var path = __require("path");
+    var locatePath = require_locate_path();
+    module.exports = (filename, opts) => {
+      opts = opts || {};
+      const startDir = path.resolve(opts.cwd || "");
+      const root = path.parse(startDir).root;
+      const filenames = [].concat(filename);
+      return new Promise((resolve2) => {
+        (function find(dir) {
+          locatePath(filenames, { cwd: dir }).then((file) => {
+            if (file) {
+              resolve2(path.join(dir, file));
+            } else if (dir === root) {
+              resolve2(null);
+            } else {
+              find(path.dirname(dir));
+            }
+          });
+        })(startDir);
+      });
+    };
+    module.exports.sync = (filename, opts) => {
+      opts = opts || {};
+      let dir = path.resolve(opts.cwd || "");
+      const root = path.parse(dir).root;
+      const filenames = [].concat(filename);
+      while (true) {
+        const file = locatePath.sync(filenames, { cwd: dir });
+        if (file) {
+          return path.join(dir, file);
+        } else if (dir === root) {
+          return null;
+        }
+        dir = path.dirname(dir);
+      }
+    };
+  }
+});
+
+// ../../node_modules/.pnpm/graceful-fs@4.2.10/node_modules/graceful-fs/polyfills.js
+var require_polyfills = __commonJS({
+  "../../node_modules/.pnpm/graceful-fs@4.2.10/node_modules/graceful-fs/polyfills.js"(exports, module) {
+    var constants = __require("constants");
+    var origCwd = process.cwd;
+    var cwd = null;
+    var platform = process.env.GRACEFUL_FS_PLATFORM || process.platform;
+    process.cwd = function() {
+      if (!cwd)
+        cwd = origCwd.call(process);
+      return cwd;
+    };
+    try {
+      process.cwd();
+    } catch (er) {
+    }
+    if (typeof process.chdir === "function") {
+      chdir = process.chdir;
+      process.chdir = function(d) {
+        cwd = null;
+        chdir.call(process, d);
+      };
+      if (Object.setPrototypeOf)
+        Object.setPrototypeOf(process.chdir, chdir);
+    }
+    var chdir;
+    module.exports = patch;
+    function patch(fs) {
+      if (constants.hasOwnProperty("O_SYMLINK") && process.version.match(/^v0\.6\.[0-2]|^v0\.5\./)) {
+        patchLchmod(fs);
+      }
+      if (!fs.lutimes) {
+        patchLutimes(fs);
+      }
+      fs.chown = chownFix(fs.chown);
+      fs.fchown = chownFix(fs.fchown);
+      fs.lchown = chownFix(fs.lchown);
+      fs.chmod = chmodFix(fs.chmod);
+      fs.fchmod = chmodFix(fs.fchmod);
+      fs.lchmod = chmodFix(fs.lchmod);
+      fs.chownSync = chownFixSync(fs.chownSync);
+      fs.fchownSync = chownFixSync(fs.fchownSync);
+      fs.lchownSync = chownFixSync(fs.lchownSync);
+      fs.chmodSync = chmodFixSync(fs.chmodSync);
+      fs.fchmodSync = chmodFixSync(fs.fchmodSync);
+      fs.lchmodSync = chmodFixSync(fs.lchmodSync);
+      fs.stat = statFix(fs.stat);
+      fs.fstat = statFix(fs.fstat);
+      fs.lstat = statFix(fs.lstat);
+      fs.statSync = statFixSync(fs.statSync);
+      fs.fstatSync = statFixSync(fs.fstatSync);
+      fs.lstatSync = statFixSync(fs.lstatSync);
+      if (fs.chmod && !fs.lchmod) {
+        fs.lchmod = function(path, mode, cb) {
+          if (cb)
+            process.nextTick(cb);
+        };
+        fs.lchmodSync = function() {
+        };
+      }
+      if (fs.chown && !fs.lchown) {
+        fs.lchown = function(path, uid, gid, cb) {
+          if (cb)
+            process.nextTick(cb);
+        };
+        fs.lchownSync = function() {
+        };
+      }
+      if (platform === "win32") {
+        fs.rename = typeof fs.rename !== "function" ? fs.rename : function(fs$rename) {
+          function rename(from, to, cb) {
+            var start = Date.now();
+            var backoff = 0;
+            fs$rename(from, to, function CB(er) {
+              if (er && (er.code === "EACCES" || er.code === "EPERM") && Date.now() - start < 6e4) {
+                setTimeout(function() {
+                  fs.stat(to, function(stater, st) {
+                    if (stater && stater.code === "ENOENT")
+                      fs$rename(from, to, CB);
+                    else
+                      cb(er);
+                  });
+                }, backoff);
+                if (backoff < 100)
+                  backoff += 10;
+                return;
+              }
+              if (cb)
+                cb(er);
+            });
+          }
+          if (Object.setPrototypeOf)
+            Object.setPrototypeOf(rename, fs$rename);
+          return rename;
+        }(fs.rename);
+      }
+      fs.read = typeof fs.read !== "function" ? fs.read : function(fs$read) {
+        function read2(fd, buffer, offset, length, position3, callback_) {
+          var callback;
+          if (callback_ && typeof callback_ === "function") {
+            var eagCounter = 0;
+            callback = function(er, _, __) {
+              if (er && er.code === "EAGAIN" && eagCounter < 10) {
+                eagCounter++;
+                return fs$read.call(fs, fd, buffer, offset, length, position3, callback);
+              }
+              callback_.apply(this, arguments);
+            };
+          }
+          return fs$read.call(fs, fd, buffer, offset, length, position3, callback);
+        }
+        if (Object.setPrototypeOf)
+          Object.setPrototypeOf(read2, fs$read);
+        return read2;
+      }(fs.read);
+      fs.readSync = typeof fs.readSync !== "function" ? fs.readSync : function(fs$readSync) {
+        return function(fd, buffer, offset, length, position3) {
+          var eagCounter = 0;
+          while (true) {
+            try {
+              return fs$readSync.call(fs, fd, buffer, offset, length, position3);
+            } catch (er) {
+              if (er.code === "EAGAIN" && eagCounter < 10) {
+                eagCounter++;
+                continue;
+              }
+              throw er;
+            }
+          }
+        };
+      }(fs.readSync);
+      function patchLchmod(fs2) {
+        fs2.lchmod = function(path, mode, callback) {
+          fs2.open(
+            path,
+            constants.O_WRONLY | constants.O_SYMLINK,
+            mode,
+            function(err2, fd) {
+              if (err2) {
+                if (callback)
+                  callback(err2);
+                return;
+              }
+              fs2.fchmod(fd, mode, function(err3) {
+                fs2.close(fd, function(err22) {
+                  if (callback)
+                    callback(err3 || err22);
+                });
+              });
+            }
+          );
+        };
+        fs2.lchmodSync = function(path, mode) {
+          var fd = fs2.openSync(path, constants.O_WRONLY | constants.O_SYMLINK, mode);
+          var threw = true;
+          var ret;
+          try {
+            ret = fs2.fchmodSync(fd, mode);
+            threw = false;
+          } finally {
+            if (threw) {
+              try {
+                fs2.closeSync(fd);
+              } catch (er) {
+              }
+            } else {
+              fs2.closeSync(fd);
+            }
+          }
+          return ret;
+        };
+      }
+      function patchLutimes(fs2) {
+        if (constants.hasOwnProperty("O_SYMLINK") && fs2.futimes) {
+          fs2.lutimes = function(path, at, mt, cb) {
+            fs2.open(path, constants.O_SYMLINK, function(er, fd) {
+              if (er) {
+                if (cb)
+                  cb(er);
+                return;
+              }
+              fs2.futimes(fd, at, mt, function(er2) {
+                fs2.close(fd, function(er22) {
+                  if (cb)
+                    cb(er2 || er22);
+                });
+              });
+            });
+          };
+          fs2.lutimesSync = function(path, at, mt) {
+            var fd = fs2.openSync(path, constants.O_SYMLINK);
+            var ret;
+            var threw = true;
+            try {
+              ret = fs2.futimesSync(fd, at, mt);
+              threw = false;
+            } finally {
+              if (threw) {
+                try {
+                  fs2.closeSync(fd);
+                } catch (er) {
+                }
+              } else {
+                fs2.closeSync(fd);
+              }
+            }
+            return ret;
+          };
+        } else if (fs2.futimes) {
+          fs2.lutimes = function(_a, _b, _c, cb) {
+            if (cb)
+              process.nextTick(cb);
+          };
+          fs2.lutimesSync = function() {
+          };
+        }
+      }
+      function chmodFix(orig) {
+        if (!orig)
+          return orig;
+        return function(target2, mode, cb) {
+          return orig.call(fs, target2, mode, function(er) {
+            if (chownErOk(er))
+              er = null;
+            if (cb)
+              cb.apply(this, arguments);
+          });
+        };
+      }
+      function chmodFixSync(orig) {
+        if (!orig)
+          return orig;
+        return function(target2, mode) {
+          try {
+            return orig.call(fs, target2, mode);
+          } catch (er) {
+            if (!chownErOk(er))
+              throw er;
+          }
+        };
+      }
+      function chownFix(orig) {
+        if (!orig)
+          return orig;
+        return function(target2, uid, gid, cb) {
+          return orig.call(fs, target2, uid, gid, function(er) {
+            if (chownErOk(er))
+              er = null;
+            if (cb)
+              cb.apply(this, arguments);
+          });
+        };
+      }
+      function chownFixSync(orig) {
+        if (!orig)
+          return orig;
+        return function(target2, uid, gid) {
+          try {
+            return orig.call(fs, target2, uid, gid);
+          } catch (er) {
+            if (!chownErOk(er))
+              throw er;
+          }
+        };
+      }
+      function statFix(orig) {
+        if (!orig)
+          return orig;
+        return function(target2, options, cb) {
+          if (typeof options === "function") {
+            cb = options;
+            options = null;
+          }
+          function callback(er, stats) {
+            if (stats) {
+              if (stats.uid < 0)
+                stats.uid += 4294967296;
+              if (stats.gid < 0)
+                stats.gid += 4294967296;
+            }
+            if (cb)
+              cb.apply(this, arguments);
+          }
+          return options ? orig.call(fs, target2, options, callback) : orig.call(fs, target2, callback);
+        };
+      }
+      function statFixSync(orig) {
+        if (!orig)
+          return orig;
+        return function(target2, options) {
+          var stats = options ? orig.call(fs, target2, options) : orig.call(fs, target2);
+          if (stats) {
+            if (stats.uid < 0)
+              stats.uid += 4294967296;
+            if (stats.gid < 0)
+              stats.gid += 4294967296;
+          }
+          return stats;
+        };
+      }
+      function chownErOk(er) {
+        if (!er)
+          return true;
+        if (er.code === "ENOSYS")
+          return true;
+        var nonroot = !process.getuid || process.getuid() !== 0;
+        if (nonroot) {
+          if (er.code === "EINVAL" || er.code === "EPERM")
+            return true;
+        }
+        return false;
+      }
+    }
+  }
+});
+
+// ../../node_modules/.pnpm/graceful-fs@4.2.10/node_modules/graceful-fs/legacy-streams.js
+var require_legacy_streams = __commonJS({
+  "../../node_modules/.pnpm/graceful-fs@4.2.10/node_modules/graceful-fs/legacy-streams.js"(exports, module) {
+    var Stream = __require("stream").Stream;
+    module.exports = legacy;
+    function legacy(fs) {
+      return {
+        ReadStream,
+        WriteStream
+      };
+      function ReadStream(path, options) {
+        if (!(this instanceof ReadStream))
+          return new ReadStream(path, options);
+        Stream.call(this);
+        var self2 = this;
+        this.path = path;
+        this.fd = null;
+        this.readable = true;
+        this.paused = false;
+        this.flags = "r";
+        this.mode = 438;
+        this.bufferSize = 64 * 1024;
+        options = options || {};
+        var keys = Object.keys(options);
+        for (var index = 0, length = keys.length; index < length; index++) {
+          var key2 = keys[index];
+          this[key2] = options[key2];
+        }
+        if (this.encoding)
+          this.setEncoding(this.encoding);
+        if (this.start !== void 0) {
+          if ("number" !== typeof this.start) {
+            throw TypeError("start must be a Number");
+          }
+          if (this.end === void 0) {
+            this.end = Infinity;
+          } else if ("number" !== typeof this.end) {
+            throw TypeError("end must be a Number");
+          }
+          if (this.start > this.end) {
+            throw new Error("start must be <= end");
+          }
+          this.pos = this.start;
+        }
+        if (this.fd !== null) {
+          process.nextTick(function() {
+            self2._read();
+          });
+          return;
+        }
+        fs.open(this.path, this.flags, this.mode, function(err2, fd) {
+          if (err2) {
+            self2.emit("error", err2);
+            self2.readable = false;
+            return;
+          }
+          self2.fd = fd;
+          self2.emit("open", fd);
+          self2._read();
+        });
+      }
+      function WriteStream(path, options) {
+        if (!(this instanceof WriteStream))
+          return new WriteStream(path, options);
+        Stream.call(this);
+        this.path = path;
+        this.fd = null;
+        this.writable = true;
+        this.flags = "w";
+        this.encoding = "binary";
+        this.mode = 438;
+        this.bytesWritten = 0;
+        options = options || {};
+        var keys = Object.keys(options);
+        for (var index = 0, length = keys.length; index < length; index++) {
+          var key2 = keys[index];
+          this[key2] = options[key2];
+        }
+        if (this.start !== void 0) {
+          if ("number" !== typeof this.start) {
+            throw TypeError("start must be a Number");
+          }
+          if (this.start < 0) {
+            throw new Error("start must be >= zero");
+          }
+          this.pos = this.start;
+        }
+        this.busy = false;
+        this._queue = [];
+        if (this.fd === null) {
+          this._open = fs.open;
+          this._queue.push([this._open, this.path, this.flags, this.mode, void 0]);
+          this.flush();
+        }
+      }
+    }
+  }
+});
+
+// ../../node_modules/.pnpm/graceful-fs@4.2.10/node_modules/graceful-fs/clone.js
+var require_clone = __commonJS({
+  "../../node_modules/.pnpm/graceful-fs@4.2.10/node_modules/graceful-fs/clone.js"(exports, module) {
+    "use strict";
+    module.exports = clone;
+    var getPrototypeOf = Object.getPrototypeOf || function(obj) {
+      return obj.__proto__;
+    };
+    function clone(obj) {
+      if (obj === null || typeof obj !== "object")
+        return obj;
+      if (obj instanceof Object)
+        var copy = { __proto__: getPrototypeOf(obj) };
+      else
+        var copy = /* @__PURE__ */ Object.create(null);
+      Object.getOwnPropertyNames(obj).forEach(function(key2) {
+        Object.defineProperty(copy, key2, Object.getOwnPropertyDescriptor(obj, key2));
+      });
+      return copy;
+    }
+  }
+});
+
+// ../../node_modules/.pnpm/graceful-fs@4.2.10/node_modules/graceful-fs/graceful-fs.js
+var require_graceful_fs = __commonJS({
+  "../../node_modules/.pnpm/graceful-fs@4.2.10/node_modules/graceful-fs/graceful-fs.js"(exports, module) {
+    var fs = __require("fs");
+    var polyfills = require_polyfills();
+    var legacy = require_legacy_streams();
+    var clone = require_clone();
+    var util2 = __require("util");
+    var gracefulQueue;
+    var previousSymbol;
+    if (typeof Symbol === "function" && typeof Symbol.for === "function") {
+      gracefulQueue = Symbol.for("graceful-fs.queue");
+      previousSymbol = Symbol.for("graceful-fs.previous");
+    } else {
+      gracefulQueue = "___graceful-fs.queue";
+      previousSymbol = "___graceful-fs.previous";
+    }
+    function noop() {
+    }
+    function publishQueue(context, queue2) {
+      Object.defineProperty(context, gracefulQueue, {
+        get: function() {
+          return queue2;
+        }
+      });
+    }
+    var debug = noop;
+    if (util2.debuglog)
+      debug = util2.debuglog("gfs4");
+    else if (/\bgfs4\b/i.test(process.env.NODE_DEBUG || ""))
+      debug = function() {
+        var m = util2.format.apply(util2, arguments);
+        m = "GFS4: " + m.split(/\n/).join("\nGFS4: ");
+        console.error(m);
+      };
+    if (!fs[gracefulQueue]) {
+      queue = global[gracefulQueue] || [];
+      publishQueue(fs, queue);
+      fs.close = function(fs$close) {
+        function close(fd, cb) {
+          return fs$close.call(fs, fd, function(err2) {
+            if (!err2) {
+              resetQueue();
+            }
+            if (typeof cb === "function")
+              cb.apply(this, arguments);
+          });
+        }
+        Object.defineProperty(close, previousSymbol, {
+          value: fs$close
+        });
+        return close;
+      }(fs.close);
+      fs.closeSync = function(fs$closeSync) {
+        function closeSync(fd) {
+          fs$closeSync.apply(fs, arguments);
+          resetQueue();
+        }
+        Object.defineProperty(closeSync, previousSymbol, {
+          value: fs$closeSync
+        });
+        return closeSync;
+      }(fs.closeSync);
+      if (/\bgfs4\b/i.test(process.env.NODE_DEBUG || "")) {
+        process.on("exit", function() {
+          debug(fs[gracefulQueue]);
+          __require("assert").equal(fs[gracefulQueue].length, 0);
+        });
+      }
+    }
+    var queue;
+    if (!global[gracefulQueue]) {
+      publishQueue(global, fs[gracefulQueue]);
+    }
+    module.exports = patch(clone(fs));
+    if (process.env.TEST_GRACEFUL_FS_GLOBAL_PATCH && !fs.__patched) {
+      module.exports = patch(fs);
+      fs.__patched = true;
+    }
+    function patch(fs2) {
+      polyfills(fs2);
+      fs2.gracefulify = patch;
+      fs2.createReadStream = createReadStream;
+      fs2.createWriteStream = createWriteStream2;
+      var fs$readFile = fs2.readFile;
+      fs2.readFile = readFile;
+      function readFile(path, options, cb) {
+        if (typeof options === "function")
+          cb = options, options = null;
+        return go$readFile(path, options, cb);
+        function go$readFile(path2, options2, cb2, startTime) {
+          return fs$readFile(path2, options2, function(err2) {
+            if (err2 && (err2.code === "EMFILE" || err2.code === "ENFILE"))
+              enqueue([go$readFile, [path2, options2, cb2], err2, startTime || Date.now(), Date.now()]);
+            else {
+              if (typeof cb2 === "function")
+                cb2.apply(this, arguments);
+            }
+          });
+        }
+      }
+      var fs$writeFile = fs2.writeFile;
+      fs2.writeFile = writeFile;
+      function writeFile(path, data, options, cb) {
+        if (typeof options === "function")
+          cb = options, options = null;
+        return go$writeFile(path, data, options, cb);
+        function go$writeFile(path2, data2, options2, cb2, startTime) {
+          return fs$writeFile(path2, data2, options2, function(err2) {
+            if (err2 && (err2.code === "EMFILE" || err2.code === "ENFILE"))
+              enqueue([go$writeFile, [path2, data2, options2, cb2], err2, startTime || Date.now(), Date.now()]);
+            else {
+              if (typeof cb2 === "function")
+                cb2.apply(this, arguments);
+            }
+          });
+        }
+      }
+      var fs$appendFile = fs2.appendFile;
+      if (fs$appendFile)
+        fs2.appendFile = appendFile;
+      function appendFile(path, data, options, cb) {
+        if (typeof options === "function")
+          cb = options, options = null;
+        return go$appendFile(path, data, options, cb);
+        function go$appendFile(path2, data2, options2, cb2, startTime) {
+          return fs$appendFile(path2, data2, options2, function(err2) {
+            if (err2 && (err2.code === "EMFILE" || err2.code === "ENFILE"))
+              enqueue([go$appendFile, [path2, data2, options2, cb2], err2, startTime || Date.now(), Date.now()]);
+            else {
+              if (typeof cb2 === "function")
+                cb2.apply(this, arguments);
+            }
+          });
+        }
+      }
+      var fs$copyFile = fs2.copyFile;
+      if (fs$copyFile)
+        fs2.copyFile = copyFile;
+      function copyFile(src2, dest, flags, cb) {
+        if (typeof flags === "function") {
+          cb = flags;
+          flags = 0;
+        }
+        return go$copyFile(src2, dest, flags, cb);
+        function go$copyFile(src3, dest2, flags2, cb2, startTime) {
+          return fs$copyFile(src3, dest2, flags2, function(err2) {
+            if (err2 && (err2.code === "EMFILE" || err2.code === "ENFILE"))
+              enqueue([go$copyFile, [src3, dest2, flags2, cb2], err2, startTime || Date.now(), Date.now()]);
+            else {
+              if (typeof cb2 === "function")
+                cb2.apply(this, arguments);
+            }
+          });
+        }
+      }
+      var fs$readdir = fs2.readdir;
+      fs2.readdir = readdir;
+      var noReaddirOptionVersions = /^v[0-5]\./;
+      function readdir(path, options, cb) {
+        if (typeof options === "function")
+          cb = options, options = null;
+        var go$readdir = noReaddirOptionVersions.test(process.version) ? function go$readdir2(path2, options2, cb2, startTime) {
+          return fs$readdir(path2, fs$readdirCallback(
+            path2,
+            options2,
+            cb2,
+            startTime
+          ));
+        } : function go$readdir2(path2, options2, cb2, startTime) {
+          return fs$readdir(path2, options2, fs$readdirCallback(
+            path2,
+            options2,
+            cb2,
+            startTime
+          ));
+        };
+        return go$readdir(path, options, cb);
+        function fs$readdirCallback(path2, options2, cb2, startTime) {
+          return function(err2, files) {
+            if (err2 && (err2.code === "EMFILE" || err2.code === "ENFILE"))
+              enqueue([
+                go$readdir,
+                [path2, options2, cb2],
+                err2,
+                startTime || Date.now(),
+                Date.now()
+              ]);
+            else {
+              if (files && files.sort)
+                files.sort();
+              if (typeof cb2 === "function")
+                cb2.call(this, err2, files);
+            }
+          };
+        }
+      }
+      if (process.version.substr(0, 4) === "v0.8") {
+        var legStreams = legacy(fs2);
+        ReadStream = legStreams.ReadStream;
+        WriteStream = legStreams.WriteStream;
+      }
+      var fs$ReadStream = fs2.ReadStream;
+      if (fs$ReadStream) {
+        ReadStream.prototype = Object.create(fs$ReadStream.prototype);
+        ReadStream.prototype.open = ReadStream$open;
+      }
+      var fs$WriteStream = fs2.WriteStream;
+      if (fs$WriteStream) {
+        WriteStream.prototype = Object.create(fs$WriteStream.prototype);
+        WriteStream.prototype.open = WriteStream$open;
+      }
+      Object.defineProperty(fs2, "ReadStream", {
+        get: function() {
+          return ReadStream;
+        },
+        set: function(val) {
+          ReadStream = val;
+        },
+        enumerable: true,
+        configurable: true
+      });
+      Object.defineProperty(fs2, "WriteStream", {
+        get: function() {
+          return WriteStream;
+        },
+        set: function(val) {
+          WriteStream = val;
+        },
+        enumerable: true,
+        configurable: true
+      });
+      var FileReadStream = ReadStream;
+      Object.defineProperty(fs2, "FileReadStream", {
+        get: function() {
+          return FileReadStream;
+        },
+        set: function(val) {
+          FileReadStream = val;
+        },
+        enumerable: true,
+        configurable: true
+      });
+      var FileWriteStream = WriteStream;
+      Object.defineProperty(fs2, "FileWriteStream", {
+        get: function() {
+          return FileWriteStream;
+        },
+        set: function(val) {
+          FileWriteStream = val;
+        },
+        enumerable: true,
+        configurable: true
+      });
+      function ReadStream(path, options) {
+        if (this instanceof ReadStream)
+          return fs$ReadStream.apply(this, arguments), this;
+        else
+          return ReadStream.apply(Object.create(ReadStream.prototype), arguments);
+      }
+      function ReadStream$open() {
+        var that = this;
+        open(that.path, that.flags, that.mode, function(err2, fd) {
+          if (err2) {
+            if (that.autoClose)
+              that.destroy();
+            that.emit("error", err2);
+          } else {
+            that.fd = fd;
+            that.emit("open", fd);
+            that.read();
+          }
+        });
+      }
+      function WriteStream(path, options) {
+        if (this instanceof WriteStream)
+          return fs$WriteStream.apply(this, arguments), this;
+        else
+          return WriteStream.apply(Object.create(WriteStream.prototype), arguments);
+      }
+      function WriteStream$open() {
+        var that = this;
+        open(that.path, that.flags, that.mode, function(err2, fd) {
+          if (err2) {
+            that.destroy();
+            that.emit("error", err2);
+          } else {
+            that.fd = fd;
+            that.emit("open", fd);
+          }
+        });
+      }
+      function createReadStream(path, options) {
+        return new fs2.ReadStream(path, options);
+      }
+      function createWriteStream2(path, options) {
+        return new fs2.WriteStream(path, options);
+      }
+      var fs$open = fs2.open;
+      fs2.open = open;
+      function open(path, flags, mode, cb) {
+        if (typeof mode === "function")
+          cb = mode, mode = null;
+        return go$open(path, flags, mode, cb);
+        function go$open(path2, flags2, mode2, cb2, startTime) {
+          return fs$open(path2, flags2, mode2, function(err2, fd) {
+            if (err2 && (err2.code === "EMFILE" || err2.code === "ENFILE"))
+              enqueue([go$open, [path2, flags2, mode2, cb2], err2, startTime || Date.now(), Date.now()]);
+            else {
+              if (typeof cb2 === "function")
+                cb2.apply(this, arguments);
+            }
+          });
+        }
+      }
+      return fs2;
+    }
+    function enqueue(elem) {
+      debug("ENQUEUE", elem[0].name, elem[1]);
+      fs[gracefulQueue].push(elem);
+      retry();
+    }
+    var retryTimer;
+    function resetQueue() {
+      var now = Date.now();
+      for (var i = 0; i < fs[gracefulQueue].length; ++i) {
+        if (fs[gracefulQueue][i].length > 2) {
+          fs[gracefulQueue][i][3] = now;
+          fs[gracefulQueue][i][4] = now;
+        }
+      }
+      retry();
+    }
+    function retry() {
+      clearTimeout(retryTimer);
+      retryTimer = void 0;
+      if (fs[gracefulQueue].length === 0)
+        return;
+      var elem = fs[gracefulQueue].shift();
+      var fn = elem[0];
+      var args = elem[1];
+      var err2 = elem[2];
+      var startTime = elem[3];
+      var lastTime = elem[4];
+      if (startTime === void 0) {
+        debug("RETRY", fn.name, args);
+        fn.apply(null, args);
+      } else if (Date.now() - startTime >= 6e4) {
+        debug("TIMEOUT", fn.name, args);
+        var cb = args.pop();
+        if (typeof cb === "function")
+          cb.call(null, err2);
+      } else {
+        var sinceAttempt = Date.now() - lastTime;
+        var sinceStart = Math.max(lastTime - startTime, 1);
+        var desiredDelay = Math.min(sinceStart * 1.2, 100);
+        if (sinceAttempt >= desiredDelay) {
+          debug("RETRY", fn.name, args);
+          fn.apply(null, args.concat([startTime]));
+        } else {
+          fs[gracefulQueue].push(elem);
+        }
+      }
+      if (retryTimer === void 0) {
+        retryTimer = setTimeout(retry, 0);
+      }
+    }
+  }
+});
+
+// ../../node_modules/.pnpm/strip-bom@3.0.0/node_modules/strip-bom/index.js
+var require_strip_bom = __commonJS({
+  "../../node_modules/.pnpm/strip-bom@3.0.0/node_modules/strip-bom/index.js"(exports, module) {
+    "use strict";
+    module.exports = (x) => {
+      if (typeof x !== "string") {
+        throw new TypeError("Expected a string, got " + typeof x);
+      }
+      if (x.charCodeAt(0) === 65279) {
+        return x.slice(1);
+      }
+      return x;
+    };
+  }
+});
+
+// ../../node_modules/.pnpm/is-arrayish@0.2.1/node_modules/is-arrayish/index.js
+var require_is_arrayish = __commonJS({
+  "../../node_modules/.pnpm/is-arrayish@0.2.1/node_modules/is-arrayish/index.js"(exports, module) {
+    "use strict";
+    module.exports = function isArrayish(obj) {
+      if (!obj) {
+        return false;
+      }
+      return obj instanceof Array || Array.isArray(obj) || obj.length >= 0 && obj.splice instanceof Function;
+    };
+  }
+});
+
+// ../../node_modules/.pnpm/error-ex@1.3.2/node_modules/error-ex/index.js
+var require_error_ex = __commonJS({
+  "../../node_modules/.pnpm/error-ex@1.3.2/node_modules/error-ex/index.js"(exports, module) {
+    "use strict";
+    var util2 = __require("util");
+    var isArrayish = require_is_arrayish();
+    var errorEx = function errorEx2(name, properties) {
+      if (!name || name.constructor !== String) {
+        properties = name || {};
+        name = Error.name;
+      }
+      var errorExError = function ErrorEXError(message) {
+        if (!this) {
+          return new ErrorEXError(message);
+        }
+        message = message instanceof Error ? message.message : message || this.message;
+        Error.call(this, message);
+        Error.captureStackTrace(this, errorExError);
+        this.name = name;
+        Object.defineProperty(this, "message", {
+          configurable: true,
+          enumerable: false,
+          get: function() {
+            var newMessage = message.split(/\r?\n/g);
+            for (var key2 in properties) {
+              if (!properties.hasOwnProperty(key2)) {
+                continue;
+              }
+              var modifier = properties[key2];
+              if ("message" in modifier) {
+                newMessage = modifier.message(this[key2], newMessage) || newMessage;
+                if (!isArrayish(newMessage)) {
+                  newMessage = [newMessage];
+                }
+              }
+            }
+            return newMessage.join("\n");
+          },
+          set: function(v) {
+            message = v;
+          }
+        });
+        var overwrittenStack = null;
+        var stackDescriptor = Object.getOwnPropertyDescriptor(this, "stack");
+        var stackGetter = stackDescriptor.get;
+        var stackValue = stackDescriptor.value;
+        delete stackDescriptor.value;
+        delete stackDescriptor.writable;
+        stackDescriptor.set = function(newstack) {
+          overwrittenStack = newstack;
+        };
+        stackDescriptor.get = function() {
+          var stack = (overwrittenStack || (stackGetter ? stackGetter.call(this) : stackValue)).split(/\r?\n+/g);
+          if (!overwrittenStack) {
+            stack[0] = this.name + ": " + this.message;
+          }
+          var lineCount = 1;
+          for (var key2 in properties) {
+            if (!properties.hasOwnProperty(key2)) {
+              continue;
+            }
+            var modifier = properties[key2];
+            if ("line" in modifier) {
+              var line = modifier.line(this[key2]);
+              if (line) {
+                stack.splice(lineCount++, 0, "    " + line);
+              }
+            }
+            if ("stack" in modifier) {
+              modifier.stack(this[key2], stack);
+            }
+          }
+          return stack.join("\n");
+        };
+        Object.defineProperty(this, "stack", stackDescriptor);
+      };
+      if (Object.setPrototypeOf) {
+        Object.setPrototypeOf(errorExError.prototype, Error.prototype);
+        Object.setPrototypeOf(errorExError, Error);
+      } else {
+        util2.inherits(errorExError, Error);
+      }
+      return errorExError;
+    };
+    errorEx.append = function(str, def) {
+      return {
+        message: function(v, message) {
+          v = v || def;
+          if (v) {
+            message[0] += " " + str.replace("%s", v.toString());
+          }
+          return message;
+        }
+      };
+    };
+    errorEx.line = function(str, def) {
+      return {
+        line: function(v) {
+          v = v || def;
+          if (v) {
+            return str.replace("%s", v.toString());
+          }
+          return null;
+        }
+      };
+    };
+    module.exports = errorEx;
+  }
+});
+
+// ../../node_modules/.pnpm/json-parse-better-errors@1.0.2/node_modules/json-parse-better-errors/index.js
+var require_json_parse_better_errors = __commonJS({
+  "../../node_modules/.pnpm/json-parse-better-errors@1.0.2/node_modules/json-parse-better-errors/index.js"(exports, module) {
+    "use strict";
+    module.exports = parseJson;
+    function parseJson(txt, reviver, context) {
+      context = context || 20;
+      try {
+        return JSON.parse(txt, reviver);
+      } catch (e) {
+        if (typeof txt !== "string") {
+          const isEmptyArray = Array.isArray(txt) && txt.length === 0;
+          const errorMessage = "Cannot parse " + (isEmptyArray ? "an empty array" : String(txt));
+          throw new TypeError(errorMessage);
+        }
+        const syntaxErr = e.message.match(/^Unexpected token.*position\s+(\d+)/i);
+        const errIdx = syntaxErr ? +syntaxErr[1] : e.message.match(/^Unexpected end of JSON.*/i) ? txt.length - 1 : null;
+        if (errIdx != null) {
+          const start = errIdx <= context ? 0 : errIdx - context;
+          const end = errIdx + context >= txt.length ? txt.length : errIdx + context;
+          e.message += ` while parsing near '${start === 0 ? "" : "..."}${txt.slice(start, end)}${end === txt.length ? "" : "..."}'`;
+        } else {
+          e.message += ` while parsing '${txt.slice(0, context * 2)}'`;
+        }
+        throw e;
+      }
+    }
+  }
+});
+
+// ../../node_modules/.pnpm/parse-json@4.0.0/node_modules/parse-json/index.js
+var require_parse_json = __commonJS({
+  "../../node_modules/.pnpm/parse-json@4.0.0/node_modules/parse-json/index.js"(exports, module) {
+    "use strict";
+    var errorEx = require_error_ex();
+    var fallback = require_json_parse_better_errors();
+    var JSONError = errorEx("JSONError", {
+      fileName: errorEx.append("in %s")
+    });
+    module.exports = (input, reviver, filename) => {
+      if (typeof reviver === "string") {
+        filename = reviver;
+        reviver = null;
+      }
+      try {
+        try {
+          return JSON.parse(input, reviver);
+        } catch (err2) {
+          fallback(input, reviver);
+          throw err2;
+        }
+      } catch (err2) {
+        err2.message = err2.message.replace(/\n/g, "");
+        const jsonErr = new JSONError(err2);
+        if (filename) {
+          jsonErr.fileName = filename;
+        }
+        throw jsonErr;
+      }
+    };
+  }
+});
+
+// ../../node_modules/.pnpm/pify@3.0.0/node_modules/pify/index.js
+var require_pify = __commonJS({
+  "../../node_modules/.pnpm/pify@3.0.0/node_modules/pify/index.js"(exports, module) {
+    "use strict";
+    var processFn = (fn, opts) => function() {
+      const P = opts.promiseModule;
+      const args = new Array(arguments.length);
+      for (let i = 0; i < arguments.length; i++) {
+        args[i] = arguments[i];
+      }
+      return new P((resolve2, reject) => {
+        if (opts.errorFirst) {
+          args.push(function(err2, result) {
+            if (opts.multiArgs) {
+              const results = new Array(arguments.length - 1);
+              for (let i = 1; i < arguments.length; i++) {
+                results[i - 1] = arguments[i];
+              }
+              if (err2) {
+                results.unshift(err2);
+                reject(results);
+              } else {
+                resolve2(results);
+              }
+            } else if (err2) {
+              reject(err2);
+            } else {
+              resolve2(result);
+            }
+          });
+        } else {
+          args.push(function(result) {
+            if (opts.multiArgs) {
+              const results = new Array(arguments.length - 1);
+              for (let i = 0; i < arguments.length; i++) {
+                results[i] = arguments[i];
+              }
+              resolve2(results);
+            } else {
+              resolve2(result);
+            }
+          });
+        }
+        fn.apply(this, args);
+      });
+    };
+    module.exports = (obj, opts) => {
+      opts = Object.assign({
+        exclude: [/.+(Sync|Stream)$/],
+        errorFirst: true,
+        promiseModule: Promise
+      }, opts);
+      const filter = (key2) => {
+        const match = (pattern) => typeof pattern === "string" ? key2 === pattern : pattern.test(key2);
+        return opts.include ? opts.include.some(match) : !opts.exclude.some(match);
+      };
+      let ret;
+      if (typeof obj === "function") {
+        ret = function() {
+          if (opts.excludeMain) {
+            return obj.apply(this, arguments);
+          }
+          return processFn(obj, opts).apply(this, arguments);
+        };
+      } else {
+        ret = Object.create(Object.getPrototypeOf(obj));
+      }
+      for (const key2 in obj) {
+        const x = obj[key2];
+        ret[key2] = typeof x === "function" && filter(key2) ? processFn(x, opts) : x;
+      }
+      return ret;
+    };
+  }
+});
+
+// ../../node_modules/.pnpm/load-json-file@4.0.0/node_modules/load-json-file/index.js
+var require_load_json_file = __commonJS({
+  "../../node_modules/.pnpm/load-json-file@4.0.0/node_modules/load-json-file/index.js"(exports, module) {
+    "use strict";
+    var path = __require("path");
+    var fs = require_graceful_fs();
+    var stripBom = require_strip_bom();
+    var parseJson = require_parse_json();
+    var pify = require_pify();
+    var parse = (data, fp) => parseJson(stripBom(data), path.relative(".", fp));
+    module.exports = (fp) => pify(fs.readFile)(fp, "utf8").then((data) => parse(data, fp));
+    module.exports.sync = (fp) => parse(fs.readFileSync(fp, "utf8"), fp);
+  }
+});
+
+// ../../node_modules/.pnpm/pkg-conf@2.1.0/node_modules/pkg-conf/index.js
+var require_pkg_conf = __commonJS({
+  "../../node_modules/.pnpm/pkg-conf@2.1.0/node_modules/pkg-conf/index.js"(exports, module) {
+    "use strict";
+    var path = __require("path");
+    var findUp = require_find_up();
+    var loadJsonFile = require_load_json_file();
+    var filepaths = /* @__PURE__ */ new WeakMap();
+    var filepath = (conf) => filepaths.get(conf);
+    var findNextCwd = (pkgPath) => path.resolve(path.dirname(pkgPath), "..");
+    var addFp = (obj, fp) => {
+      filepaths.set(obj, fp);
+      return obj;
+    };
+    var pkgConf = (namespace, opts) => {
+      if (!namespace) {
+        return Promise.reject(new TypeError("Expected a namespace"));
+      }
+      opts = opts || {};
+      return findUp("package.json", opts.cwd ? { cwd: opts.cwd } : {}).then((fp) => {
+        if (!fp) {
+          return addFp(Object.assign({}, opts.defaults), fp);
+        }
+        return loadJsonFile(fp).then((pkg) => {
+          if (opts.skipOnFalse && pkg[namespace] === false) {
+            const newOpts = Object.assign({}, opts, { cwd: findNextCwd(fp) });
+            return pkgConf(namespace, newOpts);
+          }
+          return addFp(Object.assign({}, opts.defaults, pkg[namespace]), fp);
+        });
+      });
+    };
+    var sync = (namespace, opts) => {
+      if (!namespace) {
+        throw new TypeError("Expected a namespace");
+      }
+      opts = opts || {};
+      const fp = findUp.sync("package.json", opts.cwd ? { cwd: opts.cwd } : {});
+      if (!fp) {
+        return addFp(Object.assign({}, opts.defaults), fp);
+      }
+      const pkg = loadJsonFile.sync(fp);
+      if (opts.skipOnFalse && pkg[namespace] === false) {
+        const newOpts = Object.assign({}, opts, { cwd: findNextCwd(fp) });
+        return sync(namespace, newOpts);
+      }
+      return addFp(Object.assign({}, opts.defaults, pkg[namespace]), fp);
+    };
+    module.exports = pkgConf;
+    module.exports.filepath = filepath;
+    module.exports.sync = sync;
+  }
+});
+
+// ../../node_modules/.pnpm/@rmw+signale@1.4.6/node_modules/@rmw/signale/package.json
+var require_package = __commonJS({
+  "../../node_modules/.pnpm/@rmw+signale@1.4.6/node_modules/@rmw/signale/package.json"(exports, module) {
+    module.exports = {
+      name: "@rmw/signale",
+      version: "1.4.6",
+      description: "Highly configurable logging utility",
+      license: "MIT",
+      repository: "rmw-lib/signale",
+      author: {
+        name: "Klaus Sinani",
+        email: "klaussinani@gmail.com",
+        url: "https://klaussinani.github.io"
+      },
+      maintainers: [
+        {
+          name: "Mario Sinani",
+          email: "mariosinani@protonmail.ch",
+          url: "https://mariocfhq.github.io"
+        }
+      ],
+      engines: {
+        node: ">=6"
+      },
+      files: [
+        "src",
+        "types",
+        "index.js"
+      ],
+      types: "./types/signale.d.ts",
+      keywords: [
+        "log",
+        "cli",
+        "logger",
+        "logging",
+        "hackable",
+        "colorful",
+        "console"
+      ],
+      scripts: {
+        lint: "xo",
+        "test:ts": "tsc --noEmit -p test",
+        test: "npm run lint && npm run test:ts"
+      },
+      dependencies: {
+        chalk: "^2.3.2",
+        dayjs: "^1.8.35",
+        figures: "^2.0.0",
+        "moment-timezone": "^0.5.31",
+        "pkg-conf": "^2.1.0"
+      },
+      devDependencies: {
+        "@types/node": "^11.11.3",
+        typescript: "^3.3.3333",
+        xo: "^0.24.0"
+      },
+      options: {
+        default: {
+          displayScope: true,
+          displayBadge: true,
+          displayDate: false,
+          displayFilename: false,
+          displayLine: true,
+          displayLabel: true,
+          displayTimestamp: false,
+          underlineLabel: true,
+          underlineMessage: false,
+          underlinePrefix: false,
+          underlineSuffix: false,
+          uppercaseLabel: false,
+          timeZone: "",
+          formatDate: "YYYY-MM-DD",
+          formatTime: "HH:mm:ss a"
+        }
+      },
+      xo: {
+        space: 2
+      }
+    };
+  }
+});
+
+// ../../node_modules/.pnpm/@rmw+signale@1.4.6/node_modules/@rmw/signale/src/types.js
+var require_types = __commonJS({
+  "../../node_modules/.pnpm/@rmw+signale@1.4.6/node_modules/@rmw/signale/src/types.js"(exports, module) {
+    "use strict";
+    var figures = require_figures();
+    module.exports = {
+      error: {
+        badge: figures.cross,
+        color: "red",
+        label: "",
+        logLevel: "error"
+      },
+      fatal: {
+        badge: "\u274C",
+        color: "red",
+        label: "fatal",
+        logLevel: "error"
+      },
+      fav: {
+        badge: figures("\u2764"),
+        color: "magenta",
+        label: "favorite",
+        logLevel: "info"
+      },
+      info: {
+        badge: figures.info,
+        color: "blue",
+        label: "info",
+        logLevel: "info"
+      },
+      star: {
+        badge: figures.star,
+        color: "yellow",
+        label: "star",
+        logLevel: "info"
+      },
+      success: {
+        badge: figures.tick,
+        color: "green",
+        label: "success",
+        logLevel: "info"
+      },
+      wait: {
+        badge: figures.ellipsis,
+        color: "blue",
+        label: "waiting",
+        logLevel: "info"
+      },
+      warn: {
+        badge: figures.warning,
+        color: "yellow",
+        label: "warning",
+        logLevel: "warn"
+      },
+      complete: {
+        badge: figures.checkboxOn,
+        color: "cyan",
+        label: "complete",
+        logLevel: "info"
+      },
+      pending: {
+        badge: figures.checkboxOff,
+        color: "magenta",
+        label: "pending",
+        logLevel: "info"
+      },
+      note: {
+        badge: figures.bullet,
+        color: "blue",
+        label: "note",
+        logLevel: "info"
+      },
+      start: {
+        badge: figures.play,
+        color: "green",
+        label: "start",
+        logLevel: "info"
+      },
+      pause: {
+        badge: figures.squareSmallFilled,
+        color: "yellow",
+        label: "pause",
+        logLevel: "info"
+      },
+      debug: {
+        badge: figures("\u2B24"),
+        color: "red",
+        label: "debug",
+        logLevel: "debug"
+      },
+      await: {
+        badge: figures.ellipsis,
+        color: "blue",
+        label: "awaiting",
+        logLevel: "info"
+      },
+      watch: {
+        badge: figures.ellipsis,
+        color: "yellow",
+        label: "watching",
+        logLevel: "info"
+      },
+      log: {
+        badge: "",
+        color: "",
+        label: "",
+        logLevel: "info"
+      }
+    };
+  }
+});
+
+// ../../node_modules/.pnpm/@rmw+signale@1.4.6/node_modules/@rmw/signale/src/signale.js
+var require_signale = __commonJS({
+  "../../node_modules/.pnpm/@rmw+signale@1.4.6/node_modules/@rmw/signale/src/signale.js"(exports, module) {
+    "use strict";
+    var util2 = __require("util");
+    var path = __require("path");
+    var readline = __require("readline");
+    var chalk = require_chalk();
+    var moment = require_dayjs_min();
+    var figures = require_figures();
+    var pkgConf = require_pkg_conf();
+    var pkg = require_package();
+    var defaultTypes = require_types();
+    var { green, grey, red, underline, yellow } = chalk;
+    var isPreviousLogInteractive = false;
+    var defaults = pkg.options.default;
+    var namespace = pkg.name;
+    var Signale2 = class {
+      constructor(options = {}) {
+        this._interactive = options.interactive || false;
+        this._config = Object.assign(this.packageConfiguration, options.config);
+        this._customTypes = Object.assign({}, options.types);
+        this._disabled = options.disabled || false;
+        this._scopeName = options.scope || "";
+        this._timers = options.timers || /* @__PURE__ */ new Map();
+        this._types = this._mergeTypes(defaultTypes, this._customTypes);
+        this._stream = options.stream || process.stdout;
+        this._longestLabel = this._getLongestLabel();
+        this._secrets = options.secrets || [];
+        this._generalLogLevel = this._validateLogLevel(options.logLevel);
+        Object.keys(this._types).forEach((type) => {
+          this[type] = this._logger.bind(this, type);
+        });
+      }
+      get _now() {
+        return Date.now();
+      }
+      get scopeName() {
+        return this._scopeName;
+      }
+      get currentOptions() {
+        return Object.assign(
+          {},
+          {
+            config: this._config,
+            disabled: this._disabled,
+            types: this._customTypes,
+            interactive: this._interactive,
+            timers: this._timers,
+            stream: this._stream,
+            secrets: this._secrets,
+            logLevel: this._generalLogLevel
+          }
+        );
+      }
+      get date() {
+        return moment().format(this._config.formatDate);
+      }
+      get filename() {
+        const _ = Error.prepareStackTrace;
+        Error.prepareStackTrace = (error, stack2) => stack2;
+        const { stack } = new Error();
+        Error.prepareStackTrace = _;
+        const callers = stack.map((x) => x.getFileName());
+        var firstExternalFilePath = callers.find((x) => {
+          return x !== callers[0];
+        });
+        if (firstExternalFilePath) {
+          firstExternalFilePath = firstExternalFilePath.split("/");
+          firstExternalFilePath = firstExternalFilePath.slice(-3).join("/");
+        }
+        return firstExternalFilePath ? decodeURI(firstExternalFilePath) : "anonymous";
+      }
+      get fileLine() {
+        const _ = Error.prepareStackTrace;
+        Error.prepareStackTrace = (error, stack2) => stack2;
+        const { stack } = new Error();
+        Error.prepareStackTrace = _;
+        const callers = stack.map((x) => x.getFileName());
+        const callersAndLines = stack.map((x) => {
+          return {
+            name: x.getFileName(),
+            line: x.getLineNumber()
+          };
+        });
+        const firstExternalFileLine = callersAndLines.find((x) => {
+          return x.name !== callers[0];
+        });
+        return firstExternalFileLine ? firstExternalFileLine.line : "";
+      }
+      get packageConfiguration() {
+        return pkgConf.sync(namespace, { defaults });
+      }
+      get _longestUnderlinedLabel() {
+        return underline(this._longestLabel);
+      }
+      get _logLevels() {
+        return {
+          info: 0,
+          timer: 1,
+          debug: 2,
+          warn: 3,
+          error: 4
+        };
+      }
+      set configuration(configObj) {
+        this._config = Object.assign(this.packageConfiguration, configObj);
+      }
+      _arrayify(x) {
+        return Array.isArray(x) ? x : [x];
+      }
+      _timeSpan(then) {
+        return this._now - then;
+      }
+      _getLongestLabel() {
+        const { _types } = this;
+        const labels = Object.keys(_types).map((x) => _types[x].label);
+        return labels.reduce((x, y) => x.length > y.length ? x : y);
+      }
+      _validateLogLevel(level) {
+        return Object.keys(this._logLevels).includes(level) ? level : "info";
+      }
+      _mergeTypes(standard, custom) {
+        const types = Object.assign({}, standard);
+        Object.keys(custom).forEach((type) => {
+          types[type] = Object.assign({}, types[type], custom[type]);
+        });
+        return types;
+      }
+      _filterSecrets(message) {
+        const { _secrets } = this;
+        if (_secrets.length === 0) {
+          return message;
+        }
+        let safeMessage = message;
+        _secrets.forEach((secret) => {
+          safeMessage = safeMessage.replace(new RegExp(secret, "g"), "[secure]");
+        });
+        return safeMessage;
+      }
+      _formatStream(stream) {
+        return this._arrayify(stream);
+      }
+      _formatDate() {
+        return `${this.date}`;
+      }
+      _formatFilename(displayLine) {
+        return `${this.filename}${displayLine ? `:${this.fileLine}` : ""}`;
+      }
+      _formatScopeName() {
+        if (Array.isArray(this._scopeName)) {
+          const scopes = this._scopeName.filter((x) => x.length !== 0);
+          return `${scopes.map((x) => `[${x.trim()}]`).join(" ")}`;
+        }
+        return `[${this._scopeName}]`;
+      }
+      _formatTimestamp() {
+        return `[${this.timestamp}]`;
+      }
+      _formatMessage(str) {
+        return util2.format(...this._arrayify(str));
+      }
+      _meta() {
+        const meta = [];
+        if (this._config.displayDate) {
+          meta.push(this._formatDate());
+        }
+        if (this._config.displayTimestamp) {
+          meta.push(this._formatTimestamp());
+        }
+        if (this._config.displayFilename) {
+          meta.push(this._formatFilename(this._config.displayLine));
+        }
+        if (this._scopeName.length !== 0 && this._config.displayScope) {
+          meta.push(this._formatScopeName());
+        }
+        if (meta.length !== 0) {
+          meta.push(`${figures.pointerSmall}`);
+          return meta.map((item) => grey(item));
+        }
+        return meta;
+      }
+      _hasAdditional({ suffix, prefix }, args) {
+        return suffix || prefix ? "" : this._formatMessage(args);
+      }
+      _buildSignale(type, ...args) {
+        let [msg, additional] = [{}, {}];
+        if (args.length === 1 && typeof args[0] === "object" && args[0] !== null) {
+          if (args[0] instanceof Error) {
+            [msg] = args;
+          } else {
+            const [{ prefix, message, suffix }] = args;
+            additional = Object.assign({}, { suffix, prefix });
+            msg = message ? this._formatMessage(message) : this._hasAdditional(additional, args);
+          }
+        } else {
+          msg = this._formatMessage(args);
+        }
+        const signale2 = this._meta();
+        if (additional.prefix) {
+          if (this._config.underlinePrefix) {
+            signale2.push(underline(additional.prefix));
+          } else {
+            signale2.push(additional.prefix);
+          }
+        }
+        if (this._config.displayBadge && type.badge) {
+          signale2.push(
+            chalk[type.color](this._padEnd(type.badge, type.badge.length + 1))
+          );
+        }
+        if (this._config.displayLabel && type.label) {
+          const label = this._config.uppercaseLabel ? type.label.toUpperCase() : type.label;
+          if (this._config.underlineLabel) {
+            signale2.push(
+              chalk[type.color](
+                this._padEnd(
+                  underline(label),
+                  this._longestUnderlinedLabel.length + 1
+                )
+              )
+            );
+          } else {
+            signale2.push(
+              chalk[type.color](this._padEnd(label, this._longestLabel.length + 1))
+            );
+          }
+        }
+        if (msg instanceof Error && msg.stack) {
+          const [name, ...rest] = msg.stack.split("\n");
+          if (this._config.underlineMessage) {
+            signale2.push(underline(name));
+          } else {
+            signale2.push(name);
+          }
+          signale2.push(grey(rest.map((l) => l.replace(/^/, "\n")).join("")));
+          return signale2.join(" ");
+        }
+        if (this._config.underlineMessage) {
+          signale2.push(underline(msg));
+        } else {
+          signale2.push(msg);
+        }
+        if (additional.suffix) {
+          if (this._config.underlineSuffix) {
+            signale2.push(underline(additional.suffix));
+          } else {
+            signale2.push(additional.suffix);
+          }
+        }
+        return signale2.join(" ");
+      }
+      _write(stream, message) {
+        if (this._interactive && stream.isTTY && isPreviousLogInteractive) {
+          readline.moveCursor(stream, 0, -1);
+          readline.clearLine(stream);
+          readline.cursorTo(stream, 0);
+        }
+        stream.write(message + "\n");
+        isPreviousLogInteractive = this._interactive;
+      }
+      _log(message, streams = this._stream, logLevel) {
+        if (this.isEnabled() && this._logLevels[logLevel] >= this._logLevels[this._generalLogLevel]) {
+          this._formatStream(streams).forEach((stream) => {
+            this._write(stream, message);
+          });
+        }
+      }
+      _logger(type, ...messageObj) {
+        const { stream, logLevel } = this._types[type];
+        const message = this._buildSignale(this._types[type], ...messageObj);
+        this._log(
+          this._filterSecrets(message),
+          stream,
+          this._validateLogLevel(logLevel)
+        );
+      }
+      _padEnd(str, targetLength) {
+        str = String(str);
+        targetLength = parseInt(targetLength, 10) || 0;
+        if (str.length >= targetLength) {
+          return str;
+        }
+        if (String.prototype.padEnd) {
+          return str.padEnd(targetLength);
+        }
+        targetLength -= str.length;
+        return str + " ".repeat(targetLength);
+      }
+      addSecrets(secrets) {
+        if (!Array.isArray(secrets)) {
+          throw new TypeError("Argument must be an array.");
+        }
+        this._secrets.push(...secrets);
+      }
+      clearSecrets() {
+        this._secrets = [];
+      }
+      config(configObj) {
+        this.configuration = configObj;
+      }
+      disable() {
+        this._disabled = true;
+      }
+      enable() {
+        this._disabled = false;
+      }
+      isEnabled() {
+        return !this._disabled;
+      }
+      scope(...name) {
+        if (name.length === 0) {
+          throw new Error("No scope name was defined.");
+        }
+        return new Signale2(Object.assign(this.currentOptions, { scope: name }));
+      }
+      unscope() {
+        this._scopeName = "";
+      }
+      time(label) {
+        if (!label) {
+          label = `timer_${this._timers.size}`;
+        }
+        this._timers.set(label, this._now);
+        const message = this._meta();
+        message.push(green(this._padEnd(this._types.start.badge, 2)));
+        if (this._config.underlineLabel) {
+          message.push(
+            green(
+              this._padEnd(
+                underline(label),
+                this._longestUnderlinedLabel.length + 1
+              )
+            )
+          );
+        } else {
+          message.push(green(this._padEnd(label, this._longestLabel.length + 1)));
+        }
+        message.push("Initialized timer...");
+        this._log(message.join(" "), this._stream, "timer");
+        return label;
+      }
+      timeEnd(label) {
+        if (!label && this._timers.size) {
+          const is = (x) => x.includes("timer_");
+          label = [...this._timers.keys()].reduceRight((x, y) => {
+            return is(x) ? x : is(y) ? y : null;
+          });
+        }
+        if (this._timers.has(label)) {
+          const span = this._timeSpan(this._timers.get(label));
+          this._timers.delete(label);
+          const message = this._meta();
+          message.push(red(this._padEnd(this._types.pause.badge, 2)));
+          if (this._config.underlineLabel) {
+            message.push(
+              red(
+                this._padEnd(
+                  underline(label),
+                  this._longestUnderlinedLabel.length + 1
+                )
+              )
+            );
+          } else {
+            message.push(red(this._padEnd(label, this._longestLabel.length + 1)));
+          }
+          message.push("Timer run for:");
+          message.push(
+            yellow(span < 1e3 ? span + "ms" : (span / 1e3).toFixed(2) + "s")
+          );
+          this._log(message.join(" "), this._stream, "timer");
+          return { label, span };
+        }
+      }
+    };
+    module.exports = Signale2;
+  }
+});
+
+// ../../node_modules/.pnpm/@rmw+signale@1.4.6/node_modules/@rmw/signale/index.js
+var require_signale2 = __commonJS({
+  "../../node_modules/.pnpm/@rmw+signale@1.4.6/node_modules/@rmw/signale/index.js"(exports, module) {
+    "use strict";
+    var Signale2 = require_signale();
+    module.exports = Object.assign(new Signale2(), { Signale: Signale2 });
+  }
+});
 
 // ../../node_modules/.pnpm/msgpackr@1.7.0/node_modules/msgpackr/unpack.js
 var decoder;
@@ -2963,7 +6754,7 @@ extensions = [{
     target2[position3] = 193;
   }
 }];
-function writeExtBuffer(typedArray, type, allocateForWrite, encode4) {
+function writeExtBuffer(typedArray, type, allocateForWrite, encode3) {
   let length = typedArray.byteLength;
   if (length + 1 < 256) {
     var { target: target2, position: position3 } = allocateForWrite(4 + length);
@@ -3824,7 +7615,8 @@ var pack2 = packer.pack.bind(packer);
 var POST_exports = {};
 __export(POST_exports, {
   auth: () => auth_exports,
-  captcha: () => captcha_exports
+  captcha: () => captcha_exports,
+  test: () => test_exports
 });
 
 // POST/captcha.js
@@ -3833,7 +7625,7 @@ __export(captcha_exports, {
   default: () => captcha_default
 });
 
-// ../../node_modules/.pnpm/@user.tax+captcha-img@0.0.12/node_modules/@user.tax/captcha-img/src/bezier-spline.js
+// ../../node_modules/.pnpm/@user.tax+captcha-img@0.0.17/node_modules/@user.tax/captcha-img/src/bezier-spline.js
 function computeControlPoints(K) {
   let p1 = new Array();
   let p2 = new Array();
@@ -3870,7 +7662,7 @@ function computeControlPoints(K) {
   return { p1, p2 };
 }
 
-// ../../node_modules/.pnpm/@user.tax+captcha-img@0.0.12/node_modules/@user.tax/captcha-img/src/wave.js
+// ../../node_modules/.pnpm/@user.tax+captcha-img@0.0.17/node_modules/@user.tax/captcha-img/src/wave.js
 var svgns = "http://www.w3.org/2000/svg";
 function generatePoints(width, height, segmentCount, layerCount, variance) {
   const cellWidth = width / segmentCount;
@@ -3995,10 +7787,10 @@ var Wavery = class {
   }
 };
 
-// ../../node_modules/.pnpm/@user.tax+captcha-img@0.0.12/node_modules/@user.tax/captcha-img/src/D.js
+// ../../node_modules/.pnpm/@user.tax+captcha-img@0.0.17/node_modules/@user.tax/captcha-img/src/D.js
 var D_default = ["M-3.514 426.203a25.776 25.776 0 0 1-9.469-28.406l4.209-13.15a25.776 25.776 0 0 1 23.145-18.412l335.82-26.828L479.019 29.941a26.828 26.828 0 0 1 26.775-16.886h13.677a25.776 25.776 0 0 1 24.723 16.833l129.3 309.572 335.82 26.828a25.776 25.776 0 0 1 23.146 18.41l4.208 13.152a25.776 25.776 0 0 1-7.89 28.406L775.49 643.823l77.8 326.142a26.828 26.828 0 0 1-9.994 27.88l-15.255 8.416a26.302 26.302 0 0 1-29.406 0l-285.9-173.591-287.583 175.327a26.302 26.302 0 0 1-29.405 0l-11.573-7.89a26.828 26.828 0 0 1-9.994-27.88l75.696-328.456z", "M0 512 25.472 31.36 512 0l512 512-512 512L0 512zm293.376-128.96a85.952 85.952 0 1 0 0-171.904 85.952 85.952 0 0 0 0 171.904z", "M1019.323 20.153a42.75 42.75 0 0 1 5.301 28.514L879.7 931.47a42.75 42.75 0 0 1-57.97 32.747L554.152 857.64l-110.724 149.97a42.75 42.75 0 0 1-77.208-25.352V810.657a85.501 85.501 0 0 1 19.195-54.037l374.497-459.57a12.825 12.825 0 0 0-18.426-17.742l-462.05 405.79a85.501 85.501 0 0 1-88.836 14.877L25.54 632.301a42.75 42.75 0 0 1-5.387-76.439L960.84 4.848a42.75 42.75 0 0 1 58.483 15.305z", "M305.193 884.733c-4.542 0-8.817-2.405-11.222-6.413L86.897 518.413c-2.404-4.008-2.404-8.818 0-12.826L293.971 145.68a13.092 13.092 0 0 1 11.222-6.413h413.614a13.092 13.092 0 0 1 11.222 6.413l207.074 359.907a12.29 12.29 0 0 1 0 12.826L730.029 878.32a13.092 13.092 0 0 1-11.222 6.413H305.193M512 270.191c-133.329 0-241.809 108.48-241.809 241.809S378.671 753.809 512 753.809 753.809 645.329 753.809 512 645.329 270.191 512 270.191M305.193 966.227h413.614c33.666 0 64.927-18.17 81.76-47.293l207.074-359.908a93.891 93.891 0 0 0 0-94.052L800.568 105.066c-16.834-29.124-48.095-47.293-81.761-47.293H305.193c-33.666 0-64.927 18.17-81.76 47.293L16.358 464.974a93.895 93.895 0 0 0 0 94.052l207.073 359.908a94.72 94.72 0 0 0 81.761 47.293zM512 351.685c88.44 0 160.315 71.874 160.315 160.315S600.441 672.315 512 672.315 351.685 600.441 351.685 512 423.559 351.685 512 351.685z", "M42.67 213.336 512 0l469.33 213.336v597.328L512 1024 42.67 810.664V213.336zm426.67 240.656-341.333-154.99v456.654L469.34 910.994V454.012zm426.651 301.664V299.002L554.66 453.992v456.981zM826.67 236.662 512 93.674 197.331 236.662 512 379.651z", "M512 2.276c144.18 3.786 264.183 53.666 360.084 149.567 95.974 96.047 145.854 216.05 149.64 360.157-3.786 144.18-53.666 264.183-149.64 360.084-95.901 95.974-215.905 145.854-360.084 149.64-144.18-3.786-264.183-53.666-360.157-149.64C56.015 776.183 6.135 656.179 2.276 512c3.786-144.18 53.666-264.183 149.567-360.157C247.89 56.015 367.893 6.135 512 2.276zm-43.18 466.543H300.391a41.797 41.797 0 0 0-30.73 12.452 41.797 41.797 0 0 0-12.524 30.802c0 12.088 4.15 22.355 12.524 30.656a41.797 41.797 0 0 0 30.73 12.525h168.427V723.68c0 12.16 4.15 22.355 12.452 30.73a41.797 41.797 0 0 0 30.802 12.524 41.797 41.797 0 0 0 30.656-12.525 41.797 41.797 0 0 0 12.525-30.729V555.254H723.68a41.797 41.797 0 0 0 30.73-12.452 41.797 41.797 0 0 0 12.524-30.73 41.797 41.797 0 0 0-12.525-30.728 41.797 41.797 0 0 0-30.729-12.525H555.254V300.392a41.797 41.797 0 0 0-12.452-30.73A41.797 41.797 0 0 0 512 257.138a41.797 41.797 0 0 0-30.73 12.524 41.797 41.797 0 0 0-12.524 30.73v168.427z", "M512 3.848C231.61 3.848 3.848 231.61 3.848 512S231.61 1020.152 512 1020.152 1020.152 792.39 1020.152 512 792.39 3.848 512 3.848zm0 725.931c-120.686 0-217.78-97.093-217.78-217.779S391.315 294.22 512 294.22 729.78 391.315 729.78 512 632.685 729.78 512 729.78z", "M515.006 127.243c141.94 0 257.005 114.844 257.005 256.507h.5c141.662 0 256.506 114.838 256.506 256.5 0 141.663-114.844 256.507-256.507 256.507H257.501C115.84 896.757.995 781.913.995 640.25s114.844-256.5 256.506-256.5h.5c0-141.663 115.066-256.507 257.005-256.507z", "M541.458 502.308v392.645a147.29 147.29 0 0 1-147.29 147.29 29.458 29.458 0 0 1 0-58.916 88.374 88.374 0 0 0 88.374-88.374V502.308a132.56 132.56 0 0 0-223.586 27.985h-.088a12.844 12.844 0 0 1-24.067-.206h-.089a132.56 132.56 0 0 0-227.12-23.065 11.282 11.282 0 0 1-9.721 5.832c-6.334 0-11.46-5.538-11.46-12.372 0-1.178.148-2.298.442-3.358 34.584-248.39 241.26-441.722 495.69-455.656V11.215a29.458 29.458 0 0 1 58.915 0v30.253c254.782 13.963 461.665 207.767 495.836 456.657h-.118l.03.972a11.93 11.93 0 0 1-22.359 5.863 132.56 132.56 0 0 0-224.676 23.271v-.03a13.256 13.256 0 0 1-26.365-.794h-.117a132.56 132.56 0 0 0-222.231-25.099z", "M742.912 34.086c-97.532 0-182.066 51.37-230.832 127.834-48.9-76.465-133.426-127.834-230.83-127.834-152.024 0-275.303 123.153-275.303 275.176 0 39.271 6.113 76.465 20.933 110.276 102.087 231.877 275.83 428.372 485.2 566.745C721.325 847.91 895.069 651.415 997.247 419.538c14.83-33.811 20.808-71.005 20.808-110.276 0-152.023-123.12-275.176-275.143-275.176z", "M763.374 323.47h-188.53v345.639c0 86.724-70.385 157.109-157.11 157.109-86.724 0-157.108-70.385-157.108-157.109S331.01 512 417.735 512c35.82 0 67.87 11.94 94.265 31.422v-345.64h251.374M951.905-53.592H72.095C2.967-53.592-53.592 2.967-53.592 72.095v879.81c0 69.128 56.559 125.687 125.687 125.687h879.81c69.128 0 125.687-56.559 125.687-125.687V72.095c0-69.128-56.559-125.687-125.687-125.687Z", "M851.899 342.05a169.95 169.95 0 0 0-145.024 81.576L600.374 317.125a169.95 169.95 0 1 0-176.748 0L317.125 423.626a169.95 169.95 0 1 0 0 176.748l106.501 106.501a169.95 169.95 0 1 0 176.748 0l106.501-106.501A169.95 169.95 0 1 0 851.9 342.05zM455.35 172.102a56.65 56.65 0 1 1 56.65 56.65 56.65 56.65 0 0 1-56.65-56.65zM172.101 568.65a56.65 56.65 0 1 1 56.65-56.65 56.65 56.65 0 0 1-56.65 56.65zM568.65 851.899a56.65 56.65 0 1 1-56.65-56.65 56.65 56.65 0 0 1 56.65 56.65zM512 634.93 389.07 512 512 389.07 634.93 512zm339.899-66.28a56.65 56.65 0 1 1 56.65-56.65 56.65 56.65 0 0 1-56.65 56.65z", "M912.498 401.636H623.502V112.64c0-60.644-49.72-110.364-110.364-110.364S402.773 51.996 402.773 112.64v288.996H113.778C53.134 401.636 3.413 451.243 3.413 512c0 60.644 49.721 110.364 110.365 110.364h288.995V911.36c0 60.644 49.721 110.364 110.365 110.364s110.364-49.72 110.364-110.364V622.364h288.996c60.643 0 110.364-49.72 110.364-110.364 0-60.757-49.72-110.364-110.364-110.364z"];
 
-// ../../node_modules/.pnpm/@user.tax+captcha-img@0.0.12/node_modules/@user.tax/captcha-img/src/pattern.js
+// ../../node_modules/.pnpm/@user.tax+captcha-img@0.0.17/node_modules/@user.tax/captcha-img/src/pattern.js
 var pattern_default = [
   [
     50,
@@ -4014,9 +7806,9 @@ var pattern_default = [
   ]
 ];
 
-// ../../node_modules/.pnpm/@user.tax+captcha-img@0.0.12/node_modules/@user.tax/captcha-img/src/captcha-svg.js
-var random = (base, offset = 0) => Math.random() * base + offset;
-var randomInt = (base, offset = 0) => parseInt(random(base, offset));
+// ../../node_modules/.pnpm/@user.tax+captcha-img@0.0.17/node_modules/@user.tax/captcha-img/src/captcha-svg.js
+var random = (base2, offset = 0) => Math.random() * base2 + offset;
+var randomInt = (base2, offset = 0) => parseInt(random(base2, offset));
 var captcha_svg_default = (width, height) => {
   height = height || width;
   const layerCount = randomInt(6, 6), segmentCount = random(10, 5), wave = new Wavery({
@@ -4027,13 +7819,13 @@ var captcha_svg_default = (width, height) => {
     variance: random(10, 0.1),
     strokeWidth: 0,
     strokeColor: "none"
-  }), { svg } = wave.generateSvg(), path = [], randomColor = (base) => {
+  }), { svg } = wave.generateSvg(), path = [], randomColor = (base2) => {
     var i = 0, r = [], n2 = 0;
     while (++i < 4) {
       r.unshift(randomInt(255));
       n2 += r[0];
     }
-    n2 = n2 / base / 3;
+    n2 = n2 / base2 / 3;
     r = r.map((i2) => {
       i2 = Math.round(i2 / n2);
       if (i2 > 255) {
@@ -4109,7 +7901,7 @@ var captcha_svg_default = (width, height) => {
   ];
 };
 
-// ../../node_modules/.pnpm/@user.tax+captcha-img@0.0.12/node_modules/@user.tax/captcha-img/src/index.js
+// ../../node_modules/.pnpm/@user.tax+captcha-img@0.0.17/node_modules/@user.tax/captcha-img/src/index.js
 var import_webp = __toESM(require_webp(), 1);
 var ENCODER = new TextEncoder();
 var encode2 = ENCODER.encode.bind(ENCODER);
@@ -4138,24 +7930,74 @@ var U8 = (args) => {
   return new Uint8Array(args);
 };
 
+// db/redis/key.js
+var key_exports = {};
+__export(key_exports, {
+  R_CAPTCHA: () => R_CAPTCHA,
+  R_CONF: () => R_CONF,
+  R_MAIL: () => R_MAIL,
+  R_MAIL_BAN_HOST: () => R_MAIL_BAN_HOST,
+  R_MAIL_HOST: () => R_MAIL_HOST
+});
+
+// ../../node_modules/.pnpm/@iuser+utf8@0.0.1/node_modules/@iuser/utf8/lib/index.js
+var DECODER;
+var ENCODER2;
+ENCODER2 = new TextEncoder();
+var utf8e = ENCODER2.encode.bind(ENCODER2);
+DECODER = new TextDecoder();
+var utf8d = DECODER.decode.bind(DECODER);
+
+// db/redis/key.js
+var $;
+var wrap;
+wrap = (...args) => {
+  var r;
+  r = args[0];
+  if (Array.isArray(r)) {
+    r = U8(r);
+  } else {
+    r = utf8e(r);
+  }
+  if (args[1]) {
+    r.bind = args[1];
+  }
+  return r;
+};
+$ = new Proxy(wrap, {
+  get: (_, name) => {
+    return wrap(name.slice(2).toLowerCase().replace(/_./g, (x) => {
+      return x.slice(1).toUpperCase();
+    }));
+  }
+});
+var R_CAPTCHA = $([1], "setex getB del exist");
+var {
+  R_CONF,
+  R_MAIL_HOST,
+  R_MAIL,
+  R_MAIL_BAN_HOST
+} = $;
+
 // db/redis/lua.js
 var lua_default = (R2, redis) => {
-  R2.fboolRo.hasHost;
+  var args;
+  R2.fboolR.hasHost;
   R2.fi64.zid;
+  args = [R_MAIL_HOST, R_MAIL];
+  redis.mailIdNew = R2.fi64.mailIdNew(...args);
+  redis.mailId = R2.fi64.mailId(...args);
+  redis.idMail = R2.fstrR.idMail(...args);
 };
 
 // db/redis/init.js
 var import_redis = __toESM(require_redis(), 1);
 var _prefix;
-var encode3;
-var encoder;
 var key;
-encoder = new TextEncoder();
-encode3 = encoder.encode.bind(encoder);
 _prefix = (prefix, f) => {
   return (k, ...args) => {
     if (typeof k === "string" || k instanceof String) {
-      k = encode3(k);
+      k = utf8e(k);
     }
     return f(u8merge(prefix, k), ...args);
   };
@@ -4170,9 +8012,9 @@ var init_default = (redis, lua) => {
     _R[i] = redis[i].bind(redis);
   }
   lua(new Proxy({}, {
-    get: (self, rtype) => {
+    get: (self2, rtype) => {
       return new Proxy({}, {
-        get: (self2, func) => {
+        get: (self3, func) => {
           var f;
           f = redis[rtype].bind(redis, func);
           return redis[func] = (...keys) => {
@@ -4184,12 +8026,11 @@ var init_default = (redis, lua) => {
       });
     }
   }), redis);
-  return (prefix, action) => {
+  return (prefix, bind) => {
     var ref, t;
-    prefix = U8(prefix);
-    if (action) {
+    if (bind) {
       t = key(prefix);
-      ref = action.split(" ");
+      ref = bind.split(" ");
       for (i of ref) {
         prefix[i] = _prefix(t, _R[i] || redis[i]);
       }
@@ -4223,15 +8064,21 @@ if (REDIS_CLUSTER) {
 var redis_default = await (0, import_redis2.redisConn)(3, SERVER, REDIS_USER, REDIS_PASSWORD, parseInt(REDIS_DB));
 
 // R.js
-var $;
-$ = init_default(redis_default, lua_default);
+var $2;
+$2 = init_default(redis_default, lua_default);
 var R = redis_default;
-var R_CONF = $([0]);
-var R_HOST = $([2]);
-var R_NAME = $([3]);
-var R_MAIL = $([4], "hgetI zid");
-var R_MAIL_BAN_HOST = $([5]);
-var R_CAPTCHA = $([255], "setex getB del exist");
+(() => {
+  var bind, k, ref, v, x;
+  ref = Object.entries(key_exports);
+  for (x of ref) {
+    [k, v] = x;
+    ({ bind } = v);
+    if (bind) {
+      delete v.bind;
+      $2(v, bind);
+    }
+  }
+})();
 
 // ../../node_modules/.pnpm/@iuser+zipint@0.0.1/node_modules/@iuser/zipint/lib/index.js
 var import_fastintcompression = __toESM(require_FastIntegerCompression(), 1);
@@ -4276,9 +8123,9 @@ _cache = (radio) => {
   return _new(radio);
 };
 var captcha_default = captcha = async (radio) => {
-  var captcha_size, id, img, key2, x, y;
+  var captcha_size, img, img_id, key2, x, y;
   radio = parseInt(radio) >= 2 ? 2 : 1;
-  [img, id, x, y, captcha_size] = await _cache(radio);
+  [img, img_id, x, y, captcha_size] = await _cache(radio);
   if (radio === 1) {
     x *= 2;
     y *= 2;
@@ -4291,7 +8138,7 @@ var captcha_default = captcha = async (radio) => {
       break;
     }
   }
-  return [img, D_default[id], (0, import_rust.z85Dump)(key2)];
+  return [img, D_default[img_id], (0, import_rust.z85Dump)(key2)];
 };
 
 // POST/auth.js
@@ -4328,9 +8175,9 @@ var ERR_LOGIN = err(401);
 
 // mid/captcha.js
 var import_rust2 = __toESM(require_rust());
-var captcha_default2 = async (self) => {
+var captcha_default2 = async (self2) => {
   var captcha2, id, r, w, x, x0, y, y0;
-  ({ captcha: captcha2 } = self.headers);
+  ({ captcha: captcha2 } = self2.headers);
   if (captcha2) {
     [id, x, y] = JSON.parse(captcha2);
     id = (0, import_rust2.z85Load)(id);
@@ -4362,11 +8209,6 @@ var rsplit = (str, split) => {
 // POST/auth/sign.js
 var import_rust4 = __toESM(require_rust(), 1);
 
-// R/hostId.js
-var hostId = async (host) => {
-  return await R.zscore(R_HOST, host) || 0;
-};
-
 // lib/sk.js
 var import_rust3 = __toESM(require_rust());
 
@@ -4384,56 +8226,68 @@ var Day = dateInt(864e5);
 // lib/sk.js
 var SK = await R.hgetB(R_CONF, "SK");
 var skDump = (...args) => {
-  var iv, msg;
-  args.push(Hour());
+  var hour, msg;
+  hour = Hour();
+  args.push(hour);
   msg = pack2(args);
-  iv = (0, import_rust3.randomBytes)(8);
-  return (0, import_rust3.b64)([iv, (0, import_rust3.encrypt)(SK, iv, msg)]);
-};
-var skLoad = (str) => {
-  var bin, r;
-  bin = (0, import_rust3.unb64)(str);
-  r = (0, import_rust3.decrypt)(SK, bin.slice(0, 8), bin.slice(8));
-  if (r) {
-    return unpack(r);
-  }
+  return [hour, (0, import_rust3.xxh3)([SK, msg])];
 };
 
 // POST/auth/sign.js
 var _captcha;
-_captcha = async (self, signUp) => {
+_captcha = async (self2, signUp) => {
   if (signUp) {
-    await captcha_default2(self);
+    await captcha_default2(self2);
   } else {
     null;
   }
 };
 var mail = async function(signUp, account, password, lang) {
-  var host, token;
+  var host, hostname, hour, port, token;
   await _captcha(this, signUp);
-  password = password.slice(0, 64);
-  account = account.trim().toLowerCase();
-  if (!/^\S+@\S+$/.test(account)) {
-    return ACCOUNT_INVALID;
+  ({ hostname, port } = new URL(this.headers.origin));
+  if (signUp) {
+    password = password.slice(0, 64);
+    account = account.trim().toLowerCase();
+    if (!/^\S+@\S+$/.test(account)) {
+      return ACCOUNT_INVALID;
+    }
+    [mail, host] = rsplit(account, "@");
+    if (mail.length > 64 || account.length > 254) {
+      return ACCOUNT_TOO_LONG;
+    }
+    if (await R.hasHost(R_MAIL_BAN_HOST)(host)) {
+      return ACCOUNT_MAIL_HOST_BAN;
+    }
+    [hour, token] = skDump(account, password, hostname, port);
+    console.log("\u90AE\u7BB1\u6CE8\u518C\u9A8C\u8BC1\u7801 :", token.toString(36).toUpperCase());
+    return "";
+  } else {
+    return "";
   }
-  [mail, host] = rsplit(account, "@");
-  if (mail.length > 64 || account.length > 254) {
-    return ACCOUNT_TOO_LONG;
-  }
-  if (await R.hasHost(R_MAIL_BAN_HOST)(host)) {
-    return ACCOUNT_MAIL_HOST_BAN;
-  }
-  token = skDump(mail, await hostId(host) || host, password);
-  console.log(lang);
-  console.log(token);
-  console.log(token.length);
-  console.log(skLoad(token));
-  return "";
 };
 var phone = async (signUp, area, phone2, password, lang) => {
   await _captcha(void 0, signUp);
   console.log(lang);
   return "";
+};
+
+// POST/test.js
+var test_exports = {};
+__export(test_exports, {
+  default: () => test_default
+});
+var import_rust5 = __toESM(require_rust(), 1);
+var test_default = async () => {
+  var a;
+  a = (0, import_rust5.randomBytes)(8);
+  console.log(a);
+  while (true) {
+    if (!await R.exist(a)) {
+      return [];
+    }
+  }
+  return [];
 };
 
 // MAP.js
@@ -4458,61 +8312,147 @@ var MAP_default = obj2map(POST_exports, [
   }
 ]);
 
-// index.js
+// worker.js
 import {
   createBrotliCompress
 } from "zlib";
-var API_PORT;
+
+// ../../node_modules/.pnpm/@iuser+strbool@0.0.2/node_modules/@iuser/strbool/lib/index.js
+var lib_default = (x) => {
+  if (x) {
+    return !["0", "false", "off", "no", "null"].includes(x.trim().toLowerCase());
+  }
+  return false;
+};
+
+// ../../node_modules/.pnpm/@iuser+console@0.0.2/node_modules/@iuser/console/lib/index.js
+var import_signale = __toESM(require_signale2(), 1);
+import {
+  createWriteStream,
+  readFileSync
+} from "fs";
+import util from "util";
+var STREAM;
+var Signale;
+var base;
+var colors;
+var fs_stream;
+({ Signale } = import_signale.default);
+STREAM = {};
+fs_stream = (path) => {
+  var log;
+  log = STREAM[path];
+  if (!log) {
+    STREAM[path] = log = createWriteStream(path, {
+      flags: "a"
+    });
+  }
+  return log;
+};
+colors = typeof (base = process.stdout).hasColors === "function" ? base.hasColors() : void 0;
+var Console = class Console2 extends Signale {
+  assert(assertion, ...args) {
+    if (!assertion) {
+      this.log(...args);
+    }
+  }
+  dir(obj, options = {}) {
+    options = { ...options };
+    if (colors) {
+      options.colors = colors;
+    }
+    this.log(util.inspect(obj, options));
+  }
+  trace(...args) {
+    args.push("\n" + new Error().stack);
+    this.error.apply(this, args);
+  }
+};
+var lib_default2 = () => {
+  var c, error_stream, opt, stream;
+  stream = [];
+  error_stream = [];
+  stream.push(process.stdout);
+  error_stream.push(process.stderr);
+  c = new Console({
+    stream,
+    types: {
+      error: {
+        stream: error_stream
+      }
+    }
+  });
+  opt = {};
+  opt.displayFilename = true;
+  c.config(opt);
+  return c;
+};
+process.on("exit", () => {
+  var ref, results, s;
+  ref = Object.values(STREAM);
+  results = [];
+  for (s of ref) {
+    results.push(s.close());
+  }
+  return results;
+});
+
+// ../../node_modules/.pnpm/@iuser+console@0.0.2/node_modules/@iuser/console/lib/global.js
+var console2;
+global.console = console2 = lib_default2();
+
+// CONST/DEBUG.js
+var DEBUG_default = lib_default(process.env.DEBUG);
+
+// CONST/HEADER.js
 var HEADERS;
-var PORT;
-var compress2;
-var server;
-var streamBuffer;
-HEADERS = {
+var HEADER_default = HEADERS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "*"
 };
-if (process.env.DEBUG) {
+if (DEBUG_default) {
   HEADERS["Access-Control-Allow-Private-Network"] = true;
 }
-streamBuffer = (stream) => {
+
+// lib/streamBuffer.js
+var streamBuffer_default = (stream) => {
   var li;
   li = [];
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve2, reject) => {
     stream.on("data", (chunk) => {
       li.push(chunk);
     }).on("end", () => {
-      return resolve(Buffer.concat(li));
+      return resolve2(Buffer.concat(li));
     }).on("error", reject);
   });
 };
-compress2 = (req, res, code, body) => {
-  var br, encoding, end, headers, length, s;
-  headers = HEADERS;
-  end = res;
+
+// worker.js
+var compress2;
+compress2 = async (code, headers, body) => {
+  var br, encoding, h, length, result, s;
+  h = HEADER_default;
   if (body) {
     ({ length } = body);
     if (length > 512) {
-      encoding = req.headers["accept-encoding"].replaceAll(" ", "").split(",");
+      encoding = headers["accept-encoding"].replaceAll(" ", "").split(",");
       br = "br";
       if (encoding.includes(br)) {
         s = createBrotliCompress();
-        s.pipe(res);
-        end = s;
-        headers = {
-          ...headers,
+        result = streamBuffer_default(s);
+        s.end(body);
+        body = await result;
+        h = {
+          ...h,
           "Content-Encoding": br
         };
       }
     }
   }
-  res.writeHead(code, headers);
-  end.end(body || "");
+  return [code, h, body];
 };
-server = http.createServer(async (req, res) => {
-  var bin, body, code, err2, f, func, i, method, r, ref, ref1, url;
-  ({ url, method } = req);
-  url = url.slice(1);
+var worker_default = async ([url, headers, body]) => {
+  var code, err2, f, func, i, r, ref, ref1, req;
   f = MAP_default;
   ref = url.split(".");
   for (i of ref) {
@@ -4525,61 +8465,175 @@ server = http.createServer(async (req, res) => {
     f = f.get("default");
   }
   if (f) {
+    func = f[0];
     code = 200;
-    if (method !== "OPTIONS") {
-      console.log(method, url);
-      func = f[0];
-      while (true) {
-        if (method === "POST") {
-          try {
-            bin = (await streamBuffer(req)).toString();
-            if (bin.length) {
-              r = JSON.parse(bin);
-            }
-          } catch (error) {
-            code = 500;
-            body = `NOT JSON : ${bin}`;
-            break;
-          }
+    while (true) {
+      try {
+        if (body.length) {
+          r = JSON.parse(body);
         }
-        try {
-          if (r) {
-            if (Array.isArray(r)) {
-              body = func.apply(req, r);
-            } else {
-              body = func.call(req, r);
-            }
-          } else {
-            body = func.call(req);
-          }
-          body = await body;
-          ref1 = f[1];
-          for (f of ref1) {
-            body = f(body);
-          }
-        } catch (error) {
-          err2 = error;
-          if (err2 instanceof HttpErr) {
-            ({ code, body } = err2);
-          } else {
-            [url, r, err2].map((e) => {
-              console.error(e);
-            });
-            code = 500;
-            body = err2.toString();
-          }
-        }
+      } catch (error) {
+        code = 500;
+        body = `NOT JSON : ${body}`;
         break;
       }
+      req = { headers };
+      try {
+        if (r) {
+          if (Array.isArray(r)) {
+            body = func.apply(req, r);
+          } else {
+            body = func.call(req, r);
+          }
+        } else {
+          body = func.call(req);
+        }
+        body = await body;
+        ref1 = f[1];
+        for (f of ref1) {
+          body = f(body);
+        }
+      } catch (error) {
+        err2 = error;
+        if (err2 instanceof HttpErr) {
+          ({ code, body } = err2);
+        } else {
+          [url, r, err2].map((e) => {
+            console.error(e);
+          });
+          code = 500;
+          body = err2.toString();
+        }
+      }
+      break;
     }
   } else {
     code = 404;
     body = "404 : " + url;
   }
-  compress2(req, res, code, body);
+  return compress2(code, headers, body);
+};
+
+// boot.js
+import {
+  fork
+} from "child_process";
+import http from "http";
+var API_PORT;
+var CPU_NUM;
+var RES;
+var WORKER;
+var workerNew;
+({ CPU_NUM, API_PORT } = process.env);
+if (CPU_NUM) {
+  CPU_NUM = parseInt(CPU_NUM);
+}
+CPU_NUM = Math.max(CPU_NUM || 1, 1);
+CPU_NUM = 1;
+WORKER = [];
+RES = [];
+workerNew = (fp, id) => {
+  var i, li, m, n, ref, ref1, w, x;
+  m = RES[id];
+  if (!m) {
+    m = /* @__PURE__ */ new Map();
+    RES[id] = m;
+  }
+  w = fork(fp, ["child"], {
+    serialization: "advanced"
+  });
+  WORKER[id] = w;
+  w.on("message", ([rid, r]) => {
+    m.get(rid)[1](r);
+    m.delete(rid);
+  });
+  ref = ["error", "exit"];
+  for (i of ref) {
+    w.on(i, (code, signal) => {
+      console.log("workder exit", { id, code, signal });
+      workerNew(fp, id);
+    });
+  }
+  ref1 = m.entries();
+  for (x of ref1) {
+    [n, [li]] = x;
+    w.send(li.concat([n]));
+  }
+  return w;
+};
+process.on("exit", () => {
+  var i, j, len;
+  for (j = 0, len = WORKER.length; j < len; j++) {
+    i = WORKER[j];
+    if (i) {
+      i.send(0);
+    }
+  }
 });
-({ API_PORT } = process.env);
-PORT = API_PORT || 80;
-console.log("listen on " + PORT);
-server.listen(PORT);
+var boot_default = (fp) => {
+  var N, n, port, server;
+  n = 0;
+  while (true) {
+    workerNew(fp, n);
+    if (++n >= CPU_NUM) {
+      break;
+    }
+  }
+  console.log(WORKER.length, "worker length");
+  N = 0;
+  server = http.createServer(async (req, res) => {
+    var bin, body, code, header, headers, method, p, resovle, t, url, worker_id;
+    ({ url, method } = req);
+    url = url.slice(1);
+    console.log(method, url);
+    switch (method) {
+      case "OPTIONS":
+        headers = HEADER_default;
+        code = 200;
+        break;
+      case "POST":
+        if (N === Number.MAX_SAFE_INTEGER) {
+          N = 0;
+        } else {
+          ++N;
+        }
+        bin = (await streamBuffer_default(req)).toString();
+        worker_id = N % CPU_NUM;
+        t = [url, req.headers, bin];
+        p = new Promise((r) => {
+          var resolve2;
+          resolve2 = r;
+        });
+        RES[worker_id].set(N, [t, resolve]);
+        WORKER[worker_id].send(t.concat([N]), socket);
+        [code, header, body] = await p;
+    }
+    res.writeHead(code || 404, headers);
+    res.end(body || "");
+  });
+  port = API_PORT || 80;
+  console.log("LISTEN ON " + port);
+  return server.listen(port);
+};
+
+// index.js
+if (process.argv[2] === "child") {
+  process.on("message", async (msg) => {
+    var rid;
+    if (Array.isArray(msg)) {
+      rid = msg.pop();
+      process.send([rid].concat(await worker_default(msg)));
+    } else {
+      switch (msg) {
+        case 0:
+          process.exit();
+          break;
+        default:
+          console.log(msg);
+      }
+    }
+  });
+} else {
+  boot_default(decodeURI(new URL(import.meta.url).pathname));
+}
 //!/usr/bin/env coffee

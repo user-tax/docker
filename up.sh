@@ -10,6 +10,9 @@ fi
 
 set -ex
 
+rm -rf docker-compose.yml
+ln -s $1/docker-compose.yml .
+
 if ! [ -x "$(command -v direnv)" ]; then
 curl -sfL https://direnv.net/install.sh | bash
 fi
@@ -24,10 +27,8 @@ if [ ! -f ".env" ] ;then
 direnv exec . ./env.coffee
 fi
 
+
 if [ -f $1/init.sh ]; then
 direnv exec . $1/init.sh
 fi
-
-rm -rf docker-compose.yml
-ln -s $1/docker-compose.yml .
 direnv exec . docker-compose up -d

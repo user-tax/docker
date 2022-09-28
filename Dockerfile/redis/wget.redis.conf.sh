@@ -24,7 +24,7 @@ conf "port " "port $REDIS_PORT"
 conf "# requirepass " "requirepass $REDIS_PASSWORD"
 # https://cloud.tencent.com/developer/article/1836825
 conf "# repl-backlog-size " "repl-backlog-size 200m"
-conf 'logfile ' "logfile /log/redis.log"
+# conf 'logfile ' "logfile /log/redis.log"
 conf 'dir ' 'dir /data'
 conf '# rename-command CONFIG ""' 'rename-command FLUSHALL ""\nrename-command FLUSHDB  ""\nrename-command CONFIG   ""\nrename-command KEYS  ""\n'
 

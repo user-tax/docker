@@ -24,10 +24,11 @@ if [ ! -f ".env" ] ;then
 direnv exec . ./env.coffee
 fi
 
+ln -s $1/docker-compose.yml .
+
 if [ -f $1/init.sh ]; then
 direnv exec . $1/init.sh
 fi
 
 rm -rf docker-compose.yml
-ln -s $1/docker-compose.yml .
 direnv exec . docker-compose up -d

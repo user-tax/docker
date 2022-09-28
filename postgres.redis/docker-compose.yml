@@ -56,6 +56,7 @@ services:
       PG_USER: ${PG_USER}
       PG_PORT: ${PG_PORT}
       PG_POOL_CONN: ${PG_POOL_CONN}
+      PG_SSL: ${PG_SSL}
       PG_PASSWORD: ${PG_PASSWORD}
       LOG_HOST: ${LOG_HOST}
       LOG_DB: ${LOG_DB}

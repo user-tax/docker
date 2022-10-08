@@ -52,7 +52,6 @@ data = {
   SMTP_TLS: 1
   SMTP_USER: 'smtp_login_account'
   SMTP_PASSWORD: 'password'
-  SMTP_NAME: 'display_name'
 
   API_PORT:80
   API_HTTPS:443

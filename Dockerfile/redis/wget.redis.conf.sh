@@ -28,11 +28,11 @@ conf "# repl-backlog-size " "repl-backlog-size 200m"
 conf 'dir ' 'dir /data'
 conf '# rename-command CONFIG ""' 'rename-command FLUSHALL ""\nrename-command FLUSHDB  ""\nrename-command CONFIG   ""\nrename-command KEYS  ""\n'
 
-sysctl_conf=/etc/sysctl.conf
+#sysctl_conf=/etc/sysctl.conf
 
-if ! grep -q "vm.overcommit_memory" "$sysctl_conf"; then
-echo -e "\nvm.overcommit_memory=1\n" >> $sysctl_conf
-fi
+#if ! grep -q "vm.overcommit_memory" "$sysctl_conf"; then
+#echo -e "\nvm.overcommit_memory=1\n" >> $sysctl_conf
+#fi
 
-sysctl vm.overcommit_memory=1
+#sysctl vm.overcommit_memory=1
 

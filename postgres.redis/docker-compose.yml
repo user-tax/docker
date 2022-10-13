@@ -43,46 +43,46 @@ services:
       - ${PG_PORT}:${PG_PORT}
     command: >
       postgres -c logging_collector=on -c log_destination=stderr -c log_directory=/log
-  api:
-    build: ./Dockerfile/api.user.tax
-    restart: always
-    depends_on:
-      - pg
-      - redis
-    environment:
-      NODE_ENV: ${NODE_ENV}
-      PG_HOST: ${PG_HOST}
-      PG_DB: ${PG_DB}
-      PG_USER: ${PG_USER}
-      PG_PORT: ${PG_PORT}
-      PG_POOL_CONN: ${PG_POOL_CONN}
-      PG_SSL: ${PG_SSL}
-      PG_PASSWORD: ${PG_PASSWORD}
-      LOG_HOST: ${LOG_HOST}
-      LOG_DB: ${LOG_DB}
-      LOG_USER: ${LOG_USER}
-      LOG_PORT: ${LOG_PORT}
-      LOG_POOL_CONN: ${LOG_POOL_CONN}
-      LOG_PASSWORD: ${LOG_PASSWORD}
-      REDIS_DB: ${REDIS_DB}
-      REDIS_USER: ${REDIS_USER}
-      REDIS_PASSWORD: ${REDIS_PASSWORD}
-      REDIS_HOST: ${REDIS_HOST}
-      REDIS_PORT: ${REDIS_PORT}
-      SMTP_HOST: ${SMTP_HOST}
-      SMTP_PORT: ${SMTP_PORT}
-      SMTP_TLS: ${SMTP_TLS}
-      SMTP_USER: ${SMTP_USER}
-      SMTP_PASSWORD: ${SMTP_PASSWORD}
-      SMTP_NAME: ${SMTP_NAME}
-      API_PORT: ${API_PORT}
-      API_HTTPS: ${API_HTTPS}
-      CPU_NUM: ${CPU_NUM}
-    volumes:
-      - ./api:/api
-    links:
-      - pg:pg
-      - redis:redis
-    ports:
-      - ${API_PORT}:${API_PORT}
-      - ${API_HTTPS}:${API_HTTPS}
+  # api:
+  #   build: ./Dockerfile/api.user.tax
+  #   restart: always
+  #   depends_on:
+  #     - pg
+  #     - redis
+  #   environment:
+  #     NODE_ENV: ${NODE_ENV}
+  #     PG_HOST: ${PG_HOST}
+  #     PG_DB: ${PG_DB}
+  #     PG_USER: ${PG_USER}
+  #     PG_PORT: ${PG_PORT}
+  #     PG_POOL_CONN: ${PG_POOL_CONN}
+  #     PG_SSL: ${PG_SSL}
+  #     PG_PASSWORD: ${PG_PASSWORD}
+  #     LOG_HOST: ${LOG_HOST}
+  #     LOG_DB: ${LOG_DB}
+  #     LOG_USER: ${LOG_USER}
+  #     LOG_PORT: ${LOG_PORT}
+  #     LOG_POOL_CONN: ${LOG_POOL_CONN}
+  #     LOG_PASSWORD: ${LOG_PASSWORD}
+  #     REDIS_DB: ${REDIS_DB}
+  #     REDIS_USER: ${REDIS_USER}
+  #     REDIS_PASSWORD: ${REDIS_PASSWORD}
+  #     REDIS_HOST: ${REDIS_HOST}
+  #     REDIS_PORT: ${REDIS_PORT}
+  #     SMTP_HOST: ${SMTP_HOST}
+  #     SMTP_PORT: ${SMTP_PORT}
+  #     SMTP_TLS: ${SMTP_TLS}
+  #     SMTP_USER: ${SMTP_USER}
+  #     SMTP_PASSWORD: ${SMTP_PASSWORD}
+  #     SMTP_NAME: ${SMTP_NAME}
+  #     API_PORT: ${API_PORT}
+  #     API_HTTPS: ${API_HTTPS}
+  #     CPU_NUM: ${CPU_NUM}
+  #   volumes:
+  #     - ./api:/api
+  #   links:
+  #     - pg:pg
+  #     - redis:redis
+  #   ports:
+  #     - ${API_PORT}:${API_PORT}
+  #     - ${API_HTTPS}:${API_HTTPS}

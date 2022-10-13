@@ -21,13 +21,13 @@ services:
     ports:
       - ${REDIS_PORT}:${REDIS_PORT}
   pg-log:
-    image: postgres:15-alpine
+    image: postgres:15rc2-alpine
     volumes:
       - /var/log/docker/api.user.tax/pg:/log
     restart: 'no'
     entrypoint: chown -R postgres:postgres /log
   pg:
-    image: postgres:14-alpine
+    image: postgres:15rc2-alpine
     volumes:
       - ./data/pg:/var/lib/postgresql/data
       - /var/log/docker/api.user.tax/pg:/log

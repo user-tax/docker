@@ -19,6 +19,7 @@ PG_MODULE_MAGIC;
 
 #define HASH_BYTES 16
 
+PG_FUNCTION_INFO_V1(hash_null);
 PG_FUNCTION_INFO_V1(hash_in);
 PG_FUNCTION_INFO_V1(hash_out);
 

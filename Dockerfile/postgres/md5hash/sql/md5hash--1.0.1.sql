@@ -31,8 +31,8 @@ CREATE TYPE md5hash (
 CREATE CAST (md5hash AS text) WITH INOUT AS IMPLICIT;
 CREATE CAST (text AS md5hash) WITH INOUT AS IMPLICIT;
 
-CREATE CAST (bytea AS md5hash) WITH FUNCTION md5_bytea_out AS IMPLICIT;
-CREATE CAST (md5hash AS bytea) WITH FUNCTION md5_bytea_in AS IMPLICIT;
+CREATE CAST (bytea AS md5hash) WITH FUNCTION md5_bytea_out(bytea) AS IMPLICIT;
+CREATE CAST (md5hash AS bytea) WITH FUNCTION md5_bytea_in(md5hash) AS IMPLICIT;
 
 CREATE OPERATOR = (
     PROCEDURE = md5_eq,

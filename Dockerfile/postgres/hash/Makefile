@@ -1,9 +1,9 @@
-MODULE_big = md5hash
-OBJS = md5hash.o
+MODULE_big = hash
+OBJS = hash.o
 
-EXTENSION = md5hash
-DATA = sql/md5hash--1.0.1.sql sql/md5hash--1.0.0--1.0.1.sql
-MODULES = md5hash
+EXTENSION = hash
+DATA = sql/hash--1.0.0.sql sql/hash--1.0.0--1.0.0.sql
+MODULES = hash
 
 CFLAGS=`pg_config --includedir-server`
 

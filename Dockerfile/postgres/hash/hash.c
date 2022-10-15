@@ -1,5 +1,5 @@
 /*
- * md5hash.c - data type representing md5 hash values (128-bit)
+ * hash.c - data type representing hash hash values (128-bit)
  *
  * Copyright (C) Tomas Vondra, 2011
  */
@@ -20,38 +20,38 @@ PG_MODULE_MAGIC;
 #define	HASH_CHARS	(HASH_BYTES*2)
 #define	HASH_LENGTH	(HASH_CHARS+1)
 
-PG_FUNCTION_INFO_V1(md5_in);
-PG_FUNCTION_INFO_V1(md5_out);
+PG_FUNCTION_INFO_V1(hash_in);
+PG_FUNCTION_INFO_V1(hash_out);
 
-PG_FUNCTION_INFO_V1(md5_recv);
-PG_FUNCTION_INFO_V1(md5_send);
+PG_FUNCTION_INFO_V1(hash_recv);
+PG_FUNCTION_INFO_V1(hash_send);
 
-PG_FUNCTION_INFO_V1(md5_eq);
-PG_FUNCTION_INFO_V1(md5_neq);
+PG_FUNCTION_INFO_V1(hash_eq);
+PG_FUNCTION_INFO_V1(hash_neq);
 
-PG_FUNCTION_INFO_V1(md5_leq);
-PG_FUNCTION_INFO_V1(md5_lt);
+PG_FUNCTION_INFO_V1(hash_leq);
+PG_FUNCTION_INFO_V1(hash_lt);
 
-PG_FUNCTION_INFO_V1(md5_geq);
-PG_FUNCTION_INFO_V1(md5_gt);
-PG_FUNCTION_INFO_V1(md5_cmp);
+PG_FUNCTION_INFO_V1(hash_geq);
+PG_FUNCTION_INFO_V1(hash_gt);
+PG_FUNCTION_INFO_V1(hash_cmp);
 
-Datum md5_in(PG_FUNCTION_ARGS);
-Datum md5_out(PG_FUNCTION_ARGS);
+Datum hash_in(PG_FUNCTION_ARGS);
+Datum hash_out(PG_FUNCTION_ARGS);
 
-Datum md5_eq(PG_FUNCTION_ARGS);
-Datum md5_neq(PG_FUNCTION_ARGS);
+Datum hash_eq(PG_FUNCTION_ARGS);
+Datum hash_neq(PG_FUNCTION_ARGS);
 
-Datum md5_leq(PG_FUNCTION_ARGS);
-Datum md5_lt(PG_FUNCTION_ARGS);
+Datum hash_leq(PG_FUNCTION_ARGS);
+Datum hash_lt(PG_FUNCTION_ARGS);
 
-Datum md5_geq(PG_FUNCTION_ARGS);
-Datum md5_gt(PG_FUNCTION_ARGS);
+Datum hash_geq(PG_FUNCTION_ARGS);
+Datum hash_gt(PG_FUNCTION_ARGS);
 
-Datum md5_cmp(PG_FUNCTION_ARGS);
+Datum hash_cmp(PG_FUNCTION_ARGS);
 
-Datum md5_recv(PG_FUNCTION_ARGS);
-Datum md5_send(PG_FUNCTION_ARGS);
+Datum hash_recv(PG_FUNCTION_ARGS);
+Datum hash_send(PG_FUNCTION_ARGS);
 
 typedef struct hash_t
 {
@@ -110,7 +110,7 @@ decode(char byte[2])
 }
 
 Datum
-md5_in(PG_FUNCTION_ARGS)
+hash_in(PG_FUNCTION_ARGS)
 {
 	int	 i = 0;
 	char  *str = PG_GETARG_CSTRING(0);
@@ -142,7 +142,7 @@ md5_in(PG_FUNCTION_ARGS)
 }
 
 Datum
-md5_out(PG_FUNCTION_ARGS)
+hash_out(PG_FUNCTION_ARGS)
 {
 	hash_t *hash = (hash_t *) PG_GETARG_POINTER(0);
 	char   *result = encode(hash);
@@ -151,7 +151,7 @@ md5_out(PG_FUNCTION_ARGS)
 }
 
 Datum
-md5_eq(PG_FUNCTION_ARGS)
+hash_eq(PG_FUNCTION_ARGS)
 {
 	hash_t *a = (hash_t *) PG_GETARG_POINTER(0);
 	hash_t *b = (hash_t *) PG_GETARG_POINTER(1);
@@ -162,7 +162,7 @@ md5_eq(PG_FUNCTION_ARGS)
 }
 
 Datum
-md5_neq(PG_FUNCTION_ARGS)
+hash_neq(PG_FUNCTION_ARGS)
 {
 	hash_t *a = (hash_t *) PG_GETARG_POINTER(0);
 	hash_t *b = (hash_t *) PG_GETARG_POINTER(1);
@@ -173,7 +173,7 @@ md5_neq(PG_FUNCTION_ARGS)
 }
 
 Datum
-md5_leq(PG_FUNCTION_ARGS)
+hash_leq(PG_FUNCTION_ARGS)
 {
 	hash_t *a = (hash_t *) PG_GETARG_POINTER(0);
 	hash_t *b = (hash_t *) PG_GETARG_POINTER(1);
@@ -184,7 +184,7 @@ md5_leq(PG_FUNCTION_ARGS)
 }
 
 Datum
-md5_lt(PG_FUNCTION_ARGS)
+hash_lt(PG_FUNCTION_ARGS)
 {
 	hash_t *a = (hash_t *) PG_GETARG_POINTER(0);
 	hash_t *b = (hash_t *) PG_GETARG_POINTER(1);
@@ -195,7 +195,7 @@ md5_lt(PG_FUNCTION_ARGS)
 }
 
 Datum
-md5_geq(PG_FUNCTION_ARGS)
+hash_geq(PG_FUNCTION_ARGS)
 {
 	hash_t *a = (hash_t *) PG_GETARG_POINTER(0);
 	hash_t *b = (hash_t *) PG_GETARG_POINTER(1);
@@ -206,7 +206,7 @@ md5_geq(PG_FUNCTION_ARGS)
 }
 
 Datum
-md5_gt(PG_FUNCTION_ARGS)
+hash_gt(PG_FUNCTION_ARGS)
 {
 	hash_t *a = (hash_t *) PG_GETARG_POINTER(0);
 	hash_t *b = (hash_t *) PG_GETARG_POINTER(1);
@@ -217,7 +217,7 @@ md5_gt(PG_FUNCTION_ARGS)
 }
 
 Datum
-md5_cmp(PG_FUNCTION_ARGS)
+hash_cmp(PG_FUNCTION_ARGS)
 {
 	hash_t *a = (hash_t *) PG_GETARG_POINTER(0);
 	hash_t *b = (hash_t *) PG_GETARG_POINTER(1);
@@ -228,7 +228,7 @@ md5_cmp(PG_FUNCTION_ARGS)
 }
 
 Datum
-md5_recv(PG_FUNCTION_ARGS)
+hash_recv(PG_FUNCTION_ARGS)
 {
 	StringInfo	buf = (StringInfo) PG_GETARG_POINTER(0);
 	hash_t	   *result;
@@ -240,7 +240,7 @@ md5_recv(PG_FUNCTION_ARGS)
 }
 
 Datum
-md5_send(PG_FUNCTION_ARGS)
+hash_send(PG_FUNCTION_ARGS)
 {
 	hash_t * hash = (hash_t*) PG_GETARG_POINTER(0);
 	StringInfoData buf;

@@ -4,9 +4,9 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 RUN apk add make musl-dev clang gcc llvm
 
-COPY md5hash /md5hash
+COPY hash /hash
 
-RUN /md5hash/build.sh
+RUN /hash/build.sh
 
 FROM postgres:15-alpine 
 

@@ -93,7 +93,8 @@ Datum hash_in(PG_FUNCTION_ARGS)
         (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
             errmsg("invalid input length for hash: expected 16")));
 
-  hash_t* result = (hash_t*)palloc(sizeof(hash_t));
+  hash_t* result;
+  result = (hash_t*)palloc(sizeof(hash_t));
   char* raw_data = VARDATA_ANY(data);
   memcpy(result->bytes, raw_data, HASH_BYTES);
 
@@ -107,7 +108,7 @@ Datum hash_out(PG_FUNCTION_ARGS)
   bytea* data;
   data = palloc(HASH_BYTES);
   SET_VARSIZE(data, HASH_BYTES);
-  memcpy(hash->bytea, data, HASH_BYTES);
+  memcpy(hash->bytes, data, HASH_BYTES);
   PG_RETURN_POINTER(data);
 }
 

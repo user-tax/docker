@@ -85,7 +85,7 @@ decode(char byte[2])
 Datum hash_in(PG_FUNCTION_ARGS)
 {
   hash_t* result = (hash_t*)palloc(sizeof(hash_t));
-  bytea* data = PG_GETARG_BYTEA_PP(0);
+  bytea* data = PG_GETARG_BYTEA_P(0);
   char* raw_data = VARDATA_ANY(data);
   uint32 data_length = VARSIZE_ANY(data);
   if (data_length != 16)

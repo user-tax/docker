@@ -4,11 +4,12 @@
  * Copyright (C) Tomas Vondra, 2011
  */
 
-#include "access/htup.h"
-#include "fmgr.h"
 #include "postgres.h"
 #include <string.h>
 
+#include "fmgr.h"
+
+#include "access/htup.h"
 #include "lib/stringinfo.h"
 #include "libpq/pqformat.h"
 

@@ -86,7 +86,7 @@ decode(char byte[2])
 
 Datum hash_in(PG_FUNCTION_ARGS)
 {
-  hash_t* result;
+  hash_t* result = (hash_t*)palloc(sizeof(hash_t));
   bytea* data = PG_GETARG_BYTEA_PP(0);
   char* raw_data = VARDATA_ANY(data);
   uint32 data_length = VARSIZE_ANY(data);
@@ -95,7 +95,6 @@ Datum hash_in(PG_FUNCTION_ARGS)
         (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
             errmsg("invalid input length for hash: expected 16")));
 
-  result = (hash_t*)palloc(sizeof(hash_t));
   memcpy(result->bytes, raw_data, HASH_BYTES);
 
   PG_RETURN_POINTER(result);

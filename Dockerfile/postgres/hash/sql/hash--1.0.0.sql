@@ -1,5 +1,8 @@
 CREATE TYPE hash;
 
+CREATE FUNCTION hash_null(cstring) RETURNS hash AS 'hash' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION hash_null(hash) RETURNS cstring AS 'hash' LANGUAGE C IMMUTABLE STRICT;
+
 -- input/output function
 CREATE FUNCTION hash_in(bytea)           RETURNS hash AS 'hash' LANGUAGE C IMMUTABLE STRICT;
 CREATE FUNCTION hash_out(hash)          RETURNS bytea AS 'hash' LANGUAGE C IMMUTABLE STRICT;
@@ -17,16 +20,16 @@ CREATE FUNCTION hash_recv(internal)        RETURNS hash AS 'hash' LANGUAGE C IMM
 CREATE FUNCTION hash_send(hash)         RETURNS bytea   AS 'hash' LANGUAGE C IMMUTABLE STRICT;
 
 CREATE TYPE hash (
-    INPUT = hash_in,
-    OUTPUT = hash_out,
+    INPUT = hash_null,
+    OUTPUT = hash_null,
     INTERNALLENGTH = 16,
     SEND = hash_send,
     RECEIVE = hash_recv
 );
 
 -- some basic support for implicit casts
-CREATE CAST (hash AS bytea) WITH INOUT AS IMPLICIT;
-CREATE CAST (bytea AS hash) WITH INOUT AS IMPLICIT;
+CREATE CAST (hash AS bytea) WITH FUNCTION hash_in AS IMPLICIT;
+CREATE CAST (bytea AS hash) WITH FUNCTION hash_out AS IMPLICIT;
 
 CREATE OPERATOR = (
     PROCEDURE = hash_eq,

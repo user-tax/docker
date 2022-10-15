@@ -82,6 +82,13 @@ decode(char byte[2])
   return result;
 }
 
+Datum hash_null(PG_FUNCTION_ARGS)
+{
+  ereport(ERROR,
+      (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+          errmsg("hash null")));
+}
+
 Datum hash_in(PG_FUNCTION_ARGS)
 {
   hash_t* result = (hash_t*)palloc(sizeof(hash_t));

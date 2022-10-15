@@ -18,8 +18,6 @@ PG_MODULE_MAGIC;
 #endif
 
 #define HASH_BYTES 16
-#define HASH_CHARS (HASH_BYTES * 2)
-#define HASH_LENGTH (HASH_CHARS + 1)
 
 PG_FUNCTION_INFO_V1(hash_in);
 PG_FUNCTION_INFO_V1(hash_out);
@@ -93,7 +91,7 @@ Datum hash_in(PG_FUNCTION_ARGS)
   if (data_length != 16)
     ereport(ERROR,
         (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
-            errmsg("invalid input length for hash: expected 16")));
+            errmsg("invalid input length for hash: expected %s , get %d", HASH_BYTES, data_length)));
 
   memcpy(result->bytes, raw_data, HASH_BYTES);
 

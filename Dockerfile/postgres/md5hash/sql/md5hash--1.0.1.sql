@@ -16,8 +16,8 @@ CREATE FUNCTION md5_cmp(md5hash, md5hash) RETURNS int     AS 'md5hash' LANGUAGE 
 CREATE FUNCTION md5_recv(internal)        RETURNS md5hash AS 'md5hash' LANGUAGE C IMMUTABLE STRICT;
 CREATE FUNCTION md5_send(md5hash)         RETURNS bytea   AS 'md5hash' LANGUAGE C IMMUTABLE STRICT;
 
-CREATE FUNCTION md5_bytea_out(md5hash) RETURNS bytea AS 'md5hash' LANGUAGE C IMMUTABLE STRICT;
 CREATE FUNCTION md5_bytea_in(bytea) RETURNS md5hash AS 'md5hash' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION md5_bytea_out(md5hash) RETURNS bytea AS 'md5hash' LANGUAGE C IMMUTABLE STRICT;
 
 CREATE TYPE md5hash (
     INPUT = md5_in,
@@ -31,8 +31,8 @@ CREATE TYPE md5hash (
 CREATE CAST (md5hash AS text) WITH INOUT AS IMPLICIT;
 CREATE CAST (text AS md5hash) WITH INOUT AS IMPLICIT;
 
-CREATE CAST (bytea AS md5hash) WITH FUNCTION md5_bytea_out(bytea) AS IMPLICIT;
-CREATE CAST (md5hash AS bytea) WITH FUNCTION md5_bytea_in(md5hash) AS IMPLICIT;
+CREATE CAST (bytea AS md5hash) WITH FUNCTION md5_bytea_in(bytea) AS IMPLICIT;
+CREATE CAST (md5hash AS bytea) WITH FUNCTION md5_bytea_out(md5hash) AS IMPLICIT;
 
 CREATE OPERATOR = (
     PROCEDURE = md5_eq,

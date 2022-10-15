@@ -91,7 +91,7 @@ Datum hash_in(PG_FUNCTION_ARGS)
   if (data_length != 16)
     ereport(ERROR,
         (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
-            errmsg("invalid input length for hash: expected %s , get %d", HASH_BYTES, data_length)));
+            errmsg("invalid input length for hash: expected %d , get %d", HASH_BYTES, data_length)));
 
   memcpy(result->bytes, raw_data, HASH_BYTES);
 

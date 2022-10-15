@@ -2,7 +2,7 @@ MODULE_big = hash
 OBJS = hash.o
 
 EXTENSION = hash
-DATA = sql/hash--1.0.0.sql sql/hash--1.0.0--1.0.0.sql
+DATA = sql/hash--1.0.0.sql 
 MODULES = hash
 
 CFLAGS=`pg_config --includedir-server`

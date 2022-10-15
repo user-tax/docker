@@ -25,8 +25,8 @@ CREATE TYPE hash (
 );
 
 -- some basic support for implicit casts
-CREATE CAST (hash AS text) WITH INOUT AS IMPLICIT;
-CREATE CAST (text AS hash) WITH INOUT AS IMPLICIT;
+CREATE CAST (hash AS bytea) WITH INOUT AS IMPLICIT;
+CREATE CAST (bytea AS hash) WITH INOUT AS IMPLICIT;
 
 CREATE OPERATOR = (
     PROCEDURE = hash_eq,

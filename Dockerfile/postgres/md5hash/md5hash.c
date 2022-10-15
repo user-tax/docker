@@ -20,6 +20,9 @@ PG_MODULE_MAGIC;
 #define HASH_CHARS (HASH_BYTES * 2)
 #define HASH_LENGTH (HASH_CHARS + 1)
 
+PG_FUNCTION_INFO_V1(md5_bytea_in);
+PG_FUNCTION_INFO_V1(md5_bytea_out);
+
 PG_FUNCTION_INFO_V1(md5_in);
 PG_FUNCTION_INFO_V1(md5_out);
 
@@ -235,7 +238,7 @@ Datum md5_send(PG_FUNCTION_ARGS)
   PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
 }
 
-Datum bytea_in(PG_FUNCTION_ARGS)
+Datum md5_bytea_in(PG_FUNCTION_ARGS)
 {
   hash_t* result = (hash_t*)palloc(sizeof(hash_t));
   bytea* data = PG_GETARG_BYTEA_P(0);
@@ -250,7 +253,7 @@ Datum bytea_in(PG_FUNCTION_ARGS)
   PG_RETURN_POINTER(result);
 }
 
-Datum bytes_out(PG_FUNCTION_ARGS)
+Datum md5_bytea_out(PG_FUNCTION_ARGS)
 {
   hash_t* hash = (hash_t*)PG_GETARG_POINTER(0);
 

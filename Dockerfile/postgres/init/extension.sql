@@ -1,2 +1,2 @@
-create extension hash;
+create extension md5hash;
 

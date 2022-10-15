@@ -6,4 +6,3 @@ set -ex
 
 USE_PGXS=1 make
 USE_PGXS=1 make install
-

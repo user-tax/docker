@@ -17,7 +17,7 @@ CREATE FUNCTION md5_recv(internal)        RETURNS md5hash AS 'md5hash' LANGUAGE 
 CREATE FUNCTION md5_send(md5hash)         RETURNS bytea   AS 'md5hash' LANGUAGE C IMMUTABLE STRICT;
 
 CREATE FUNCTION md5_bytea_out(md5hash) RETURNS bytea AS 'md5hash' LANGUAGE C IMMUTABLE STRICT;
-CREATE FUNCTION md5_bytea_in(bytea) RETURNS md5hash AS 'md5hash' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION md5_bytea_in(internal) RETURNS md5hash AS 'md5hash' LANGUAGE C IMMUTABLE STRICT;
 
 CREATE TYPE md5hash (
     INPUT = md5_in,

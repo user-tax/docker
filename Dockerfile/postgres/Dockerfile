@@ -10,6 +10,10 @@ RUN /md5hash/build.sh
 
 FROM postgres:15-alpine 
 
+COPY init/*.sql /docker-entrypoint-initdb.d/
+
+RUN chown postgres:postgres /docker-entrypoint-initdb.d/*.sql
+
 COPY --from=pg \
   /usr/local/share/postgresql/extension\
   /usr/local/share/postgresql/extension

@@ -91,8 +91,7 @@ Datum hash_in(PG_FUNCTION_ARGS)
   if (data_length != 16)
     ereport(ERROR,
         (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
-            errmsg("invalid input length for hash: \"%s\" (expected 16 bytea)",
-                str)));
+            errmsg("invalid input length for hash: expected 16")));
 
   hash_t* result = (hash_t*)palloc(sizeof(hash_t));
   char* raw_data = VARDATA_ANY(data);

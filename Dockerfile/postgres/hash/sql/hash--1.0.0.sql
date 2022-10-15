@@ -1,8 +1,8 @@
 CREATE TYPE hash;
 
 -- input/output function
-CREATE FUNCTION hash_in(cstring)           RETURNS hash AS 'hash' LANGUAGE C IMMUTABLE STRICT;
-CREATE FUNCTION hash_out(hash)          RETURNS cstring AS 'hash' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION hash_in(bytea)           RETURNS hash AS 'hash' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION hash_out(hash)          RETURNS bytea AS 'hash' LANGUAGE C IMMUTABLE STRICT;
 
 -- functions backing operators (and btree opclass)
 CREATE FUNCTION hash_eq(hash, hash)  RETURNS boolean AS 'hash' LANGUAGE C IMMUTABLE STRICT;

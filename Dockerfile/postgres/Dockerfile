@@ -4,9 +4,10 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/re
 
 RUN apk add make musl-dev clang gcc llvm
 
-COPY md5hash /md5hash
+COPY plugin /plugin
 
-RUN /md5hash/build.sh
+RUN /plugin/pguint.sh
+RUN /plugin/md5hash/build.sh
 
 FROM postgres:15-alpine 
 

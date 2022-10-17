@@ -1,18 +1,18 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@iuser/node-loader': ^0.0.21
+  '@iuser/node-loader': ^0.0.25
   '@iuser/read': ^0.0.5
   '@iuser/write': ^0.0.7
   '@rmw/thisdir': ^0.0.2
-  dotenv: ^16.0.2
+  dotenv: ^16.0.3
   nanoid: ^4.0.0
 
 dependencies:
-  '@iuser/node-loader': registry.npmmirror.com/@iuser/node-loader/0.0.21
+  '@iuser/node-loader': registry.npmmirror.com/@iuser/node-loader/0.0.25
   '@iuser/read': registry.npmmirror.com/@iuser/read/0.0.5
   '@rmw/thisdir': registry.npmmirror.com/@rmw/thisdir/0.0.2
-  dotenv: registry.npmmirror.com/dotenv/16.0.2
+  dotenv: registry.npmmirror.com/dotenv/16.0.3
   nanoid: registry.npmmirror.com/nanoid/4.0.0
 
 devDependencies:
@@ -26,10 +26,10 @@ packages:
     version: 0.0.17
     dev: false
 
-  registry.npmmirror.com/@iuser/node-loader/0.0.21:
-    resolution: {integrity: sha512-SgZfVLX+ZVvoj1KctWw9qNeiV/kPeG9OjsHCVSlPrdfCEZEuy4wFF8MqlurQrUL2rZRBvLkdpHOZlWsAK3otAA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@iuser/node-loader/-/node-loader-0.0.21.tgz}
+  registry.npmmirror.com/@iuser/node-loader/0.0.25:
+    resolution: {integrity: sha512-ZPZmbkrvTVvdIid1ePbAqd8E+3AgkIFewsKbmitc/5dGRmRWzMQadY24YY7JsLL0o2YiBKmjbZxhDIXdeAILRA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@iuser/node-loader/-/node-loader-0.0.25.tgz}
     name: '@iuser/node-loader'
-    version: 0.0.21
+    version: 0.0.25
     dependencies:
       coffee_plus: registry.npmmirror.com/coffee_plus/0.0.39
     dev: false
@@ -127,10 +127,10 @@ packages:
     version: 1.1.4
     dev: false
 
-  registry.npmmirror.com/dotenv/16.0.2:
-    resolution: {integrity: sha512-JvpYKUmzQhYoIFgK2MOnF3bciIZoItIIoryihy0rIA+H4Jy0FmgyKYAHCTN98P5ybGSJcIFbh6QKeJdtZd1qhA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/dotenv/-/dotenv-16.0.2.tgz}
+  registry.npmmirror.com/dotenv/16.0.3:
+    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/dotenv/-/dotenv-16.0.3.tgz}
     name: dotenv
-    version: 16.0.2
+    version: 16.0.3
     engines: {node: '>=12'}
     dev: false
 

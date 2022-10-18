@@ -42,7 +42,7 @@ services:
     ports:
       - ${PG_PORT}:${PG_PORT}
     command: >
-      postgres -c logging_collector=on -c log_destination=stderr -c log_directory=/log -c log_filename=pg.log -c wal_compression=zstd -c default_toast_compression=lz4
+      postgres -c max_connections=4096 -c logging_collector=on -c log_destination=stderr -c log_directory=/log -c log_filename=pg.log -c wal_compression=zstd -c default_toast_compression=lz4 -c wal_level=logical
   # api:
   #   build: ./Dockerfile/api.user.tax
   #   restart: always

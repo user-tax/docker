@@ -11,7 +11,7 @@ RUN /plugin/md5hash/build.sh
 
 FROM postgres:15-alpine 
 
-COPY init/*.sql /docker-entrypoint-initdb.d/
+# COPY init/*.sql /docker-entrypoint-initdb.d/
 
 RUN chown postgres:postgres /docker-entrypoint-initdb.d/*.sql
 

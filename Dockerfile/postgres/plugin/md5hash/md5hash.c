@@ -256,9 +256,8 @@ Datum md5_bytea_in(PG_FUNCTION_ARGS)
 Datum md5_bytea_out(PG_FUNCTION_ARGS)
 {
   hash_t* hash = (hash_t*)PG_GETARG_POINTER(0);
+  bytea* data = palloc(HASH_BYTES);
 
-  bytea* data;
-  data = palloc(HASH_BYTES);
   SET_VARSIZE(data, HASH_BYTES);
   memcpy(hash->bytes, data, HASH_BYTES);
   PG_RETURN_POINTER(data);

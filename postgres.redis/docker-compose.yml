@@ -79,8 +79,7 @@ services:
   #     API_HTTPS: ${API_HTTPS}
   #     CPU_NUM: ${CPU_NUM}
   #   volumes:
-  #     - ./api:/api
-  #     - ./init:/init
+  #     - ./user.tax:/user.tax
   #   links:
   #     - pg:pg
   #     - redis:redis

@@ -25964,7 +25964,7 @@ if (process.argv[1] === decodeURI(new URL(import.meta.url).pathname)) {
   process.exit();
 }
 
-// init.js
+// main.js
 var li;
 var mod;
 var ref;

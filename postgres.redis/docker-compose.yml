@@ -80,6 +80,7 @@ services:
   #     CPU_NUM: ${CPU_NUM}
   #   volumes:
   #     - ./api:/api
+  #     - ./init:/init
   #   links:
   #     - pg:pg
   #     - redis:redis

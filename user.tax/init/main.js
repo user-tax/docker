@@ -21428,7 +21428,7 @@ var RedisLua_default = async () => {
       await R_default.zincr(i3, "");
     }
   }));
-  fp = join(ROOT_default, "redis.lua");
+  fp = join(ROOT_default, "init.redis.lua");
   lua = lib_default(fp);
   version = await hash(lua);
   li2 = ["#!lua name=UserTax\n\n"];

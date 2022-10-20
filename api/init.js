@@ -25964,14 +25964,13 @@ if (process.argv[1] === decodeURI(new URL(import.meta.url).pathname)) {
   process.exit();
 }
 
-// index.js
+// init.js
 var li;
 var mod;
 var ref;
 li = [];
 ref = [PgUint_default, RedisLua_default, i18n_default, mail_ban_host_default, sercet_key_default];
 for (mod of ref) {
-  console.log(source_default.yellow("init", mod));
   li.push(mod());
 }
 await Promise.all(li);

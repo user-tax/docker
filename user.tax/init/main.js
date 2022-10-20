@@ -21388,8 +21388,12 @@ var thisdir = (meta) => {
 };
 var lib_default2 = thisdir;
 
-// ROOT.js
-var ROOT_default = lib_default2(import.meta);
+// conf.js
+import {
+  dirname as dirname2
+} from "path";
+var PWD = lib_default2(import.meta);
+var ROOT = dirname2(dirname2(PWD));
 
 // redis_id_init.js
 var redis_id_init_exports = {};
@@ -21428,7 +21432,7 @@ var RedisLua_default = async () => {
       await R_default.zincr(i3, "");
     }
   }));
-  fp = join(ROOT_default, "init.redis.lua");
+  fp = join(PWD, "init.redis.lua");
   lua = lib_default(fp);
   version = await hash(lua);
   li2 = ["#!lua name=UserTax\n\n"];
@@ -21503,7 +21507,7 @@ import {
 } from "path";
 var mail_ban_host_default = async () => {
   var domains, host, lastseen, li2, o, ref2, t2, x2;
-  ({ t: t2, domains } = JSON.parse(lib_default(join2(ROOT_default, "init.mail_ban_host.json"))));
+  ({ t: t2, domains } = JSON.parse(lib_default(join2(PWD, "init.mail_ban_host.json"))));
   li2 = [];
   ref2 = Object.entries(domains);
   for (x2 of ref2) {
@@ -21540,7 +21544,7 @@ import {
   stat
 } from "fs/promises";
 import {
-  dirname as dirname2,
+  dirname as dirname3,
   join as join3,
   normalize
 } from "path";
@@ -21641,7 +21645,7 @@ var split_default = split;
 var DIR;
 var I18N;
 I18N = "i18n";
-DIR = join4(ROOT_default, I18N);
+DIR = join4(PWD, I18N);
 var i18n_default = async () => {
   var i2, lang, o, ref2, url;
   ref2 = walkRel(DIR, (i3) => {
@@ -23672,23 +23676,23 @@ var PgConn_default = (types4) => {
 
 // ../../node_modules/.pnpm/@iuser+write@0.0.7/node_modules/@iuser/write/lib/index.js
 import {
-  dirname as dirname3
+  dirname as dirname4
 } from "path";
 import {
   writeFileSync,
   mkdirSync
 } from "fs";
 var lib_default3 = (fp, txt) => {
-  mkdirSync(dirname3(fp), {
+  mkdirSync(dirname4(fp), {
     recursive: true
   });
   writeFileSync(fp, txt);
 };
 
-// PgUint.js
+// Pg.js
 import {
   join as join5,
-  dirname as dirname4
+  dirname as dirname5
 } from "path";
 
 // ../../node_modules/.pnpm/zx@7.1.1/node_modules/zx/build/index.js
@@ -25944,12 +25948,12 @@ function quiet(promise) {
 // ../../node_modules/.pnpm/zx@7.1.1/node_modules/zx/build/globals.js
 Object.assign(global, build_exports);
 
-// PgUint.js
+// Pg.js
 var main2;
-var PgUint_default = main2 = async () => {
+var Pg_default = main2 = async () => {
   var PG, li2, name, oid, ref2, x2;
   PG = PgConn_default({});
-  await $`psql ${PG_URI_default} < ${ROOT_default}/init.sql > /dev/null`;
+  await $`psql ${PG_URI_default} < ${PWD}/init.sql > /dev/null`;
   li2 = [[20, "bigint"]];
   ref2 = await PG`select oid,typname from pg_type where typname in ('u64','u32','u16','u8')`.values();
   for (x2 of ref2) {
@@ -25957,7 +25961,7 @@ var PgUint_default = main2 = async () => {
     li2.push([oid, name]);
   }
   li2.sort();
-  lib_default3(join5(dirname4(dirname4(ROOT_default)), "src/CONST/PG_UINT.js"), "export default " + JSON.stringify(li2));
+  lib_default3(join5(dirname5(PWD), "api/CONST/PG_UINT.js"), "export default " + JSON.stringify(li2));
 };
 if (process.argv[1] === decodeURI(new URL(import.meta.url).pathname)) {
   await main2();
@@ -25969,7 +25973,7 @@ var li;
 var mod;
 var ref;
 li = [];
-ref = [PgUint_default, RedisLua_default, i18n_default, mail_ban_host_default, sercet_key_default];
+ref = [Pg_default, RedisLua_default, i18n_default, mail_ban_host_default, sercet_key_default];
 for (mod of ref) {
   li.push(mod());
 }

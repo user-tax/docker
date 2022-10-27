@@ -1,4 +1,4 @@
-#!/usr/bin/env -S node --es-module-specifier-resolution=node --trace-uncaught --expose-gc --unhandled-rejections=strict
+#!/usr/bin/env -S node --loader=@u6x/jsext --trace-uncaught --expose-gc --unhandled-rejections=strict
 import {dirname as _dirname_} from 'path';import { createRequire as _createRequire_ } from 'module';const require = _createRequire_(import.meta.url); const __dirname=_dirname_(decodeURI((new URL(import.meta.url)).pathname));
 var __create = Object.create;
 var __defProp = Object.defineProperty;
@@ -17186,10 +17186,12 @@ __export(key_exports, {
   R_CLIENT_ORG: () => R_CLIENT_ORG,
   R_CONF: () => R_CONF,
   R_HOST_ORG: () => R_HOST_ORG,
+  R_ID: () => R_ID,
   R_MAIL: () => R_MAIL,
   R_MAIL_BAN_HOST: () => R_MAIL_BAN_HOST,
   R_MAIL_HOST: () => R_MAIL_HOST,
-  R_ORG: () => R_ORG
+  R_ORG: () => R_ORG,
+  R_USER_NAME: () => R_USER_NAME
 });
 
 // ../../node_modules/.pnpm/@iuser+utf8@0.0.1/node_modules/@iuser/utf8/lib/index.js
@@ -17226,13 +17228,15 @@ $ = new Proxy(wrap, {
 var R_CAPTCHA = $([1], "setex getB del exist");
 var R_CAPTCHA_IP_LIMIT = $([2], "ipLimit");
 var R_CLIENT_ORG = $([3], "zadd exist");
+var R_USER_NAME = $([4], "hget hset");
 var R_MAIL = utf8e("{mail}");
 var R_MAIL_HOST = utf8e("{mail}host");
 var R_ORG = utf8e("{org}");
 var R_HOST_ORG = utf8e("host{org}");
 var {
   R_CONF,
-  R_MAIL_BAN_HOST
+  R_MAIL_BAN_HOST,
+  R_ID
 } = $;
 
 // db/redis/lua.js
@@ -17504,8 +17508,8 @@ var Day = dateInt(864e5);
 // POST/auth/sign.js
 import {
   passwordHash,
-  xxh64,
-  zipU64
+  zipU64,
+  u64Bin
 } from "@u6x/ru";
 
 // lib/sk.js
@@ -17865,10 +17869,7 @@ function handleValue(x, parameters, types3, options2) {
   if (value === void 0) {
     x instanceof Parameter ? x.value = options2.transform.undefined : value = x = options2.transform.undefined;
     if (value === void 0)
-      throw Errors.generic(
-        "UNDEFINED_VALUE",
-        "Undefined values are not allowed"
-      );
+      throw Errors.generic("UNDEFINED_VALUE", "Undefined values are not allowed");
   }
   return "$" + types3.push(
     x instanceof Parameter ? (parameters.push(x.value), x.array ? x.array[x.type || inferType(x.value)] || x.type || firstIsString(x.value) : x.type) : (parameters.push(x), inferType(x))
@@ -17883,10 +17884,7 @@ function stringify(q, string, value, parameters, types3, options2) {
   return string;
 }
 function stringifyValue(string, value, parameters, types3, o) {
-  return value instanceof Builder ? value.build(string, parameters, types3, o) : value instanceof Query ? fragment(value, parameters, types3, o) : value instanceof Identifier ? value.value : value && value[0] instanceof Query ? value.reduce(
-    (acc, x) => acc + " " + fragment(x, parameters, types3, o),
-    ""
-  ) : handleValue(value, parameters, types3, o);
+  return value instanceof Builder ? value.build(string, parameters, types3, o) : value instanceof Query ? fragment(value, parameters, types3, o) : value instanceof Identifier ? value.value : value && value[0] instanceof Query ? value.reduce((acc, x) => acc + " " + fragment(x, parameters, types3, o), "") : handleValue(value, parameters, types3, o);
 }
 function fragment(q, parameters, types3, options2) {
   q.fragment = true;
@@ -17902,29 +17900,17 @@ function valuesBuilder(first, parameters, types3, columns, options2) {
 function values(first, rest, parameters, types3, options2) {
   const multi = Array.isArray(first[0]);
   const columns = rest.length ? rest.flat() : Object.keys(multi ? first[0] : first);
-  return valuesBuilder(
-    multi ? first : [first],
-    parameters,
-    types3,
-    columns,
-    options2
-  );
+  return valuesBuilder(multi ? first : [first], parameters, types3, columns, options2);
 }
 function select(first, rest, parameters, types3, options2) {
   typeof first === "string" && (first = [first].concat(rest));
   if (Array.isArray(first))
-    return first.map(
-      (x) => escapeIdentifier(
-        options2.transform.column.to ? options2.transform.column.to(x) : x
-      )
-    ).join(",");
+    return first.map((x) => escapeIdentifier(options2.transform.column.to ? options2.transform.column.to(x) : x)).join(",");
   let value;
   const columns = rest.length ? rest.flat() : Object.keys(first);
   return columns.map((x) => {
     value = first[x];
-    return (value instanceof Query ? fragment(value, parameters, types3, options2) : value instanceof Identifier ? value.value : handleValue(value, parameters, types3, options2)) + " as " + escapeIdentifier(
-      options2.transform.column.to ? options2.transform.column.to(x) : x
-    );
+    return (value instanceof Query ? fragment(value, parameters, types3, options2) : value instanceof Identifier ? value.value : handleValue(value, parameters, types3, options2)) + " as " + escapeIdentifier(options2.transform.column.to ? options2.transform.column.to(x) : x);
   }).join(",");
 }
 var builders = Object.entries({
@@ -17938,36 +17924,18 @@ var builders = Object.entries({
   returning: select,
   update(first, rest, parameters, types3, options2) {
     return (rest.length ? rest.flat() : Object.keys(first)).map(
-      (x) => escapeIdentifier(
-        options2.transform.column.to ? options2.transform.column.to(x) : x
-      ) + "=" + handleValue(first[x], parameters, types3, options2)
+      (x) => escapeIdentifier(options2.transform.column.to ? options2.transform.column.to(x) : x) + "=" + handleValue(first[x], parameters, types3, options2)
     );
   },
   insert(first, rest, parameters, types3, options2) {
     const columns = rest.length ? rest.flat() : Object.keys(Array.isArray(first) ? first[0] : first);
     return "(" + columns.map(
-      (x) => escapeIdentifier(
-        options2.transform.column.to ? options2.transform.column.to(x) : x
-      )
-    ).join(",") + ")values" + valuesBuilder(
-      Array.isArray(first) ? first : [first],
-      parameters,
-      types3,
-      columns,
-      options2
-    );
+      (x) => escapeIdentifier(options2.transform.column.to ? options2.transform.column.to(x) : x)
+    ).join(",") + ")values" + valuesBuilder(Array.isArray(first) ? first : [first], parameters, types3, columns, options2);
   }
-}).map(
-  ([x, fn]) => [
-    new RegExp("((?:^|[\\s(])" + x + "(?:$|[\\s(]))(?![\\s\\S]*\\1)", "i"),
-    fn
-  ]
-);
+}).map(([x, fn]) => [new RegExp("((?:^|[\\s(])" + x + "(?:$|[\\s(]))(?![\\s\\S]*\\1)", "i"), fn]);
 function notTagged() {
-  throw Errors.generic(
-    "NOT_TAGGED_CALL",
-    "Query not called as a tagged template literal"
-  );
+  throw Errors.generic("NOT_TAGGED_CALL", "Query not called as a tagged template literal");
 }
 var serializers = defaultHandlers.serializers;
 var parsers = defaultHandlers.parsers;
@@ -17984,19 +17952,12 @@ var mergeUserTypes = function(types3) {
   };
 };
 function typeHandlers(types3) {
-  return Object.keys(types3).reduce(
-    (acc, k) => {
-      types3[k].from && [].concat(types3[k].from).forEach(
-        (x) => acc.parsers[x] = types3[k].parse
-      );
-      acc.serializers[types3[k].to] = types3[k].serialize;
-      types3[k].from && [].concat(types3[k].from).forEach(
-        (x) => acc.serializers[x] = types3[k].serialize
-      );
-      return acc;
-    },
-    { parsers: {}, serializers: {} }
-  );
+  return Object.keys(types3).reduce((acc, k) => {
+    types3[k].from && [].concat(types3[k].from).forEach((x) => acc.parsers[x] = types3[k].parse);
+    acc.serializers[types3[k].to] = types3[k].serialize;
+    types3[k].from && [].concat(types3[k].from).forEach((x) => acc.serializers[x] = types3[k].serialize);
+    return acc;
+  }, { parsers: {}, serializers: {} });
 }
 var escapeIdentifier = function escape(str) {
   return '"' + str.replace(/"/g, '""').replace(/\./g, '"."') + '"';
@@ -18021,14 +17982,9 @@ var arraySerializer = function arraySerializer2(xs, serializer, options2) {
     if (x === void 0) {
       x = options2.transform.undefined;
       if (x === void 0)
-        throw Errors.generic(
-          "UNDEFINED_VALUE",
-          "Undefined values are not allowed"
-        );
+        throw Errors.generic("UNDEFINED_VALUE", "Undefined values are not allowed");
     }
-    return x === null ? "null" : '"' + arrayEscape(
-      serializer ? serializer(x.type ? x.value : x) : "" + x
-    ) + '"';
+    return x === null ? "null" : '"' + arrayEscape(serializer ? serializer(x.type ? x.value : x) : "" + x) + '"';
   }).join(",") + "}";
 };
 var arrayParserState = {
@@ -18073,9 +18029,7 @@ function arrayParserLoop(s, x, parser2) {
     }
     s.p = s.char;
   }
-  s.last < s.i && xs.push(
-    parser2 ? parser2(x.slice(s.last, s.i + 1)) : x.slice(s.last, s.i + 1)
-  );
+  s.last < s.i && xs.push(parser2 ? parser2(x.slice(s.last, s.i + 1)) : x.slice(s.last, s.i + 1));
   return xs;
 }
 var toCamel = (x) => {
@@ -18096,10 +18050,7 @@ var fromPascal = (x) => (x.slice(0, 1) + x.slice(1).replace(/([A-Z])/g, "_$1")).
 var fromKebab = (x) => x.replace(/-/g, "_");
 function createJsonTransform(fn) {
   return function jsonTransform(x, column) {
-    return column.type === 114 || column.type === 3802 ? Array.isArray(x) ? x.map(jsonTransform) : Object.entries(x).reduce(
-      (acc, [k, v]) => Object.assign(acc, { [fn(k)]: v }),
-      {}
-    ) : x;
+    return column.type === 114 || column.type === 3802 ? Array.isArray(x) ? x.map(jsonTransform) : Object.entries(x).reduce((acc, [k, v]) => Object.assign(acc, { [fn(k)]: v }), {}) : x;
   };
 }
 toCamel.column = { from: toCamel };
@@ -20076,9 +20027,6 @@ var chalk = createChalk();
 var chalkStderr = createChalk({ level: stderrColor ? stderrColor.level : 0 });
 var source_default = chalk;
 
-// CONST/DEBUG.js
-var DEBUG_default = lib_default(process.env.DEBUG);
-
 // db/pg.js
 import PG_UINT from "~/CONST/PG_UINT.js";
 var Q;
@@ -20142,7 +20090,7 @@ _sql = async (args) => {
     return li[x.slice(1) - 1];
   });
 };
-if (DEBUG_default) {
+if (false) {
   _try = (func) => {
     return async (...args) => {
       var begin, err2, r;
@@ -20164,7 +20112,6 @@ if (DEBUG_default) {
   _try = (func) => {
     return async (...args) => {
       var err2;
-      console.log(args);
       try {
         return await func.apply(func, args);
       } catch (error) {
@@ -20203,7 +20150,7 @@ var signupMail_default = async (client_id, oid, mail_id, ctime, password_hash) =
     mail_id,
     ctime,
     password_hash
-  ))[0];
+  ))[0][0];
 };
 
 // I18N.js
@@ -22230,17 +22177,16 @@ _account_password = (account, password) => {
   return [account, password];
 };
 var mailSignup = async function(account, password, code, name2) {
-  var begin, ctime, hash, mail_id, salt, user_id;
-  name2 = name2.slice(0, 28).trim();
+  var O, ctime, hash, mail_id, salt, user_id;
   if (skVerify(code, this.url.slice(0, -6), this.origin, account, password)) {
     [account, password] = _account_password(account, password);
     ctime = Second();
     mail_id = await R.mailIdNew(account);
     salt = zipU64(this.O, ctime, mail_id);
-    begin = new Date();
     hash = await passwordHash(password, salt);
-    user_id = await signupMail_default(this.I, this.O, mail_id, ctime, hash);
-    console.log({ user_id });
+    ({ O } = this);
+    user_id = await signupMail_default(this.I, O, mail_id, ctime, hash);
+    await R_USER_NAME.hset(u64Bin(O), u64Bin(user_id), name2.trim().slice(0, 28));
     return "";
   }
   return 1;
@@ -22340,7 +22286,7 @@ var HEADER_default = HEADER = {
   "Access-Control-Allow-Headers": "content-type",
   "Access-Control-Allow-Credentials": "true"
 };
-if (DEBUG_default) {
+if (false) {
   HEADER["Access-Control-Allow-Private-Network"] = true;
 }
 
@@ -22463,7 +22409,7 @@ import {
   tld
 } from "@u6x/ru";
 
-// ../../node_modules/.pnpm/@iuser+console@0.0.2/node_modules/@iuser/console/lib/index.js
+// ../../node_modules/.pnpm/@iuser+console@0.0.3/node_modules/@iuser/console/lib/index.js
 var import_signale = __toESM(require_signale2(), 1);
 import {
   createWriteStream,
@@ -22535,7 +22481,7 @@ process.on("exit", () => {
   return results;
 });
 
-// ../../node_modules/.pnpm/@iuser+console@0.0.2/node_modules/@iuser/console/lib/global.js
+// ../../node_modules/.pnpm/@iuser+console@0.0.3/node_modules/@iuser/console/lib/global.js
 var console2;
 global.console = console2 = lib_default2();
 

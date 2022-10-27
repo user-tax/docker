@@ -1,4 +1,4 @@
-#!/usr/bin/env -S node --es-module-specifier-resolution=node --trace-uncaught --expose-gc --unhandled-rejections=strict
+#!/usr/bin/env -S node --loader=@u6x/jsext --trace-uncaught --expose-gc --unhandled-rejections=strict
 import {dirname as _dirname_} from 'path';import { createRequire as _createRequire_ } from 'module';const require = _createRequire_(import.meta.url); const __dirname=_dirname_(decodeURI((new URL(import.meta.url)).pathname));
 var __create = Object.create;
 var __defProp = Object.defineProperty;
@@ -21177,10 +21177,12 @@ __export(key_exports, {
   R_CLIENT_ORG: () => R_CLIENT_ORG,
   R_CONF: () => R_CONF,
   R_HOST_ORG: () => R_HOST_ORG,
+  R_ID: () => R_ID,
   R_MAIL: () => R_MAIL,
   R_MAIL_BAN_HOST: () => R_MAIL_BAN_HOST,
   R_MAIL_HOST: () => R_MAIL_HOST,
-  R_ORG: () => R_ORG
+  R_ORG: () => R_ORG,
+  R_USER_NAME: () => R_USER_NAME
 });
 
 // ../../node_modules/.pnpm/@iuser+u8@0.0.8/node_modules/@iuser/u8/lib/index.js
@@ -21241,13 +21243,15 @@ $2 = new Proxy(wrap, {
 var R_CAPTCHA = $2([1], "setex getB del exist");
 var R_CAPTCHA_IP_LIMIT = $2([2], "ipLimit");
 var R_CLIENT_ORG = $2([3], "zadd exist");
+var R_USER_NAME = $2([4], "hget hset");
 var R_MAIL = utf8e("{mail}");
 var R_MAIL_HOST = utf8e("{mail}host");
 var R_ORG = utf8e("{org}");
 var R_HOST_ORG = utf8e("host{org}");
 var {
   R_CONF,
-  R_MAIL_BAN_HOST
+  R_MAIL_BAN_HOST,
+  R_ID
 } = $2;
 
 // ../api/db/redis/lua.js
@@ -21935,10 +21939,7 @@ function handleValue(x2, parameters, types4, options) {
   if (value === void 0) {
     x2 instanceof Parameter ? x2.value = options.transform.undefined : value = x2 = options.transform.undefined;
     if (value === void 0)
-      throw Errors.generic(
-        "UNDEFINED_VALUE",
-        "Undefined values are not allowed"
-      );
+      throw Errors.generic("UNDEFINED_VALUE", "Undefined values are not allowed");
   }
   return "$" + types4.push(
     x2 instanceof Parameter ? (parameters.push(x2.value), x2.array ? x2.array[x2.type || inferType(x2.value)] || x2.type || firstIsString(x2.value) : x2.type) : (parameters.push(x2), inferType(x2))
@@ -21953,10 +21954,7 @@ function stringify(q, string, value, parameters, types4, options) {
   return string;
 }
 function stringifyValue(string, value, parameters, types4, o) {
-  return value instanceof Builder ? value.build(string, parameters, types4, o) : value instanceof Query ? fragment(value, parameters, types4, o) : value instanceof Identifier ? value.value : value && value[0] instanceof Query ? value.reduce(
-    (acc, x2) => acc + " " + fragment(x2, parameters, types4, o),
-    ""
-  ) : handleValue(value, parameters, types4, o);
+  return value instanceof Builder ? value.build(string, parameters, types4, o) : value instanceof Query ? fragment(value, parameters, types4, o) : value instanceof Identifier ? value.value : value && value[0] instanceof Query ? value.reduce((acc, x2) => acc + " " + fragment(x2, parameters, types4, o), "") : handleValue(value, parameters, types4, o);
 }
 function fragment(q, parameters, types4, options) {
   q.fragment = true;
@@ -21972,29 +21970,17 @@ function valuesBuilder(first, parameters, types4, columns, options) {
 function values(first, rest, parameters, types4, options) {
   const multi = Array.isArray(first[0]);
   const columns = rest.length ? rest.flat() : Object.keys(multi ? first[0] : first);
-  return valuesBuilder(
-    multi ? first : [first],
-    parameters,
-    types4,
-    columns,
-    options
-  );
+  return valuesBuilder(multi ? first : [first], parameters, types4, columns, options);
 }
 function select(first, rest, parameters, types4, options) {
   typeof first === "string" && (first = [first].concat(rest));
   if (Array.isArray(first))
-    return first.map(
-      (x2) => escapeIdentifier(
-        options.transform.column.to ? options.transform.column.to(x2) : x2
-      )
-    ).join(",");
+    return first.map((x2) => escapeIdentifier(options.transform.column.to ? options.transform.column.to(x2) : x2)).join(",");
   let value;
   const columns = rest.length ? rest.flat() : Object.keys(first);
   return columns.map((x2) => {
     value = first[x2];
-    return (value instanceof Query ? fragment(value, parameters, types4, options) : value instanceof Identifier ? value.value : handleValue(value, parameters, types4, options)) + " as " + escapeIdentifier(
-      options.transform.column.to ? options.transform.column.to(x2) : x2
-    );
+    return (value instanceof Query ? fragment(value, parameters, types4, options) : value instanceof Identifier ? value.value : handleValue(value, parameters, types4, options)) + " as " + escapeIdentifier(options.transform.column.to ? options.transform.column.to(x2) : x2);
   }).join(",");
 }
 var builders = Object.entries({
@@ -22008,36 +21994,18 @@ var builders = Object.entries({
   returning: select,
   update(first, rest, parameters, types4, options) {
     return (rest.length ? rest.flat() : Object.keys(first)).map(
-      (x2) => escapeIdentifier(
-        options.transform.column.to ? options.transform.column.to(x2) : x2
-      ) + "=" + handleValue(first[x2], parameters, types4, options)
+      (x2) => escapeIdentifier(options.transform.column.to ? options.transform.column.to(x2) : x2) + "=" + handleValue(first[x2], parameters, types4, options)
     );
   },
   insert(first, rest, parameters, types4, options) {
     const columns = rest.length ? rest.flat() : Object.keys(Array.isArray(first) ? first[0] : first);
     return "(" + columns.map(
-      (x2) => escapeIdentifier(
-        options.transform.column.to ? options.transform.column.to(x2) : x2
-      )
-    ).join(",") + ")values" + valuesBuilder(
-      Array.isArray(first) ? first : [first],
-      parameters,
-      types4,
-      columns,
-      options
-    );
+      (x2) => escapeIdentifier(options.transform.column.to ? options.transform.column.to(x2) : x2)
+    ).join(",") + ")values" + valuesBuilder(Array.isArray(first) ? first : [first], parameters, types4, columns, options);
   }
-}).map(
-  ([x2, fn]) => [
-    new RegExp("((?:^|[\\s(])" + x2 + "(?:$|[\\s(]))(?![\\s\\S]*\\1)", "i"),
-    fn
-  ]
-);
+}).map(([x2, fn]) => [new RegExp("((?:^|[\\s(])" + x2 + "(?:$|[\\s(]))(?![\\s\\S]*\\1)", "i"), fn]);
 function notTagged() {
-  throw Errors.generic(
-    "NOT_TAGGED_CALL",
-    "Query not called as a tagged template literal"
-  );
+  throw Errors.generic("NOT_TAGGED_CALL", "Query not called as a tagged template literal");
 }
 var serializers = defaultHandlers.serializers;
 var parsers = defaultHandlers.parsers;
@@ -22054,19 +22022,12 @@ var mergeUserTypes = function(types4) {
   };
 };
 function typeHandlers(types4) {
-  return Object.keys(types4).reduce(
-    (acc, k) => {
-      types4[k].from && [].concat(types4[k].from).forEach(
-        (x2) => acc.parsers[x2] = types4[k].parse
-      );
-      acc.serializers[types4[k].to] = types4[k].serialize;
-      types4[k].from && [].concat(types4[k].from).forEach(
-        (x2) => acc.serializers[x2] = types4[k].serialize
-      );
-      return acc;
-    },
-    { parsers: {}, serializers: {} }
-  );
+  return Object.keys(types4).reduce((acc, k) => {
+    types4[k].from && [].concat(types4[k].from).forEach((x2) => acc.parsers[x2] = types4[k].parse);
+    acc.serializers[types4[k].to] = types4[k].serialize;
+    types4[k].from && [].concat(types4[k].from).forEach((x2) => acc.serializers[x2] = types4[k].serialize);
+    return acc;
+  }, { parsers: {}, serializers: {} });
 }
 var escapeIdentifier = function escape(str) {
   return '"' + str.replace(/"/g, '""').replace(/\./g, '"."') + '"';
@@ -22091,14 +22052,9 @@ var arraySerializer = function arraySerializer2(xs, serializer, options) {
     if (x2 === void 0) {
       x2 = options.transform.undefined;
       if (x2 === void 0)
-        throw Errors.generic(
-          "UNDEFINED_VALUE",
-          "Undefined values are not allowed"
-        );
+        throw Errors.generic("UNDEFINED_VALUE", "Undefined values are not allowed");
     }
-    return x2 === null ? "null" : '"' + arrayEscape(
-      serializer ? serializer(x2.type ? x2.value : x2) : "" + x2
-    ) + '"';
+    return x2 === null ? "null" : '"' + arrayEscape(serializer ? serializer(x2.type ? x2.value : x2) : "" + x2) + '"';
   }).join(",") + "}";
 };
 var arrayParserState = {
@@ -22143,9 +22099,7 @@ function arrayParserLoop(s2, x2, parser) {
     }
     s2.p = s2.char;
   }
-  s2.last < s2.i && xs.push(
-    parser ? parser(x2.slice(s2.last, s2.i + 1)) : x2.slice(s2.last, s2.i + 1)
-  );
+  s2.last < s2.i && xs.push(parser ? parser(x2.slice(s2.last, s2.i + 1)) : x2.slice(s2.last, s2.i + 1));
   return xs;
 }
 var toCamel = (x2) => {
@@ -22166,10 +22120,7 @@ var fromPascal = (x2) => (x2.slice(0, 1) + x2.slice(1).replace(/([A-Z])/g, "_$1"
 var fromKebab = (x2) => x2.replace(/-/g, "_");
 function createJsonTransform(fn) {
   return function jsonTransform(x2, column) {
-    return column.type === 114 || column.type === 3802 ? Array.isArray(x2) ? x2.map(jsonTransform) : Object.entries(x2).reduce(
-      (acc, [k, v]) => Object.assign(acc, { [fn(k)]: v }),
-      {}
-    ) : x2;
+    return column.type === 114 || column.type === 3802 ? Array.isArray(x2) ? x2.map(jsonTransform) : Object.entries(x2).reduce((acc, [k, v]) => Object.assign(acc, { [fn(k)]: v }), {}) : x2;
   };
 }
 toCamel.column = { from: toCamel };

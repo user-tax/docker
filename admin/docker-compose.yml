@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    command: redis-server /etc/redis/redis.conf
+    volumes:
+      - ./pgadmin/config_local.py:/config_local.py
+    ports:
+      - 1100:80

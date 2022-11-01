@@ -11,7 +11,8 @@ services:
     volumes:
       - ./pgadmin/pgadmin/servers.json:/pgadmin4/servers.json
       - ./pgadmin/config_local.py:/pgadmin4/config_local.py
-      - /var/log/docker/admin/pgadmin:/var/log 
+      - ./pgadmin/pgadmin/pgpass:/pgpass
+      - /var/log/docker/admin/pgadmin:/var/log
       - /tmp/docker/admin/pgadmin:/tmp 
     ports:
       - 8800:80

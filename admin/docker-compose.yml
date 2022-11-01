@@ -11,15 +11,15 @@ services:
     volumes:
       - ./pgadmin/pgadmin/servers.json:/pgadmin4/servers.json
       - ./pgadmin/config_local.py:/pgadmin4/config_local.py
-      - ./pgadmin/pgadmin/pgpass:/pgadmin4/pgpass
+      - ./pgadmin/pgadmin/pgpass:/var/lib/pgadmin/pgpass
       - /var/log/docker/admin/pgadmin:/var/log
       - /tmp/docker/admin/pgadmin:/tmp 
     ports:
       - 8800:80
     entrypoint: >
       /bin/sh -c "
-      cp /pgpass /pgadmin4/pgpass;
-      chmod 600 /pgadmin4/pgpass;
+      chown pgadmin /var/lib/pgadmin/pgpass;
+      chmod 600 /var/lib/pgadmin/pgpass;
       exec /entrypoint.sh
       " 
 

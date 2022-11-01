@@ -9,6 +9,6 @@ services:
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
       PGADMIN_CONFIG_SERVER_MODE: "True"
     volumes:
-      - ./pgadmin/config_local.py:/config_local.py
+      - ./pgadmin/config_local.py:/pgadmin4/config_local.py
     ports:
       - 8800:80

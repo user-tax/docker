@@ -5,7 +5,7 @@ services:
     image: usertax/redis
     restart: 'no'
     volumes:
-      # - /var/log/docker/api.user.tax/redis:/log
+      - /var/log/docker/api.user.tax/redis:/log
       - ./data/redis:/data
     entrypoint: >
       sh -c "touch /data/acl && chown -R redis:redis /data"
@@ -17,7 +17,7 @@ services:
       REDIS_ARGS: >
         --aclfile /data/acl --appendonly yes --bind 0.0.0.0 --port ${REDIS_PORT} --save 64 1 --save 32 8 --save 2 32768 --repl-backlog-size 256m
     volumes:
-      # - /var/log/docker/api.user.tax/redis:/log
+      - /var/log/docker/api.user.tax/redis:/log
       - ./data/redis:/data
     ports:
       - ${REDIS_PORT}:${REDIS_PORT}

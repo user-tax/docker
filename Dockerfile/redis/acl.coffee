@@ -1,7 +1,39 @@
 #!/usr/bin/env coffee
 
-{ REDIS_PASSWORD } = process.env
-console.log REDIS_PASSWORD
-"user default on #c94f677c94c01c4ad3a57eab58f698faade5f01ab1694a7b29c1bd4aee3299bf ~* &* +@all"
+> fs > existsSync
+  @rmw/thisdir
+  path > dirname join
+  dotenv > parse
+  utax/read
+  utax/write
+  utax/utf8 > utf8e
+
+ROOT = dirname dirname thisdir import.meta
+ENV = join ROOT, '.env'
+{ REDIS_PASSWORD } = parse read ENV
+REDIS_PASSWORD = utf8e REDIS_PASSWORD.trim()
+HASH = (Buffer.from (await crypto.subtle.digest("SHA-256", REDIS_PASSWORD))).toString 'hex'
+
+PREFIX = "user default on "
+USER = PREFIX+"##{HASH} ~* &* +@all"
+ACL = join ROOT,'data/redis/acl'
+
+li = []
+
+to_set = true
+
+if existsSync(ACL)
+  acl = read(ACL).split('\n')
+  for i from acl
+    if to_set and i.startsWith(PREFIX)
+      to_set = false
+      li.push USER
+    else if i
+      li.push i
+
+if to_set
+  li =[USER].concat(li)
+
+write ACL, li.join('\n')+'\n'
 
 

@@ -2,21 +2,17 @@ lockfileVersion: 5.4
 
 specifiers:
   '@iuser/node-loader': ^0.0.45
-  '@iuser/read': ^0.0.5
-  '@iuser/write': ^0.0.7
   '@rmw/thisdir': ^0.0.2
   dotenv: ^16.0.3
   nanoid: ^4.0.0
+  utax: ^0.0.20
 
 dependencies:
   '@iuser/node-loader': registry.npmmirror.com/@iuser/node-loader/0.0.45
-  '@iuser/read': registry.npmmirror.com/@iuser/read/0.0.5
   '@rmw/thisdir': registry.npmmirror.com/@rmw/thisdir/0.0.2
   dotenv: registry.npmmirror.com/dotenv/16.0.3
   nanoid: registry.npmmirror.com/nanoid/4.0.0
-
-devDependencies:
-  '@iuser/write': registry.npmmirror.com/@iuser/write/0.0.7
+  utax: registry.npmmirror.com/utax/0.0.20
 
 packages:
 
@@ -36,12 +32,6 @@ packages:
       coffeescript: registry.npmmirror.com/coffeescript/2.7.0
     dev: false
 
-  registry.npmmirror.com/@iuser/read/0.0.5:
-    resolution: {integrity: sha512-FGEo2Ou2WPhSpuuu1h43eu0haz15qIA2hlBhzwxhbrmK7dznhXZ6JTqSwa9L0pa2rdtACk3+WHfiSKlXeguGFw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@iuser/read/-/read-0.0.5.tgz}
-    name: '@iuser/read'
-    version: 0.0.5
-    dev: false
-
   registry.npmmirror.com/@iuser/walk/0.0.2:
     resolution: {integrity: sha512-fhxi4clPU6ZcbUjyc763yk405Nsf5jU1qXQwBN4AxCrzbS0paHLEr3UJUXOm85ycxHHw2ja1o/k+/Xpmz9N4hw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@iuser/walk/-/walk-0.0.2.tgz}
     name: '@iuser/walk'
@@ -52,6 +42,7 @@ packages:
     resolution: {integrity: sha512-OvkcTyygSHAxy27453FpnUXV3x/4Ey+mkl1vNEn5E4n37hhKcn3Cwr8jLqZYcF/oUU/aE+hQc3jPQ4UcgzQH1w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@iuser/write/-/write-0.0.7.tgz}
     name: '@iuser/write'
     version: 0.0.7
+    dev: false
 
   registry.npmmirror.com/@rmw/thisdir/0.0.2:
     resolution: {integrity: sha512-KYV1t5GseFwwM0Q4mIHasm6csy9eVImOD9YLU5y8Ya3jb1hm4ahroSJSJZqFUsUAFC7CNnpvkzE703NQBCKIUg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@rmw/thisdir/-/thisdir-0.0.2.tgz}
@@ -201,6 +192,12 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       ansi-regex: registry.npmmirror.com/ansi-regex/5.0.1
+    dev: false
+
+  registry.npmmirror.com/utax/0.0.20:
+    resolution: {integrity: sha512-UE9lFOnwmik0Oo0ptuESeZ8F3tk9hTzJHLkffhpMlWCBbQtX1GvHRsnqC3oN07pN1jMMeE/MifM2R8n2sKLeJQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/utax/-/utax-0.0.20.tgz}
+    name: utax
+    version: 0.0.20
     dev: false
 
   registry.npmmirror.com/wrap-ansi/7.0.0:

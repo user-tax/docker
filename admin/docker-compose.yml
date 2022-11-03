@@ -14,7 +14,7 @@ services:
       - ./pgadmin/config_local.py:/pgadmin4/config_local.py
       - ./pgadmin/pgadmin/pgpass:/pgpass
       - /var/log/docker/admin/pgadmin:/var/log
-      - /tmp/docker/admin/pgadmin:/tmp 
+      - /tmp/docker/admin/pgadmin:/tmp
     ports:
       - 8800:80
     entrypoint: >
@@ -22,5 +22,5 @@ services:
       cp /pgpass /var/lib/pgadmin/pgpass;
       chmod 600 /var/lib/pgadmin/pgpass;
       exec /entrypoint.sh
-      " 
+      "
 

@@ -9,17 +9,19 @@ services:
   #     - ./data/redis:/data
   #   entrypoint: chown -R redis:redis /log /data
   redis:
-    image:  redis:7
+    image:  usertax/redis
     restart: always
-    # depends_on:
-    # - redis-log
-    command: redis-server /etc/redis/redis.conf
+    environment:
+      REDIS_DATA_DIR: /data
+      REDIS_ARGS: >
+        --aclfile /data/acl --appendonly yes --bind "* -::*" --port ${REDIS_PORT} --save 64 1 --save 32 8 --save 2 32768 --repl-backlog-size 256m
     volumes:
-      - ./data/redis:/data
       # - /var/log/docker/api.user.tax/redis:/log
-      - ./Dockerfile/redis/redis.conf:/etc/redis/redis.conf
+      - ./data/redis:/data
     ports:
       - ${REDIS_PORT}:${REDIS_PORT}
+    # depends_on:
+    # - redis-log
   pg-log:
     image: usertax/postgres
     volumes:
@@ -43,46 +45,3 @@ services:
       - ${PG_PORT}:${PG_PORT}
     command: >
       postgres -c min_wal_size=1GB -c max_wal_size=8GB -c max_worker_processes=10 -c max_parallel_workers=10 -c max_connections=128 -c effective_io_concurrency=256 -c random_page_cost=1.1 -c maintenance_work_mem=128MB -c checkpoint_completion_target=0.9 -c shared_buffers=512MB -c effective_cache_size=1536MB -c logging_collector=on -c log_destination=stderr -c log_directory=/log -c log_filename=pg.log -c wal_compression=zstd -c default_toast_compression=lz4 -c wal_level=logical
-  # api:
-  #   build: ./Dockerfile/api.user.tax
-  #   restart: always
-  #   depends_on:
-  #     - pg
-  #     - redis
-  #   environment:
-  #     NODE_ENV: ${NODE_ENV}
-  #     PG_HOST: ${PG_HOST}
-  #     PG_DB: ${PG_DB}
-  #     PG_USER: ${PG_USER}
-  #     PG_PORT: ${PG_PORT}
-  #     PG_POOL_CONN: ${PG_POOL_CONN}
-  #     PG_SSL: ${PG_SSL}
-  #     PG_PASSWORD: ${PG_PASSWORD}
-  #     LOG_HOST: ${LOG_HOST}
-  #     LOG_DB: ${LOG_DB}
-  #     LOG_USER: ${LOG_USER}
-  #     LOG_PORT: ${LOG_PORT}
-  #     LOG_POOL_CONN: ${LOG_POOL_CONN}
-  #     LOG_PASSWORD: ${LOG_PASSWORD}
-  #     REDIS_DB: ${REDIS_DB}
-  #     REDIS_USER: ${REDIS_USER}
-  #     REDIS_PASSWORD: ${REDIS_PASSWORD}
-  #     REDIS_HOST: ${REDIS_HOST}
-  #     REDIS_PORT: ${REDIS_PORT}
-  #     SMTP_HOST: ${SMTP_HOST}
-  #     SMTP_PORT: ${SMTP_PORT}
-  #     SMTP_TLS: ${SMTP_TLS}
-  #     SMTP_USER: ${SMTP_USER}
-  #     SMTP_PASSWORD: ${SMTP_PASSWORD}
-  #     SMTP_NAME: ${SMTP_NAME}
-  #     API_PORT: ${API_PORT}
-  #     API_HTTPS: ${API_HTTPS}
-  #     CPU_NUM: ${CPU_NUM}
-  #   volumes:
-  #     - ./user.tax:/user.tax
-  #   links:
-  #     - pg:pg
-  #     - redis:redis
-  #   ports:
-  #     - ${API_PORT}:${API_PORT}
-  #     - ${API_HTTPS}:${API_HTTPS}

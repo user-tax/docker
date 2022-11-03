@@ -33,13 +33,6 @@ data = {
   PG_SSL: 'false'
   PG_PASSWORD:pg_pwd
 
-  LOG_HOST:'pg'
-  LOG_DB:host
-  LOG_USER:host
-  LOG_PORT:9997
-  LOG_POOL_CONN:16
-  LOG_PASSWORD:pg_pwd
-
   REDIS_DB:0
   REDIS_USER:'default'
   REDIS_PASSWORD:nanoid()

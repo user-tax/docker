@@ -1,13 +1,14 @@
 version: '3'
 
 services:
-  # redis-log:
-  #   image: redis:7
-  #   restart: 'no'
-  #   volumes:
-  #     - /var/log/docker/api.user.tax/redis:/log
-  #     - ./data/redis:/data
-  #   entrypoint: chown -R redis:redis /log /data
+  redis-acl:
+    image: usertax/redis
+    restart: 'no'
+    volumes:
+      # - /var/log/docker/api.user.tax/redis:/log
+      - ./data/redis:/data
+    entrypoint: >
+      sh -c "touch /data/acl && chown -R redis:redis /data"
   redis:
     image:  usertax/redis
     restart: always
@@ -20,8 +21,8 @@ services:
       - ./data/redis:/data
     ports:
       - ${REDIS_PORT}:${REDIS_PORT}
-    # depends_on:
-    # - redis-log
+    depends_on:
+      - redis-acl
   pg-log:
     image: usertax/postgres
     volumes:

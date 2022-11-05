@@ -1,2 +1,0 @@
-WARNING 2022-11-05 11:39:14,131 django.request Forbidden: /api/eula-screen-settings/
-WARNING 2022-11-05 11:39:25,652 django.request Forbidden: /api/eula-screen-settings/

@@ -1,6 +1,6 @@
 /docker-compose.yml
 node_modules/
-data/
+/data/
 bun.lockb
 .env
 /Dockerfile/redis/redis.conf

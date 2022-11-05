@@ -1,6 +1,13 @@
 version: '3'
 
 services:
+  redisinsight:
+    image: redislabs/redisinsight:latest
+    ports:
+      - 8001:8001
+    volumes:
+      - ./data/redisinsight:/db 
+
   pgadmin:
     image: dpage/pgadmin4
     restart: always
@@ -10,9 +17,9 @@ services:
       PGPASSFILE: /var/lib/pgadmin/pgpass
       PGADMIN_CONFIG_SERVER_MODE: "True"
     volumes:
-      - ./pgadmin/pgadmin/servers.json:/pgadmin4/servers.json
-      - ./pgadmin/config_local.py:/pgadmin4/config_local.py
-      - ./pgadmin/pgadmin/pgpass:/pgpass
+      - ./data/pgadmin/pgadmin/servers.json:/pgadmin4/servers.json
+      - ./data/pgadmin/config_local.py:/pgadmin4/config_local.py
+      - ./data/pgadmin/pgadmin/pgpass:/pgpass
       - /var/log/docker/admin/pgadmin:/var/log
       - /tmp/docker/admin/pgadmin:/tmp
     ports:

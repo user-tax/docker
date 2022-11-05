@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+
   redisinsight:
     image: redislabs/redisinsight:latest
     ports:

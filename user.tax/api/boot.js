@@ -963,7 +963,7 @@ import {
 import http from "http";
 var import_ua_parser_js = __toESM(require_ua_parser(), 1);
 
-// ../../node_modules/.pnpm/utax@0.0.10/node_modules/utax/split.js
+// ../../node_modules/.pnpm/utax@0.0.20/node_modules/utax/split.js
 var split = (str, split2) => {
   var p, suffix;
   p = str.indexOf(split2);
@@ -1004,6 +1004,14 @@ var streamBuffer_default = (stream) => {
   });
 };
 
+// ../../node_modules/utax/headerLi.js
+var headerLi_default = (s) => {
+  if (!s) {
+    return [];
+  }
+  return s.replaceAll(" ", "").split(",");
+};
+
 // ../../node_modules/utax/render.js
 var render;
 var render_default = render = (str, ...args) => {
@@ -1022,14 +1030,6 @@ var HEADER_default = HEADER = {
 if (false) {
   HEADER["Access-Control-Allow-Private-Network"] = true;
 }
-
-// lib/headerLi.js
-var headerLi_default = (s) => {
-  if (!s) {
-    return [];
-  }
-  return s.replaceAll(" ", "").split(",");
-};
 
 // mid/Ip.js
 var Ip_default = (headers, remoteAddress) => {

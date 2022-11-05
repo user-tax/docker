@@ -6,7 +6,6 @@ DIR=$(realpath $PASSWORD/../..)
 export NODE_PATH="$DIR/node_modules:$NODE_PATH"
 
 exec node \
- 
   --trace-uncaught \
   --expose-gc \
   --loader "@iuser/node-loader" \

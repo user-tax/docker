@@ -27,8 +27,8 @@ if [ ! -f ".env" ] ;then
 direnv exec . ./env.coffee
 fi
 
-
 if [ -f $1/init.sh ]; then
 direnv exec . $1/init.sh
 fi
+
 direnv exec . docker-compose up -d

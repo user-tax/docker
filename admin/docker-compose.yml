@@ -8,6 +8,8 @@ services:
       - 8001:8001
     volumes:
       - ./data/redisinsight:/db 
+    environment:
+      RITRUSTEDORIGINS: https://redis.usr.tax
 
   pgadmin:
     image: dpage/pgadmin4

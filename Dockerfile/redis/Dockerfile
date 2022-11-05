@@ -1,4 +1,4 @@
-FROM redis/redis-stack-server:7.0.2-RC3 AS build
+FROM redis/redis-stack-server:latest AS build
 
 #RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
 
